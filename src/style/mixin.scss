@@ -1,0 +1,69 @@
+@mixin logoImg {
+  width: 40px;
+  height: 40px;
+}
+
+@mixin mainBtnStyle {
+  width: 100%;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 46px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+}
+@mixin mainBtnStyleChange {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 2px solid var(--orange);
+}
+
+@mixin secondBtnStyle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+@mixin emptyBtnStyle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+@mixin emptyBtnStyleChange {
+  color: var(--white);
+  background-color: var(--orange);
+}
+
+
+
+
+
+
+@mixin tiny-border-line {
+  border: 1px solid var(--borderColor);
+}
+
+@mixin main-border-padding {
+  padding: 0 25px;
+}
+
+@mixin userHeadshotSetting {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

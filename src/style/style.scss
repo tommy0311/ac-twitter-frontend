@@ -1,0 +1,281 @@
+@import "./layout.scss";
+@import "./main.scss";
+@import "./reset.scss";
+@import "./size.scss";
+@import "./variables.scss";
+@import "./mixin.scss";
+
+.user-name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+}
+.user-acount {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #92929d;
+}
+
+//登陸系列
+#login-container,
+#regist-container {
+  width: 356px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 69px auto 0 auto;
+  .logo-img {
+    @include logoImg;
+  }
+  h1 {
+    margin-top: 24px;
+    font-weight: 700;
+    font-size: 28px;
+  }
+}
+.form-container {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .form-element-group {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  label {
+    position: absolute;
+    background-color: var(--formBgColor);
+    color: var(--secondaryTextColor);
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: 400;
+    left: 10.55px;
+    top: 5px;
+  }
+  input {
+    border: none;
+    width: 356px;
+    height: 54px;
+    background-color: var(--formBgColor);
+    border-radius: 2px;
+    border-bottom: 2px solid var(--secondaryTextColor);
+    padding: 5px 10.55px;
+    &:hover,
+    &:active {
+      border-bottom: 2px solid var(--blue);
+    }
+  }
+  input::placeholder {
+    color: var(--placeholderTextColor);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .main-btn-style {
+    @include mainBtnStyle;
+    margin-bottom: 22px;
+    &:hover,
+    &:active {
+      @include mainBtnStyleChange;
+    }
+  }
+  .admin-text-link-container {
+    width: 100%;
+    display: block;
+  }
+  .submit-other-choice {
+    color: var(--blue);
+    text-decoration-line: underline;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+//navbar
+#navbar-container {
+  width: 178px;
+  display: flex;
+  flex-direction: column;
+  .logo-img {
+    @include logoImg;
+    margin: 13px;
+  }
+  .nav-list {
+    margin-top: 29px;
+    margin-left: 13px;
+    .nav-link {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .nav-list-bottom {
+    position: absolute;
+    margin-bottom: -24px;
+    bottom: 0;
+  }
+  .nav-link {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--black);
+    margin-bottom: 40px;
+    &:hover,
+    &:active {
+      color: var(--orange);
+    }
+    .icon-container {
+      width: 22px;
+      height: 22px;
+    }
+    .navbar-index {
+      margin-left: 16.85px;
+    }
+  }
+  .main-btn-style {
+    @include mainBtnStyle;
+    margin-top: -16px;
+    &:hover,
+    &:active {
+      @include mainBtnStyleChange;
+    }
+  }
+}
+
+//main area
+.main-wrapper {
+  width: 641px;
+}
+#navpillHeader-container {
+  width: 100%;
+  height: 75px;
+  @include tiny-border-line;
+  @include main-border-padding;
+  display: flex;
+  align-items: center;
+  .arrow-icon {
+    width: 17px;
+    height: 14px;
+    margin-right: 19px;
+  }
+  .navpillHeader-title {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--black);
+  }
+  .navpill-info-container {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--messageTextColor);
+  }
+}
+
+#writtingTweet-container {
+  width: 100%;
+  @include tiny-border-line;
+  @include main-border-padding;
+  .writtingTweet-pannel {
+    width: 100%;
+    padding: 16px 0;
+    .user-headshot {
+      @include userHeadshotSetting;
+    }
+    .user-post {
+      width: 100%;
+      height: 136px;
+    }
+    .second-btn-style {
+      @include secondBtnStyle;
+      width: 64px;
+    }
+  }
+}
+.user-post-under-line {
+  width: 100%;
+  height: 3px;
+  background-color: var(--borderColor);
+}
+
+#recommendColumn-container {
+  width: 273px;
+  height: 731px;
+  border-radius: 16px;
+  .recommendHeader {
+    width: 100%;
+    height: 74px;
+    border-bottom: 1px solid var(--borderColor);
+    background-color: var(--recommendBgColor);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    h1 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      background-color: var(--recommendBgColor);
+    }
+  }
+  .recommendAccount-panel {
+    width: 100%;
+    .recommendAccount-element {
+      padding: 16px;
+      background-color: var(--recommendBgColor);
+
+      .user-headshot {
+        @include userHeadshotSetting;
+        margin-right: 8px;
+      }
+      .empty-btn-style {
+        @include emptyBtnStyle;
+        justify-content: flex-end;
+        padding: 8px 16px;
+        &:hover,
+        &:active {
+          @include emptyBtnStyleChange;
+        }
+      }
+    }
+  }
+}
+
+.user-acount-for-post,
+.post-time {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--messageTextColor);
+}
+.tweet-content {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #171725;
+}
+
+#tweet-element-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: row;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .tweet-icon-show-pannel {
+    width: 100%;
+    height: 14px;
+    .tweet-icon-show {
+      width: 13.17px;
+      height: 13.17px;
+    }
+    .reply-number,
+    .like-number {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 14px;
+      color: var(--messageTextColor);
+    }
+  }
+}
