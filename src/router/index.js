@@ -5,7 +5,6 @@ import MainPage from "../views/MainPage.vue";
 import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
-
 const router = new VueRouter({
   linkExactActiveClass: "active",
   routes: [

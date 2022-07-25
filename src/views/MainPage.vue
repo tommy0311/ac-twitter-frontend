@@ -1,10 +1,11 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex template-center-alignment">
     <NavBar />
-    <div class="main-wrapper">
+    <div class="main-wrapper ml-2 mr-2">
       <NavpillHeader />
       <WrittingTweet />
-      <TweetElement />
+      <TweetList />
+      <p>123</p>
     </div>
     <RecommendColumn />
   </div>
@@ -15,7 +16,7 @@ import NavBar from "../components/NavBar.vue";
 import RecommendColumn from "../components/RecommendColumn.vue";
 import NavpillHeader from "../components/NavpillHeader.vue";
 import WrittingTweet from "../components/WrittingTweet.vue";
-import TweetElement from "../components/TweetElement.vue";
+import TweetList from "../components/TweetList.vue";
 
 export default {
   name: "MainPage",
@@ -24,7 +25,7 @@ export default {
     RecommendColumn,
     NavpillHeader,
     WrittingTweet,
-    TweetElement,
+    TweetList,
   },
 };
 </script>

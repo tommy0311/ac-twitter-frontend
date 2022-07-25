@@ -5,6 +5,9 @@
 @import "./variables.scss";
 @import "./mixin.scss";
 
+.template-center-alignment {
+  margin: 0 auto;
+}
 .user-name {
   font-weight: 700;
   font-size: 16px;
@@ -19,7 +22,8 @@
 
 //登陸系列
 #login-container,
-#regist-container {
+#regist-container,
+#admin-login-container {
   width: 356px;
   display: flex;
   flex-direction: column;
@@ -145,7 +149,7 @@
 
 //main area
 .main-wrapper {
-  width: 641px;
+  width: 639px;
 }
 #navpillHeader-container {
   width: 100%;
@@ -229,7 +233,6 @@
       }
       .empty-btn-style {
         @include emptyBtnStyle;
-        justify-content: flex-end;
         padding: 8px 16px;
         &:hover,
         &:active {
@@ -277,5 +280,75 @@
       line-height: 14px;
       color: var(--messageTextColor);
     }
+  }
+}
+
+#reply-post-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 16px 0 16px;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .tweet-content {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .tweet-post-time-pannel {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--messageTextColor);
+  }
+  .reply-like-number-container {
+    height: 60px;
+    align-items: center;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 23px;
+    color: var(--messageTextColor);
+    border-top: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
+    .tweet-reply-number,
+    .tweet-like-number {
+      color: var(--black);
+    }
+  }
+  .tweet-icon-show-pannel {
+    width: 100%;
+    height: 68px;
+    align-items: center;
+    .tweet-icon-show {
+      width: 25px;
+      height: 25px;
+    }
+    .like-icon {
+      margin-left: 133px;
+    }
+  }
+}
+
+#reply-post-list-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 23px;
+  display: flex;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .reply-to-who-container {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--messageTextColor);
+  }
+  .tweet-content {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .reply-to-who-acount {
+    color: var(--orange);
   }
 }

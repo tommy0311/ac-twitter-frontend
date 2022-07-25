@@ -3,6 +3,7 @@
   height: 40px;
 }
 
+//按鈕類
 @mixin mainBtnStyle {
   width: 100%;
   color: var(--white);
@@ -18,7 +19,6 @@
   background-color: var(--white);
   border: 2px solid var(--orange);
 }
-
 @mixin secondBtnStyle {
   display: flex;
   align-items: center;
@@ -48,9 +48,6 @@
   color: var(--white);
   background-color: var(--orange);
 }
-
-
-
 
 
 

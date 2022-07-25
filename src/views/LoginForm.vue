@@ -24,7 +24,7 @@
         />
       </div>
       <button class="login-btn main-btn-style" type="submit">登入</button>
-      <div class="d-flex admin-text-link-container">
+      <div class="d-flex admin-text-link-container text-right">
         <a class="submit-other-choice" href="">註冊</a>
         <span> · </span>
         <a class="submit-other-choice" href="">後台登入</a>
