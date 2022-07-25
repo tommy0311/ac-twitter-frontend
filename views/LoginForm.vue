@@ -25,9 +25,11 @@
       </div>
       <button class="login-btn main-btn-style" type="submit">登入</button>
       <div class="d-flex admin-text-link-container text-right">
-        <a class="submit-other-choice" href="">註冊</a>
+        <router-link to="/regist" class="submit-other-choice">
+          註冊
+        </router-link>
         <span> · </span>
-        <a class="submit-other-choice" href="">後台登入</a>
+        <a class="submit-other-choice" href="">abc後台登入</a>
       </div>
     </form>
   </div>
