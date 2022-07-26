@@ -11,10 +11,9 @@
           <input
             type="text"
             id="user-account"
-            v-model="userAccount"
+            v-model="account"
             class="user-account"
             placeholder="請輸入帳號"
-            required
           />
         </div>
         <div class="form-element-group">
@@ -22,10 +21,9 @@
           <input
             type="password"
             id="user-name"
-            v-model="userName"
+            v-model="name"
             class="user-name"
             placeholder="請輸入使用者名稱"
-            required
           />
         </div>
         <div class="form-element-group">
@@ -33,10 +31,9 @@
           <input
             type="email"
             id="user-email"
-            v-model="userEmail"
+            v-model="email"
             class="user-email"
             placeholder="請輸入Email"
-            required
           />
         </div>
         <div class="form-element-group">
@@ -44,10 +41,9 @@
           <input
             type="password"
             id="user-password"
-            v-model="userPassword"
+            v-model="password"
             class="user-password"
             placeholder="請輸入密碼"
-            required
           />
         </div>
         <div class="form-element-group">
@@ -55,15 +51,16 @@
           <input
             type="password"
             id="user-password-confirm"
-            v-model="userpasswordCheck"
+            v-model="checkPassword"
             class="user-password-confirm"
             placeholder="請再次輸入密碼"
-            required
           />
         </div>
         <button 
           class="login-btn main-btn-style" 
-          type="submit">
+          type="submit"
+          :disabled="isProcessing"
+        >
           註冊
         </button>
         <a class="submit-other-choice text-center" href="">取消</a>
@@ -77,22 +74,23 @@ import { Toast } from './../utils/helpers'
 export default {
   data () {
     return {
-      userAccount: '',
-      userName: '',
-      userEmail: '',
-      userPassword: '',
-      userpasswordCheck: ''
+      account: '',
+      name: '',
+      email: '',
+      password: '',
+      checkPassword: '',
+      isProcessing: false
     }
   },
   methods: {
     async handleSubmit () {
       try {
         if (
-          !this.userAccount ||
-          !this.userName ||
-          !this.userEmail ||
-          !this.userPassword ||
-          !this.userpasswordCheck
+          !this.account ||
+          !this.name ||
+          !this.email ||
+          !this.password ||
+          !this.checkPassword
         ) {
           Toast.fire({
             icon: 'warning',
@@ -100,25 +98,26 @@ export default {
           })
           return
         }
-
-        if (this.userPassword !== this.userpasswordCheck) {
+        
+        if (this.password !== this.checkPassword) {
           Toast.fire({
             icon: 'warning',
             title: '兩次輸入的密碼不同'
           })
-          this.userpasswordCheck = ''
+          this.checkPassword = ''
           return
         }
+        this.isProcessing = true
 
         const { data } = await authorizationAPI.signUp({
-          account: this.userAccount,
-          name: this.userName,
-          email: this.userEmail,
-          password: this.userPassword,
-          passwordCheck: this.userpasswordCheck
+          account: this.account,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          checkPassword: this.checkPassword
         })
 
-        if (data.status === 'error') {
+        if (data.status !== 'success') {
           throw new Error(data.message)
         }
 
@@ -126,9 +125,10 @@ export default {
           icon: 'success',
           title: data.message
         })
-        // 成功登入後轉址到登入頁
-        this.$router.push('/signin')
+        // 成功註冊後轉址到登入頁
+        this.$router.push('/login')
       }catch (error) {
+        this.isProcessing = false
         Toast.fire({
           icon: 'warning',
           title: `無法註冊 - ${error.message}`
