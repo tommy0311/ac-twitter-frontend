@@ -5,6 +5,7 @@
 @import "./variables.scss";
 @import "./mixin.scss";
 
+//全域
 .template-center-alignment {
   margin: 0 auto;
 }
@@ -18,6 +19,9 @@
   font-size: 14px;
   line-height: 22px;
   color: #92929d;
+}
+.y-scroll {
+  overflow-y: scroll;
 }
 
 //登陸系列
@@ -150,7 +154,6 @@
 //main area
 .main-wrapper {
   width: 639px;
-  margin: 0 24px;
 }
 #navpillHeader-container {
   width: 100%;
@@ -258,7 +261,8 @@
   color: #171725;
 }
 
-#tweet-element-container {
+#tweet-element-container,
+#user-post-list-container {
   width: 100%;
   @include tiny-border-line;
   padding: 16px 24px;
@@ -342,14 +346,56 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
-    color: var(--messageTextColor);
   }
   .tweet-content {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 26px;
+    @include contentTextStyle;
   }
   .reply-to-who-acount {
     color: var(--orange);
+  }
+}
+
+#userProfile-container {
+  width: 100%;
+  height: 378px;
+  position: relative;
+  .profile-background-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  .profile-headshot {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid var(--white);
+    position: absolute;
+    left: 16px;
+    top: 124px;
+  }
+  .profile-info-container {
+    padding: 16px 16px 0 16px;
+    .empty-btn-style {
+      @include emptyBtnStyle;
+      padding: 8px 16px;
+      &:hover,
+      &:active {
+        @include emptyBtnStyleChange;
+      }
+    }
+    .user-describe {
+      color: var(--contentTextColor);
+      margin-top: 6px;
+    }
+    .user-describe,
+    .user-follow-info {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .following-number,
+    .follower-number {
+      color: var(--messageTextColor);
+    }
   }
 }

@@ -759,10 +759,11 @@ input:invalid {
   --mainColor: #1c1c1c;
   --formBgColor: #f5f8fa;
   --secondaryTextColor: #657786;
-  --placeholderTextColor: #B5B5BE;
+  --placeholderTextColor: #b5b5be;
+  --contentTextColor: #171725;
   --messageTextColor: #6c757d;
   --borderColor: #e6ecf0;
-  --recommendBgColor: #FAFAFB;
+  --recommendBgColor: #fafafb;
 }
 
 .template-center-alignment {
@@ -780,6 +781,10 @@ input:invalid {
   font-size: 14px;
   line-height: 22px;
   color: #92929d;
+}
+
+.y-scroll {
+  overflow-y: scroll;
 }
 
 #login-container,
@@ -943,7 +948,6 @@ input:invalid {
 
 .main-wrapper {
   width: 639px;
-  margin: 0 24px;
 }
 
 #navpillHeader-container {
@@ -1076,28 +1080,34 @@ input:invalid {
   color: #171725;
 }
 
-#tweet-element-container {
+#tweet-element-container,
+#user-post-list-container {
   width: 100%;
   border: 1px solid var(--borderColor);
   padding: 16px 24px;
   display: flex;
   flex-direction: row;
 }
-#tweet-element-container .user-headshot {
+#tweet-element-container .user-headshot,
+#user-post-list-container .user-headshot {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-#tweet-element-container .tweet-icon-show-pannel {
+#tweet-element-container .tweet-icon-show-pannel,
+#user-post-list-container .tweet-icon-show-pannel {
   width: 100%;
   height: 14px;
 }
-#tweet-element-container .tweet-icon-show-pannel .tweet-icon-show {
+#tweet-element-container .tweet-icon-show-pannel .tweet-icon-show,
+#user-post-list-container .tweet-icon-show-pannel .tweet-icon-show {
   width: 13.17px;
   height: 13.17px;
 }
 #tweet-element-container .tweet-icon-show-pannel .reply-number,
-#tweet-element-container .tweet-icon-show-pannel .like-number {
+#tweet-element-container .tweet-icon-show-pannel .like-number,
+#user-post-list-container .tweet-icon-show-pannel .reply-number,
+#user-post-list-container .tweet-icon-show-pannel .like-number {
   font-weight: 600;
   font-size: 14px;
   line-height: 14px;
@@ -1167,13 +1177,69 @@ input:invalid {
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  color: var(--messageTextColor);
 }
 #reply-post-list-container .tweet-content {
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
+  color: var(--contentTextColor);
 }
 #reply-post-list-container .reply-to-who-acount {
   color: var(--orange);
+}
+
+#userProfile-container {
+  width: 100%;
+  height: 378px;
+  position: relative;
+}
+#userProfile-container .profile-background-img {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#userProfile-container .profile-headshot {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  position: absolute;
+  left: 16px;
+  top: 124px;
+}
+#userProfile-container .profile-info-container {
+  padding: 16px 16px 0 16px;
+}
+#userProfile-container .profile-info-container .empty-btn-style {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+}
+#userProfile-container .profile-info-container .empty-btn-style:hover, #userProfile-container .profile-info-container .empty-btn-style:active {
+  color: var(--white);
+  background-color: var(--orange);
+}
+#userProfile-container .profile-info-container .user-describe {
+  color: var(--contentTextColor);
+  margin-top: 6px;
+}
+#userProfile-container .profile-info-container .user-describe,
+#userProfile-container .profile-info-container .user-follow-info {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+#userProfile-container .profile-info-container .following-number,
+#userProfile-container .profile-info-container .follower-number {
+  color: var(--messageTextColor);
 }/*# sourceMappingURL=style.css.map */
