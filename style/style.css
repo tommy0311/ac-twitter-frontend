@@ -1242,4 +1242,34 @@ input:invalid {
 #userProfile-container .profile-info-container .following-number,
 #userProfile-container .profile-info-container .follower-number {
   color: var(--messageTextColor);
+}
+
+#navpillUser-container {
+  width: 100%;
+  border-bottom: 1px solid var(--borderColor);
+}
+#navpillUser-container .navpill-title-container {
+  width: 130px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#navpillUser-container .navpill-title-container:hover::after, #navpillUser-container .navpill-title-container:active::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 2px;
+  bottom: 0.5px;
+  background: var(--orange);
+}
+#navpillUser-container .navpill-title-container:hover .navpill-title, #navpillUser-container .navpill-title-container:active .navpill-title {
+  color: var(--orange);
+}
+#navpillUser-container .navpill-title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--secondaryTextColor);
 }/*# sourceMappingURL=style.css.map */

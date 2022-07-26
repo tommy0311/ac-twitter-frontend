@@ -213,7 +213,7 @@
   .recommendHeader {
     width: 100%;
     height: 74px;
-    border-bottom: 1px solid var(--borderColor);
+    @include bottom-tiny-border-line;
     background-color: var(--recommendBgColor);
     padding: 24px;
     display: flex;
@@ -314,7 +314,7 @@
     line-height: 23px;
     color: var(--messageTextColor);
     border-top: 1px solid var(--borderColor);
-    border-bottom: 1px solid var(--borderColor);
+    @include bottom-tiny-border-line;
     .tweet-reply-number,
     .tweet-like-number {
       color: var(--black);
@@ -397,5 +397,28 @@
     .follower-number {
       color: var(--messageTextColor);
     }
+  }
+}
+
+#navpillUser-container {
+  width: 100%;
+  @include bottom-tiny-border-line;
+  .navpill-title-container {
+    width: 130px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &:hover,
+    &:active {
+      @include navpillTitleContainerChange;
+      .navpill-title {
+        @include navpillTitleChange;
+      }
+    }
+  }
+  .navpill-title {
+    @include navpillTitleStyle;
   }
 }
