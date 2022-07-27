@@ -61,7 +61,7 @@ export default new Vuex.Store({
       } catch (error) {
         console.error('can not fetch user information')
         console.error(error.message)
-        commit('revokeAuthentication')
+        commit('revokeAuthentication') // 驗證失敗的話一併觸發登出的行為，以清除 state 中的 token
         return false
       }
     }
