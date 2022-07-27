@@ -123,10 +123,10 @@ export default {
 
         Toast.fire({
           icon: 'success',
-          title: data.message
+          title: `使用者-${this.account}-註冊成功`
         })
-        // 成功註冊後轉址到登入頁
-        this.$router.push('/login')
+        
+        this.$router.push('/login') // 成功註冊後轉址到登入頁
       }catch (error) {
         this.isProcessing = false
         Toast.fire({
