@@ -63,7 +63,12 @@
         >
           註冊
         </button>
-        <a class="submit-other-choice text-center" href="">取消</a>
+        <a 
+          class="submit-other-choice text-center"
+          href="javascript:history.back()"
+        >
+          取消
+        </a>
       </form>
     </div>
 </template>

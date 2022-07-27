@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
   config => {
     const token = localStorage.getItem('token')
 
-    if (token) {
+    if (token) { // 如果 token 存在的話，則帶入到 headers 當中
       config.headers['Authorization'] = `Bearer ${token}`
     }
 
