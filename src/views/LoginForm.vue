@@ -84,11 +84,14 @@ export default {
         // 將伺服器回傳的 token 保存在 localStorage 中
         localStorage.setItem('token', data.token)
 
-        // 透過 setCurrentUser 把使用者資料存到 Vuex 的 state 中
-        // this.$store.commit('setCurrentUser', data.user)
+        // 透過 setCurrentUser 把從 API 獲得的 data.user 存到 Vuex 的 state 中
+        this.$store.commit('setCurrentUser', data.user)
 
-        // 成功登入後進行轉址
-        this.$router.push('/main')
+        Toast.fire({
+          icon: 'success',
+          title: `使用者-${this.account}-登入成功`
+        })
+        this.$router.push('/main') // 成功登入後進行轉址
       } catch (error) {
         this.password = '' // 密碼欄位清空
         this.isProcessing = false
