@@ -4,7 +4,11 @@
     <div class="main-wrapper ml-2 mr-2">
       <NavpillHeader />
       <WrittingTweet />
-      <TweetList />
+      <TweetList
+        v-for="tweet in tweets"
+        :key="tweet.id"
+        :initial-tweet="tweet"
+      />
       <p>123</p>
     </div>
     <RecommendColumn />
@@ -17,6 +21,8 @@ import RecommendColumn from "../components/RecommendColumn.vue";
 import NavpillHeader from "../components/NavpillHeader.vue";
 import WrittingTweet from "../components/WrittingTweet.vue";
 import TweetList from "../components/TweetList.vue";
+import tweetsAPI from './../apis/tweets'
+import { Toast } from './../utils/helpers'
 
 export default {
   name: "MainPage",
@@ -27,5 +33,34 @@ export default {
     WrittingTweet,
     TweetList,
   },
+  data () {
+    return {
+      tweets: [],
+      isLoading: true
+    }
+  },
+  created () {
+    this.fetchTweets()
+  },
+  methods: {
+    async fetchTweets () {
+      try {
+        this.isLoading = true
+        const response = await tweetsAPI.getTweets()
+// console.log(response)
+        this.tweets = Array.from( response.data )
+        // console.log('tweets=', this.tweets)
+
+        this.isLoading = false
+      } catch (error) {
+        console.log('error', error)
+        this.isLoading = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得 twitter 資料，請稍後再試'
+        })
+      }
+    }
+  }
 };
 </script>

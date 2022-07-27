@@ -99,7 +99,6 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => { // 每一次使用者點擊不同頁面的路由，都需要檢查使用者 token 是否過期
 
-
   // 從 localStorage 取出 token
   const token = localStorage.getItem('token')
   const tokenInStore = store.state.token
@@ -113,13 +112,13 @@ router.beforeEach(async (to, from, next) => { // 每一次使用者點擊不同�
 
   const pathsWithoutAuthentication = ['login', 'regist']
 
-  // 如果 token 無效，且要去除了登入和註冊以外的其他頁面，則轉址到登入頁
+  // 如果 token 無效，並且想前往登入和註冊之外的頁面，則轉址到登入頁
   if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
     next('/login')
     return
   }
 
-  // 如果 token 有效，且要去登入和註冊頁，則轉址到 MainPage.vue
+  // 如果 token 有效，並且想前往登入或註冊頁，則轉址到 MainPage.vue
   if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
     next('/main')
     return
