@@ -5,7 +5,11 @@
     <img class="user-headshot" src="../assets/User Photo.png" alt="個人頭像" />
     <div class="ml-2">
       <div class="d-flex">
+<<<<<<< HEAD
         <a href="#" class="user-name">{{tweet.User.name}}</a>
+=======
+        <a href="#" class="user-name">{{tweet.id}}</a>
+>>>>>>> 2837a79f90acbd5a6bbc3a40a0cf8e1519cc2529
         <p class="user-acount-for-post ml-2">
           <span>@</span>{{tweet.User.account}}<span> • </span>
         </p>
@@ -32,12 +36,18 @@
 // import { emptyImageFilter } from './../utils/mixins'
 // import usersAPI from './../apis/users'
 // import { Toast } from './../utils/helpers'
+<<<<<<< HEAD
 import { fromNowFilter } from './../utils/mixins'
+=======
+>>>>>>> 2837a79f90acbd5a6bbc3a40a0cf8e1519cc2529
 
 export default {
   name: 'TweetList',
   // mixins: [emptyImageFilter],
+<<<<<<< HEAD
   mixins: [fromNowFilter],
+=======
+>>>>>>> 2837a79f90acbd5a6bbc3a40a0cf8e1519cc2529
   props: {
     initialTweet: {
       type: Object,
