@@ -9,5 +9,11 @@ export default {
   },
   getTopUsers() {
     return apiHelper.get('/users/top')
-  }
+  },
+  addFollowing({userId}) {
+    return apiHelper.post('/followships', { id:userId })
+  },
+  removeFollowing({ userId }) {
+    return apiHelper.delete(`/followships/${userId}`)
+  },
 }

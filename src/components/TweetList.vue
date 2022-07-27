@@ -11,9 +11,20 @@
         </p>
         <p class="post-time">{{tweet.createdAt | fromNow}}</p>
       </div>
-      <p class="tweet-content mt-2">
-        {{tweet.description}}
-      </p>
+
+      <router-link
+        :to="{
+          name: 'replylist',
+          query: {
+            tweetId: tweet.id
+          }
+        }"
+      >
+        <p class="tweet-content mt-2">
+          {{tweet.description}}
+        </p>
+      </router-link>
+
       <div class="tweet-icon-show-pannel d-flex mt-1">
         <div class="d-flex align-items-center">
           <img src="../assets/reply.png" alt="" class="tweet-icon-show" />

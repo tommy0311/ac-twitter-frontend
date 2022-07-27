@@ -19,3 +19,7 @@
     </div>
   </div>
 </template>
+
+<script>
+// import { fromNowFilter } from './../utils/mixins'
+</script>

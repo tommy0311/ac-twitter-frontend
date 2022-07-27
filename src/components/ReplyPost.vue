@@ -16,9 +16,7 @@
       that and allow the items to wrap as needed with this property
     </p>
     <div class="tweet-post-time-pannel d-flex mt-2">
-      <p class="post-time">10:05</p>
-      <span> · </span>
-      <p class="post-date">2021年10月8日</p>
+      <p class="post-time">{{time | localeSupport}}</p>
     </div>
     <div class="reply-like-number-container d-flex mt-2">
       <p><span class="tweet-reply-number">34</span> 回覆</p>
@@ -37,3 +35,24 @@
     </div>
   </div>
 </template>
+
+<script>
+import { localeSupport } from './../utils/mixins'
+// import moment from 'moment'
+// const datetime = Date.now()
+// const format = moment(datetime).format('LT')
+// console.log('format=', format)
+
+// const format2 = moment(datetime).format('LL')
+// console.log('format2=', format2)
+export default {
+  name: 'ReplyPost',
+  mixins: [localeSupport],
+  data () {
+  return {
+    time: Date.now()
+  }
+}
+}
+
+</script>
