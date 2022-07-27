@@ -47,9 +47,10 @@ export default {
       try {
         this.isLoading = true
         const response = await tweetsAPI.getTweets()
-// console.log(response)
+        // console.log('response=', response)
         this.tweets = Array.from( response.data )
-        // console.log('tweets=', this.tweets)
+        // console.log('Likes=', this.tweets[0].Likes)
+        // console.log('Replies=', this.tweets[0].Replies)
 
         this.isLoading = false
       } catch (error) {
