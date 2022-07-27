@@ -6,11 +6,27 @@
         src="../assets/User Photo.png"
         alt="個人頭像"
       />
+
       <div>
         <a href="#" class="user-name">{{recommendUser.name}}</a>
-        <h4 class="user-acount"><span>@</span>pizzahut</h4>
+        <h4 class="user-acount"><span>@</span>{{recommendUser.account}}</h4>
       </div>
-      <button class="follow-btn empty-btn-style" type="submit">跟隨</button>
+
+      <button
+        v-if="recommendUser.isFollowed"
+        class="follow-btn empty-btn-style"
+        type="submit"
+      >
+        正在跟隨
+      </button>
+
+      <button
+        v-else
+        class="follow-btn empty-btn-style"
+        type="submit"
+      >
+        跟隨
+      </button>
     </div>
   </div>
 </template>

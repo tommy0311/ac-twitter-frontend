@@ -61,7 +61,7 @@ export default {
 
         const responseUsers = await usersAPI.getTopUsers()
         this.recommendUsers = Array.from( responseUsers.data )
-        console.log('responseUsers=', this.recommendUsers)
+        // console.log('responseUsers=', this.recommendUsers)
 
         const responseTweets = await tweetsAPI.getTweets()
         // console.log('responseTweets=', responseTweets)
