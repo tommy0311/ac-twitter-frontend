@@ -11,7 +11,17 @@
       />
       <p>123</p>
     </div>
-    <RecommendColumn />
+
+    <div id="recommendColumn-container">
+      <div class="recommendHeader mt-4">
+        <h1>推薦跟隨</h1>
+      </div>
+      <RecommendColumn
+        v-for="recommendUser in recommendUsers"
+        :key="recommendUser.id"
+        :initial-recommenduser="recommendUser"
+      />
+    </div>
   </div>
 </template>
 
@@ -22,6 +32,7 @@ import NavpillHeader from "../components/NavpillHeader.vue";
 import WrittingTweet from "../components/WrittingTweet.vue";
 import TweetList from "../components/TweetList.vue";
 import tweetsAPI from './../apis/tweets'
+import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
 
 export default {
@@ -36,6 +47,7 @@ export default {
   data () {
     return {
       tweets: [],
+      recommendUsers: [],
       isLoading: true
     }
   },
@@ -46,9 +58,14 @@ export default {
     async fetchTweets () {
       try {
         this.isLoading = true
-        const response = await tweetsAPI.getTweets()
-        // console.log('response=', response)
-        this.tweets = Array.from( response.data )
+
+        const responseUsers = await usersAPI.getTopUsers()
+        this.recommendUsers = Array.from( responseUsers.data )
+        console.log('responseUsers=', this.recommendUsers)
+
+        const responseTweets = await tweetsAPI.getTweets()
+        // console.log('responseTweets=', responseTweets)
+        this.tweets = Array.from( responseTweets.data )
         // console.log('Likes=', this.tweets[0].Likes)
         // console.log('Replies=', this.tweets[0].Replies)
 

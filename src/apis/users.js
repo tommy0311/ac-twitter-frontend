@@ -7,4 +7,7 @@ export default {
   get({ userId }) {
     return apiHelper.get(`/users/${userId}`)
   },
+  getTopUsers() {
+    return apiHelper.get('/users/top')
+  }
 }
