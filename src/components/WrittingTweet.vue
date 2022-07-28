@@ -4,12 +4,14 @@
       <img class="user-headshot" src="../assets/Photo2.png" alt="個人頭像" />
       <input
         type="text"
-        id="user-post"
-        class="user-post"
+        id="user-writting-post"
+        class="user-writting-post"
         placeholder="有什麼新鮮事"
         required
       />
-      <button class="post-btn second-btn-style" type="submit">推文</button>
+      <div class="d-flex justify-content-end align-items-end">
+        <button class="post-btn second-btn-style" type="submit">推文</button>
+      </div>
     </div>
   </div>
   <!-- <div class="user-post-under-line"></div> -->

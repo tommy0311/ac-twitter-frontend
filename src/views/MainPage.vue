@@ -1,15 +1,14 @@
 <template>
-  <div class="d-flex template-center-alignment">
+  <div class="d-flex">
     <NavBar />
-    <div class="main-wrapper ml-2 mr-2">
+    <div class="main-wrapper">
       <NavpillHeader />
       <WrittingTweet />
       <TweetList
         v-for="tweet in tweets"
         :key="tweet.id"
         :initial-tweet="tweet"
-      />
-      <p>123</p>
+      />     
     </div>
 
     <div id="recommendColumn-container">

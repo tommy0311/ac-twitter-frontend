@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex template-center-alignment">
     <NavBar />
-    <div class="main-wrapper ml-2 mr-2">
+    <div class="main-wrapper">
       <NavpillHeader />
       <ReplyPost />
       <PostReplyList />

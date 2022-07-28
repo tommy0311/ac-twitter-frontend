@@ -4,7 +4,10 @@
     <div class="main-wrapper">
       <NavpillHeader />
       <UserProfile />
-      <UserPostList />
+      <NavpillUser />
+      <div class="y-scroll">
+        <router-view />
+      </div>
     </div>
     <RecommendColumn />
   </div>
@@ -15,7 +18,7 @@ import NavBar from "../components/NavBar.vue";
 import RecommendColumn from "../components/RecommendColumn.vue";
 import NavpillHeader from "../components/NavpillHeader.vue";
 import UserProfile from "../components/UserProfile.vue";
-import UserPostList from "../components/UserPostList.vue";
+import NavpillUser from "../components/NavpillUser.vue";
 
 export default {
   name: "UserSelf",
@@ -24,7 +27,7 @@ export default {
     RecommendColumn,
     NavpillHeader,
     UserProfile,
-    UserPostList,
+    NavpillUser,
   },
 };
 </script>

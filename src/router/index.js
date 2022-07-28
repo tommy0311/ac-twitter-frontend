@@ -3,19 +3,19 @@ import VueRouter from "vue-router";
 import LoginForm from "../views/LoginForm.vue";
 import MainPage from "../views/MainPage.vue";
 import NotFound from "../views/NotFound.vue";
-import store from './../store'
+import store from "./../store";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const authorizeIsAdmin = (to, from, next) => {
-  const currentUser = store.state.currentUser
+  const currentUser = store.state.currentUser;
   if (currentUser && !currentUser.isAdmin) {
-    next('/not-found')
-    return
+    next("/not-found");
+    return;
   }
 
-  next()
-}
+  next();
+};
 
 const routes = [
   {
@@ -34,6 +34,11 @@ const routes = [
     component: LoginForm,
   },
   {
+    path: "/setting",
+    name: "setting",
+    component: () => import("../views/SettingPage.vue"),
+  },
+  {
     path: "/main",
     name: "main",
     component: MainPage,
@@ -43,100 +48,103 @@ const routes = [
     name: "replylist",
     component: () => import("../views/ReplyList.vue"),
   },
-  // {
-  //   path: "/user/:id",
-  //   name: "user",
-  //   component: () => import("../views/UserPage.vue"),
-  //   children: [
-  //     {
-  //       path: "",
-  //       name: "user-tweets",
-  //       component: () => import("../components/UserTweets.vue"),
-  //     },
-  //     {
-  //       path: "replies",
-  //       name: "user-replies",
-  //       component: () => import("../components/UserReplies.vue"),
-  //     },
-  //     {
-  //       path: "likes",
-  //       name: "user-likes",
-  //       component: () => import("../components/UserLikes.vue"),
-  //     },
-  //     {
-  //       path: "profile/edit",
-  //       name: "user-profile-edit",
-  //       component: () => import("../components/ProfileEdit.vue"),
-  //     },
-  //   ],
-  // },
-  // {
-  //   path: "/user/:id/followers",
-  //   name: "followers",
-  //   component: () => import("../views/UserFollowers.vue"),
-  // },
-  // {
-  //   path: "/users/:id/followings",
-  //   name: "followings",
-  //   component: () => import("../views/UserFollowings.vue"),
-  // },
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("../views/UserSelf.vue"),
+    children: [
+      {
+        path: "",
+        name: "user-tweets",
+        component: () => import("../components/UserPostList.vue"),
+      },
+      {
+        path: "reply",
+        name: "user-reply",
+        component: () => import("../components/UserReplyList.vue"),
+      },
+      {
+        path: "like",
+        name: "user-like",
+        component: () => import("../components/UserLikeList.vue"),
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "user-follower",
+    component: () => import("../views/UserFollower.vue"),
+    children: [
+      {
+        path: "follower",
+        name: "user-follower",
+        component: () => import("../components/UserFollowList.vue"),
+      },
+      {
+        path: "following",
+        name: "user-following",
+        component: () => import("../components/UserFollowingList.vue"),
+      },
+    ],
+  },
   {
     path: "/admin",
     name: "admin",
     component: () => import("../views/AdminLogIn.vue"),
-    beforeEnter: authorizeIsAdmin
+    beforeEnter: authorizeIsAdmin,
   },
   {
     path: "/admin/main",
     name: "admin-main",
     component: () => import("../views/AdminMain.vue"),
-    beforeEnter: authorizeIsAdmin
+    beforeEnter: authorizeIsAdmin,
   },
   {
     path: "/admin/users",
     name: "admin-users",
     component: () => import("../views/AdminUsers.vue"),
-    beforeEnter: authorizeIsAdmin
+    beforeEnter: authorizeIsAdmin,
   },
   {
     path: "*",
     name: "not-found",
     component: NotFound,
   },
-]
+];
 
 const router = new VueRouter({
-  linkExactActiveClass: 'active',
-  routes
-})
+  linkExactActiveClass: "active",
+  routes,
+});
 
-router.beforeEach(async (to, from, next) => { // 每一次使用者點擊不同頁面的路由，都需要檢查使用者 token 是否過期
+router.beforeEach(async (to, from, next) => {
+  // 每一次使用者點擊不同頁面的路由，都需要檢查使用者 token 是否過期
 
   // 從 localStorage 取出 token
-  const token = localStorage.getItem('token')
-  const tokenInStore = store.state.token
-  let isAuthenticated = store.state.isAuthenticated
+  const token = localStorage.getItem("token");
+  const tokenInStore = store.state.token;
+  let isAuthenticated = store.state.isAuthenticated;
 
   // 比較 localStorage 和 store 中的 token 是否一樣
   // 有 token 且 localStorage token !== tokenInStore，才向後端驗證
   if (token && token !== tokenInStore) {
-    isAuthenticated = await store.dispatch('fetchCurrentUser')
+    isAuthenticated = await store.dispatch("fetchCurrentUser");
   }
-  const pathsWithoutAuthentication = ['login', 'regist'] // 對於不需要驗證 token 的頁面
+  const pathsWithoutAuthentication = ["login", "regist"]; // 對於不需要驗證 token 的頁面
 
   // 如果 token 無效，且進入需要驗證的頁面，則轉址到登入頁
   if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
-    next('/login')
-    return
+    next("/login");
+    return;
   }
 
   // 如果 token 有效，且進入不需要驗證的頁面，則轉址到 MainPage
   if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
-    next('/main')
-    return
+    next("/main");
+    return;
   }
 
-  next()
-})
+  next();
+});
 
 export default router;

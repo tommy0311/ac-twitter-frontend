@@ -8,7 +8,17 @@
     <img class="profile-headshot" src="../assets/Photo2.png" alt="個人頭像" />
     <div class="profile-info-container">
       <div class="d-flex justify-content-end">
-        <button class="edit-profile-btn empty-btn-style" type="submit">
+        <template>
+          <button class="profile-btn mr-4" type="submit">
+            <img src="../assets/btn_messege.png" alt="寄送訊息" />
+          </button>
+          <button class="profile-btn" type="submit">
+            <img src="../assets/btn_noti.png" alt="訂閱按鈕" />
+          </button>
+          <button class="profile-btn" type="submit">
+            <img src="../assets/btn_noti_or.png" alt="退訂閱按鈕" /></button
+        ></template>
+        <button class="edit-profile-btn empty-btn-style ml-4" type="submit">
           編輯個人資料
         </button>
       </div>
@@ -18,14 +28,14 @@
         please describe, briefly describe, words to describe
       </p>
       <div class="user-follow-info d-flex mt-2">
-        <a href="#">
+        <router-link to="/user/following">
           <span class="following-number">34</span
           ><span class="ml-1">個</span>跟隨中
-        </a>
-        <a href="#">
+        </router-link>
+        <router-link to="/user/follower">
           <span class="follower-number ml-5">34</span
           ><span class="ml-1">個</span>跟隨者
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
