@@ -1,0 +1,98 @@
+@mixin logoImg {
+  width: 40px;
+  height: 40px;
+}
+
+//按鈕類
+@mixin mainBtnStyle {
+  width: 100%;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 46px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+}
+@mixin mainBtnStyleChange {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+}
+@mixin secondBtnStyle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+@mixin secondBtnStyleChange {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+}
+@mixin emptyBtnStyle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+@mixin emptyBtnStyleChange {
+  color: var(--white);
+  background-color: var(--orange);
+}
+
+//字體類
+@mixin navpillTitleStyle {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--secondaryTextColor);
+}
+@mixin navpillTitleChange {
+  color: var(--orange);
+}
+@mixin contentTextStyle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--contentTextColor);
+}
+
+//畫邊框類
+@mixin tiny-border-line {
+  border: 1px solid var(--borderColor);
+}
+@mixin bottom-tiny-border-line {
+  border-bottom: 1px solid var(--borderColor);
+}
+@mixin main-border-padding {
+  padding: 0 25px;
+}
+@mixin userHeadshotSetting {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+@mixin navpillTitleContainerChange {
+  &::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    bottom: 0.5px;
+    background: var(--orange);
+  }
+}
