@@ -10,7 +10,7 @@
 
     <div class="navpill-info-container flex-column">
       <router-link
-        router-link to="/user"
+        to="/user"
         class="navpillHeader-title"
       >
         {{currentUser.name}}
