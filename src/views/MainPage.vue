@@ -21,6 +21,7 @@
         :initial-recommenduser="recommendUser"
       />
     </div>
+    
   </div>
 </template>
 
@@ -54,9 +55,10 @@ export default {
   },
   created () {
     this.fetchTweets()
+    this.fetchRecommendUsers()
   },
   methods: {
-    async fetchTweets () {
+    async fetchRecommendUsers() {
       try {
         this.isLoading = true
 
@@ -64,7 +66,6 @@ export default {
         const userFollowings = data
 
         const responseUsers = await usersAPI.getTopUsers()
-        
         this.recommendUsers = responseUsers.data.map( user => {
           return (
             {
@@ -73,18 +74,31 @@ export default {
             }
           )
         })
-        console.log('responseUsers=', this.recommendUsers)
+
+        this.isLoading = false
+      } catch (error) {
+        console.error(error)
+        this.isLoading = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得 RecommendUsers 資料，請稍後再試'
+        })
+      }
+    },
+    async fetchTweets () {
+      try {
+        this.isLoading = true
 
         const responseTweets = await tweetsAPI.getTweets()
         this.tweets = Array.from( responseTweets.data )
 
         this.isLoading = false
       } catch (error) {
-        console.log('error', error)
+        console.error(error)
         this.isLoading = false
         Toast.fire({
           icon: 'error',
-          title: '無法取得 twitter 資料，請稍後再試'
+          title: '無法取得 Tweets 資料，請稍後再試'
         })
       }
     }

@@ -7,51 +7,95 @@
         alt="個人頭像"
       />
       <div class="flex-column ml-2">
-        <a href="#" class="user-name">apple</a>
-        <p class="user-acount-for-post"><span>@</span>apple</p>
+        <a href="#" class="user-name">
+          {{ tweet.User.name }}
+        </a>
+        <p class="user-acount-for-post">
+          <span>@</span>
+          {{ tweet.User.account }}
+        </p>
       </div>
     </div>
     <p class="tweet-content mt-2">
-      By default, flex items will all try to fit onto one line. You can change
-      that and allow the items to wrap as needed with this property
+      {{ tweet.description }}
     </p>
     <div class="tweet-post-time-pannel d-flex mt-2">
-      <p class="post-time">{{ time | localeSupport }}</p>
+      <p class="post-time">{{ tweet.createdAt | localeSupport }}</p>
     </div>
     <div class="reply-like-number-container d-flex mt-2">
-      <p><span class="tweet-reply-number">34</span> 回覆</p>
-      <p class="ml-6"><span class="tweet-like-number">808</span>喜歡次數</p>
+      <p>
+        <span class="tweet-reply-number">
+        {{ tweet.replyCount }}
+        </span> 回覆
+      </p>
+      <p class="ml-6">
+        <span class="tweet-like-number">
+        {{ tweet.likeCount }}
+        </span> 喜歡次數
+      </p>
     </div>
     <div class="tweet-icon-show-pannel d-flex mt-1">
       <a href="#"
-        ><img src="../assets/reply.png" alt="回覆按鈕" class="tweet-icon-show"
-      /></a>
+      >
+        <img src="../assets/reply.png" alt="回覆按鈕" class="tweet-icon-show"
+        />
+      </a>
+
       <a href="#"
-        ><img
+      >
+        <img
           src="../assets/like.png"
           alt="愛心按鈕"
           class="tweet-icon-show like-icon"
-      /></a>
+        />
+      </a>
     </div>
   </div>
 </template>
 
 <script>
 import { localeSupport } from "./../utils/mixins";
-// import moment from 'moment'
-// const datetime = Date.now()
-// const format = moment(datetime).format('LT')
-// console.log('format=', format)
+import tweetsAPI from './../apis/tweets'
+import { Toast } from './../utils/helpers'
 
-// const format2 = moment(datetime).format('LL')
-// console.log('format2=', format2)
 export default {
   name: "ReplyPost",
+  props: {
+    initialTweetid: {
+      type: Number,
+      required: true,
+    },
+  },
   mixins: [localeSupport],
   data() {
     return {
-      time: Date.now(),
+      tweet: this.initialTweet
     };
   },
+  created () {
+    this.fetchTweet({ tweetId: this.initialTweetid })
+  },
+  methods: {
+    async fetchTweet ({ tweetId }) {
+      try {
+        this.isLoading = true
+        
+        const { data } = await tweetsAPI.getTweet({
+          tweetId: tweetId,
+        })
+        this.tweet = data
+        console.log('tweet=', this.tweet)
+
+        this.isLoading = false
+      }catch (error) {
+        console.error(error)
+        this.isLoading = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得 Tweet 資料，請稍後再試'
+        })
+      }
+    },
+  }
 };
 </script>
