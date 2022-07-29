@@ -16,5 +16,7 @@ export default {
   removeFollowing({ userId }) {
     return apiHelper.delete(`/followships/${userId}`);
   },
-};
-
+  getUserFollowings({ userId }) {
+    return apiHelper.get(`/users/${userId}/followings`)
+  }
+}

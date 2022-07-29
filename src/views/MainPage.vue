@@ -33,6 +33,7 @@ import TweetList from "../components/TweetList.vue";
 import tweetsAPI from './../apis/tweets'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
+import store from './../store'
 
 export default {
   name: "MainPage",
@@ -47,7 +48,8 @@ export default {
     return {
       tweets: [],
       recommendUsers: [],
-      isLoading: true
+      isLoading: true,
+      currentUser: store.state.currentUser
     }
   },
   created () {
@@ -58,15 +60,23 @@ export default {
       try {
         this.isLoading = true
 
+        const { data } = await usersAPI.getUserFollowings({userId: this.currentUser.id})
+        const userFollowings = data
+
         const responseUsers = await usersAPI.getTopUsers()
-        this.recommendUsers = Array.from( responseUsers.data )
-        // console.log('responseUsers=', this.recommendUsers)
+        
+        this.recommendUsers = responseUsers.data.map( user => {
+          return (
+            {
+              ...user,
+              isFollowed: userFollowings.some(f => f.followingId === user.id)
+            }
+          )
+        })
+        console.log('responseUsers=', this.recommendUsers)
 
         const responseTweets = await tweetsAPI.getTweets()
-        // console.log('responseTweets=', responseTweets)
         this.tweets = Array.from( responseTweets.data )
-        // console.log('Likes=', this.tweets[0].Likes)
-        // console.log('Replies=', this.tweets[0].Replies)
 
         this.isLoading = false
       } catch (error) {

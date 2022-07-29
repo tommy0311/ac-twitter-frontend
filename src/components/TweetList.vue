@@ -26,11 +26,11 @@
       <div class="tweet-icon-show-pannel d-flex mt-1">
         <div class="d-flex align-items-center">
           <img src="../assets/reply.png" alt="" class="tweet-icon-show" />
-          <span class="reply-number ml-1">{{ tweet.Replies.length }}</span>
+          <span class="reply-number ml-1">{{tweet.replyCount}}</span>
         </div>
         <div class="d-flex align-items-center ml-8">
           <img src="../assets/like.png" alt="" class="tweet-icon-show" />
-          <span class="like-number ml-1">{{ tweet.Likes.length }}</span>
+          <span class="like-number ml-1">{{tweet.likeCount}}</span>
         </div>
       </div>
     </div>
