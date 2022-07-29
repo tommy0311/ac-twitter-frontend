@@ -6,5 +6,8 @@ export default {
   },
   getTweet({ tweetId }) {
     return apiHelper.get(`/tweets/${tweetId}`)
+  },
+  getReplies({ tweetId }) {
+    return apiHelper.get(`/tweets/${tweetId}/replies`)
   }
 }

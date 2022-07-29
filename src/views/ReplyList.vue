@@ -7,6 +7,7 @@
         :initial-tweetid="tweetId"
       />
       <PostReplyList
+        :initial-tweetid="tweetId"
       />
     </div>
 

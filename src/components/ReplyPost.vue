@@ -3,7 +3,7 @@
     <div class="d-flex">
       <img
         class="user-headshot"
-        src="../assets/User Photo.png"
+        src="../assets/Photo2.png"
         alt="個人頭像"
       />
       <div class="flex-column ml-2">
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { localeSupport } from "./../utils/mixins";
+import { localeSupport } from "./../utils/mixins"
 import tweetsAPI from './../apis/tweets'
 import { Toast } from './../utils/helpers'
 
@@ -84,7 +84,7 @@ export default {
           tweetId: tweetId,
         })
         this.tweet = data
-        console.log('tweet=', this.tweet)
+        // console.log('tweet=', this.tweet)
 
         this.isLoading = false
       }catch (error) {
