@@ -28,9 +28,7 @@ import NavpillHeader from "../components/NavpillHeader.vue"
 import WrittingTweet from "../components/WrittingTweet.vue"
 import TweetList from "../components/TweetList.vue"
 import tweetsAPI from './../apis/tweets'
-// import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
-import store from './../store'
 
 export default {
   name: "MainPage",
@@ -44,19 +42,17 @@ export default {
   data () {
     return {
       tweets: [],
-      recommendUsers: [],
       isLoading: true,
-      currentUser: store.state.currentUser
     }
   },
   created () {
     this.fetchTweets()
-    this.fetchRecommendUsers()
   },
   methods: {
-    async fetchRecommendUsers() {
+    async fetchTweets () {
       try {
         this.isLoading = true
+
         const responseTweets = await tweetsAPI.getTweets()
         this.tweets = Array.from( responseTweets.data )
 
