@@ -1,6 +1,6 @@
 <template>
   <div id="tweet-element-container">
-    <img class="user-headshot" src="../assets/User Photo.png" alt="個人頭像" />
+    <img class="user-headshot" src="../assets/Photo2.png" alt="個人頭像" />
     <div class="ml-2">
       <div class="d-flex">
         <a href="#" class="user-name">{{ tweet.User.name }}</a>

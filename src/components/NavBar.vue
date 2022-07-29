@@ -27,9 +27,14 @@
         </router-link>
       </li>
     </ul>
-    <button class="tweet-btn main-btn-style" type="submit">推文</button>
+
+    <button class="tweet-btn main-btn-style" type="submit">
+      推文
+    </button>
+
     <template v-if="isAuthenticated"
-      ><ul class="nav-list nav-list-bottom">
+    >
+      <ul class="nav-list nav-list-bottom">
         <li>
           <a href="#" class="nav-link">
             <div class="icon-container">
@@ -38,7 +43,8 @@
             <span class="navbar-index" @click="logout">登出</span>
           </a>
         </li>
-      </ul></template
+      </ul>
+    </template
     >
   </div>
 </template>
