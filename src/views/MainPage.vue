@@ -17,7 +17,6 @@
       </div>
       <RecommendColumn />
     </div>
-    
   </div>
 </template>
 

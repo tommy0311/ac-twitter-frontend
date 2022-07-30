@@ -11,15 +11,20 @@
         class="user-headshot"
         src="../assets/Photo2.png" 
         alt="個人頭像"
-      />
+      >
 
       <div class="ml-2">
         <div class="d-flex align-items-center">
-          <a href="#" class="user-name">{{ reply.User.name }}</a>
+          <a
+            href="#"
+            class="user-name"
+          >{{ reply.User.name }}</a>
           <p class="user-acount-for-post ml-2">
             <span>@</span>{{ reply.User.account }}<span> • </span>
           </p>
-          <p class="post-time">{{ reply.createdAt | fromNow }}</p>
+          <p class="post-time">
+            {{ reply.createdAt | fromNow }}
+          </p>
         </div>
         <div class="reply-to-who-container d-flex mt-2">
           回覆
@@ -32,9 +37,7 @@
           {{ reply.comment }}
         </p>
       </div>
-
     </li>
-
   </ul>
 </template>
 
@@ -46,13 +49,13 @@ import { fromNowFilter } from './../utils/mixins'
 
 export default {
   name: "PostReplyList",
+  mixins: [fromNowFilter],
   props: {
     initialTweetid: {
       type: Number,
       required: true,
     },
   },
-  mixins: [fromNowFilter],
   data() {
     return {
       tweet: this.initialTweet,

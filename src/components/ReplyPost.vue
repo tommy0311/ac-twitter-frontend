@@ -5,9 +5,12 @@
         class="user-headshot"
         src="../assets/Photo2.png"
         alt="個人頭像"
-      />
+      >
       <div class="flex-column ml-2">
-        <a href="#" class="user-name">
+        <a
+          href="#"
+          class="user-name"
+        >
           {{ tweet.User.name }}
         </a>
         <p class="user-acount-for-post">
@@ -20,34 +23,37 @@
       {{ tweet.description }}
     </p>
     <div class="tweet-post-time-pannel d-flex mt-2">
-      <p class="post-time">{{ tweet.createdAt | localeSupport }}</p>
+      <p class="post-time">
+        {{ tweet.createdAt | localeSupport }}
+      </p>
     </div>
     <div class="reply-like-number-container d-flex mt-2">
       <p>
         <span class="tweet-reply-number">
-        {{ tweet.replyCount }}
+          {{ tweet.replyCount }}
         </span> 回覆
       </p>
       <p class="ml-6">
         <span class="tweet-like-number">
-        {{ tweet.likeCount }}
+          {{ tweet.likeCount }}
         </span> 喜歡次數
       </p>
     </div>
     <div class="tweet-icon-show-pannel d-flex mt-1">
-      <a href="#"
-      >
-        <img src="../assets/reply.png" alt="回覆按鈕" class="tweet-icon-show"
-        />
+      <a href="#">
+        <img
+          src="../assets/reply.png"
+          alt="回覆按鈕"
+          class="tweet-icon-show"
+        >
       </a>
 
-      <a href="#"
-      >
+      <a href="#">
         <img
           src="../assets/like.png"
           alt="愛心按鈕"
           class="tweet-icon-show like-icon"
-        />
+        >
       </a>
     </div>
   </div>
@@ -60,13 +66,13 @@ import { Toast } from './../utils/helpers'
 
 export default {
   name: "ReplyPost",
+  mixins: [localeSupport],
   props: {
     initialTweetid: {
       type: Number,
       required: true,
     },
   },
-  mixins: [localeSupport],
   data() {
     return {
       tweet: this.initialTweet

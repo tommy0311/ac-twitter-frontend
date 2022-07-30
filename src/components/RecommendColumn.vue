@@ -1,20 +1,25 @@
 <template>
   <div>
     <div
-      class="recommendAccount-panel"
       v-for="recommendUser in recommendUsers"
       :key="recommendUser.id"
+      class="recommendAccount-panel"
     >
       <div class="recommendAccount-element d-flex align-items-center">
         <img
           class="user-headshot"
           src="../assets/Photo2.png"
           alt="個人頭像"
-        />
+        >
 
         <div>
-          <a href="#" class="user-name">{{ recommendUser.name }}</a>
-          <h4 class="user-acount"><span>@</span>{{ recommendUser.account }}</h4>
+          <a
+            href="#"
+            class="user-name"
+          >{{ recommendUser.name }}</a>
+          <h4 class="user-acount">
+            <span>@</span>{{ recommendUser.account }}
+          </h4>
         </div>
 
         <button

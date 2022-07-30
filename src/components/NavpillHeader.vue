@@ -5,7 +5,7 @@
         class="arrow-icon"
         src="../assets/arrow.png"
         alt="回到上一頁" 
-      />
+      >
     </a>
 
     <div class="navpill-info-container flex-column">
@@ -13,10 +13,10 @@
         to="/user"
         class="navpillHeader-title"
       >
-        {{currentUser.name}}
+        {{ currentUser.name }}
       </router-link>
       <p class="post-number-hint">
-        {{tweets.length}}
+        {{ tweets.length }}
         <span>推文</span>
       </p>
     </div>

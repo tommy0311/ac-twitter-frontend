@@ -1,76 +1,80 @@
 <template>
-   <div id="regist-container">
-      <img class="logo-img" src="../assets/logo@2.png" alt="" />
-      <h1>建立你的帳號</h1>
-      <form 
-        class="form-container" 
-        @submit.prevent.stop="handleSubmit"
+  <div id="regist-container">
+    <img
+      class="logo-img"
+      src="../assets/logo@2.png"
+      alt=""
+    >
+    <h1>建立你的帳號</h1>
+    <form 
+      class="form-container" 
+      @submit.prevent.stop="handleSubmit"
+    >
+      <div class="form-element-group">
+        <label for="user-account">帳號</label>
+        <input
+          id="user-account"
+          v-model="account"
+          type="text"
+          class="user-account"
+          placeholder="請輸入帳號"
+        >
+      </div>
+      <div class="form-element-group">
+        <label for="user-name">名稱</label>
+        <input
+          id="user-name"
+          v-model="name"
+          type="password"
+          class="user-name"
+          placeholder="請輸入使用者名稱"
+        >
+      </div>
+      <div class="form-element-group">
+        <label for="user-name">Email</label>
+        <input
+          id="user-email"
+          v-model="email"
+          type="email"
+          class="user-email"
+          placeholder="請輸入Email"
+        >
+      </div>
+      <div class="form-element-group">
+        <label for="user-password">密碼</label>
+        <input
+          id="user-password"
+          v-model="password"
+          type="password"
+          class="user-password"
+          placeholder="請輸入密碼"
+        >
+      </div>
+      <div class="form-element-group">
+        <label for="user-password-confirm">密碼確認</label>
+        <input
+          id="user-password-confirm"
+          v-model="checkPassword"
+          type="password"
+          class="user-password-confirm"
+          placeholder="請再次輸入密碼"
+        >
+      </div>
+      <button 
+        class="login-btn main-btn-style" 
+        type="submit"
+        :disabled="isProcessing"
       >
-        <div class="form-element-group">
-          <label for="user-account">帳號</label>
-          <input
-            type="text"
-            id="user-account"
-            v-model="account"
-            class="user-account"
-            placeholder="請輸入帳號"
-          />
-        </div>
-        <div class="form-element-group">
-          <label for="user-name">名稱</label>
-          <input
-            type="password"
-            id="user-name"
-            v-model="name"
-            class="user-name"
-            placeholder="請輸入使用者名稱"
-          />
-        </div>
-        <div class="form-element-group">
-          <label for="user-name">Email</label>
-          <input
-            type="email"
-            id="user-email"
-            v-model="email"
-            class="user-email"
-            placeholder="請輸入Email"
-          />
-        </div>
-        <div class="form-element-group">
-          <label for="user-password">密碼</label>
-          <input
-            type="password"
-            id="user-password"
-            v-model="password"
-            class="user-password"
-            placeholder="請輸入密碼"
-          />
-        </div>
-        <div class="form-element-group">
-          <label for="user-password-confirm">密碼確認</label>
-          <input
-            type="password"
-            id="user-password-confirm"
-            v-model="checkPassword"
-            class="user-password-confirm"
-            placeholder="請再次輸入密碼"
-          />
-        </div>
-        <button 
-          class="login-btn main-btn-style" 
-          type="submit"
-          :disabled="isProcessing"
-        >
-          註冊
-        </button>
-        <a 
-          class="submit-other-choice text-center"
-          href="javascript:history.back()"
-        >
-          取消
-        </a>
-      </form>
-    </div>
+        註冊
+      </button>
+      <a 
+        class="submit-other-choice text-center"
+        href="javascript:history.back()"
+      >
+        取消
+      </a>
+    </form>
+  </div>
 </template>
 
 <script>
