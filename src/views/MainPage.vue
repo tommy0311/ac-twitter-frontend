@@ -2,7 +2,7 @@
   <div class="d-flex">
     <NavBar />
     <div class="main-wrapper">
-      <NavpillHeader />
+      <NavpillHeaderMain />
       <WrittingTweet />
       <TweetList
         v-for="tweet in tweets"
@@ -23,7 +23,7 @@
 <script>
 import NavBar from "../components/NavBar.vue"
 import RecommendColumn from "../components/RecommendColumn.vue"
-import NavpillHeader from "../components/NavpillHeader.vue"
+import NavpillHeaderMain from "../components/NavpillHeaderMain.vue"
 import WrittingTweet from "../components/WrittingTweet.vue"
 import TweetList from "../components/TweetList.vue"
 import tweetsAPI from './../apis/tweets'
@@ -34,7 +34,7 @@ export default {
   components: {
     NavBar,
     RecommendColumn,
-    NavpillHeader,
+    NavpillHeaderMain,
     WrittingTweet,
     TweetList,
   },

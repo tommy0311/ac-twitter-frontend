@@ -30,7 +30,6 @@ export default {
   name: "NavpillHeader",
   data () {
     return {
-      tweets: [],
       isLoading: true,
     }
   },
