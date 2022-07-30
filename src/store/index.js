@@ -14,7 +14,8 @@ export default new Vuex.Store({
       avatar: '',
       cover: '',
       role: '',
-      isAdmin: false
+      isAdmin: false,
+      tweetsCount: -1,
     },
     isAuthenticated: false,
     token: ''
@@ -47,6 +48,8 @@ export default new Vuex.Store({
         const { data } = await usersAPI.getCurrentUser()
         const { id, account, name, email, avatar, cover, role } = data
 
+        const tweets = await usersAPI.getUserTweets({ userId: id })
+
         commit('setCurrentUser', {
           id,
           account,
@@ -54,7 +57,8 @@ export default new Vuex.Store({
           email,
           avatar,
           cover,
-          role
+          role,
+          tweetsCount: tweets.data.length
         })
 
         return true

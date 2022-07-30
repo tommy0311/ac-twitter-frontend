@@ -18,5 +18,8 @@ export default {
   },
   getUserFollowings({ userId }) {
     return apiHelper.get(`/users/${userId}/followings`)
+  },
+  getUserTweets({ userId }) {
+    return apiHelper.get(`/users/${userId}/tweets`)
   }
 }
