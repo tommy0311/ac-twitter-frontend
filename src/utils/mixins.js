@@ -11,7 +11,10 @@ export const fromNowFilter = {
 export const emptyImageFilter = {
   filters: {
     emptyImage (src) {
-      return src || 'https://via.placeholder.com/350x220/DFDFDF?text=No+Image'
+      return src || 'https://loremflickr.com/100/100/avatar/?random=${Math.random()*100}'
+    },
+    emptyCover (src) {
+      return src || 'https://loremflickr.com/1280/960/view/?random=${Math.random()*100}'
     }
   }
 }

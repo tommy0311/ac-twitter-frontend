@@ -2,15 +2,20 @@
   <div id="tweet-element-container">
     <img
       class="user-headshot"
-      src="../assets/Photo2.png"
+      :src="tweet.User.avatar | emptyImage"
       alt="個人頭像"
     >
     <div class="ml-2">
       <div class="d-flex">
-        <a
-          href="#"
+        <router-link
+          :to="{
+            name: 'user-id',
+            params: { userId: tweet.User.id }
+          }"
           class="user-name"
-        >{{ tweet.User.name }}</a>
+        >
+          {{ tweet.User.name }}
+        </router-link>
         <p class="user-acount-for-post ml-2">
           <span>@</span>{{ tweet.User.account }}<span> • </span>
         </p>
@@ -55,15 +60,12 @@
 </template>
 
 <script>
-// import { emptyImageFilter } from './../utils/mixins'
-// import usersAPI from './../apis/users'
-// import { Toast } from './../utils/helpers'
+import { emptyImageFilter } from './../utils/mixins'
 import { fromNowFilter } from "./../utils/mixins";
 
 export default {
   name: "TweetList",
-  // mixins: [emptyImageFilter],
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
   props: {
     initialTweet: {
       type: Object,

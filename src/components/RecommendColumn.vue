@@ -8,7 +8,7 @@
       <div class="recommendAccount-element d-flex align-items-center">
         <img
           class="user-headshot"
-          src="../assets/Photo2.png"
+          :src="recommendUser.avatar | emptyImage"
           alt="個人頭像"
         >
 
@@ -45,49 +45,51 @@
 </template>
 
 <script>
-import { Toast } from "./../utils/helpers";
-import usersAPI from "./../apis/users";
-import { mapState } from 'vuex'
+import { Toast } from "./../utils/helpers"
+import usersAPI from "./../apis/users"
+import { mapState } from "vuex"
+import { emptyImageFilter } from './../utils/mixins'
 
 export default {
   name: "RecommendColumn",
+  mixins: [emptyImageFilter],
   data() {
     return {
       recommendUsers: [],
       isProcessing: false,
     };
   },
-  created () {
-    this.fetchRecommendUsers()
-  },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(["currentUser"]),
+  },
+  created() {
+    this.fetchRecommendUsers();
   },
   methods: {
     async fetchRecommendUsers() {
       try {
-        this.isLoading = true
+        this.isLoading = true;
 
-        const { data } = await usersAPI.getUserFollowings({userId: this.currentUser.id})
-        const userFollowings = data
-        const responseUsers = await usersAPI.getTopUsers()
-        this.recommendUsers = responseUsers.data.map( user => {
-          return (
-            {
-              ...user,
-              isFollowed: userFollowings.some(f => f.followingId === user.id)
-            }
-          )
-        })
+        const { data } = await usersAPI.getUserFollowings({
+          userId: this.currentUser.id,
+        });
+        const userFollowings = data;
+        const responseUsers = await usersAPI.getTopUsers();
+        this.recommendUsers = responseUsers.data.map((user) => {
+          return {
+            ...user,
+            isFollowed: userFollowings.some((f) => f.followingId === user.id),
+          };
+        });
 
-        this.isLoading = false
+        this.isLoading = false;
       } catch (error) {
-        console.error(error)
-        this.isLoading = false
+        console.error(error);
+        this.isLoading = false;
         Toast.fire({
-          icon: 'error',
-          title: '無法取得 RecommendUsers 資料，請稍後再試'
-        })
+          icon: "error",
+          title: "無法取得 RecommendUsers 資料，請稍後再試",
+        });
       }
     },
     async addFollowing(userId) {
@@ -96,19 +98,16 @@ export default {
         const { data } = await usersAPI.addFollowing({ userId });
         console.log("following users=", data);
 
-        this.recommendUsers = this.recommendUsers.map( user => {
-          if(user.id !== userId) {
-            return user
+        this.recommendUsers = this.recommendUsers.map((user) => {
+          if (user.id !== userId) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: true,
+            };
           }
-          else {
-            return (
-              {
-                ...user,
-                isFollowed: true
-              }
-            )
-          }
-        })
+        });
 
         this.isProcessing = false;
       } catch (error) {
@@ -126,19 +125,16 @@ export default {
         const { data } = await usersAPI.removeFollowing({ userId });
         console.log("following users=", data);
 
-        this.recommendUsers = this.recommendUsers.map( user => {
-          if(user.id !== userId) {
-            return user
+        this.recommendUsers = this.recommendUsers.map((user) => {
+          if (user.id !== userId) {
+            return user;
+          } else {
+            return {
+              ...user,
+              isFollowed: false,
+            };
           }
-          else {
-            return (
-              {
-                ...user,
-                isFollowed: false
-              }
-            )
-          }
-        })
+        });
 
         this.isProcessing = false;
       } catch (error) {

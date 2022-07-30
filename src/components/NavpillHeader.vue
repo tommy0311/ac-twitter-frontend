@@ -16,7 +16,7 @@
         {{ currentUser.name }}
       </router-link>
       <p class="post-number-hint">
-        {{currentUser.tweetsCount}}
+        {{ currentUser.tweetsCount }}
         <span>推文</span>
       </p>
     </div>

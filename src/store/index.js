@@ -14,7 +14,6 @@ export default new Vuex.Store({
       avatar: '',
       cover: '',
       role: '',
-      isAdmin: false,
       tweetsCount: -1,
     },
     isAuthenticated: false,

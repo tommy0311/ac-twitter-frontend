@@ -5,12 +5,12 @@
   >
     <img
       class="profile-background-img"
-      src="../assets/IMG_20190730_054530.jpg"
+      :src="user.cover | emptyCover"
       alt=""
     >
     <img
       class="profile-headshot"
-      src="../assets/Photo2.png"
+      :src="user.avatar | emptyImage"
       alt="個人頭像"
     >
     <div class="profile-info-container">
@@ -52,22 +52,72 @@
         </button>
       </div>
       <h4 class="user-name mt-4">
-        apple
+        {{ user.name }}
       </h4>
       <p class="user-acount">
-        <span>@</span>apple
+        <span>@</span>
+        {{ user.account }}
       </p>
       <p class="user-describe mt-2">
-        please describe, briefly describe, words to describe
+        {{ user.introduction }}
       </p>
       <div class="user-follow-info d-flex mt-2">
         <router-link to="/user/following">
-          <span class="following-number">34</span><span class="ml-1">個</span>跟隨中
+          <span class="following-number">
+            {{ user.followingCount }}
+          </span>
+          <span class="ml-1">個跟隨中</span>
         </router-link>
         <router-link to="/user/follower">
-          <span class="follower-number ml-5">34</span><span class="ml-1">個</span>跟隨者
+          <span class="follower-number ml-5">
+            {{ user.followerCount }}
+          </span>
+          <span class="ml-1">個跟隨者</span>
         </router-link>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { emptyImageFilter } from './../utils/mixins'
+export default {
+  name: "UserProfile",
+  mixins: [emptyImageFilter],
+  props: {
+    initialUser: {
+      type: Object,
+      default: () => {
+        return {
+          id: -1,
+          account: '',
+          email: '',
+          name: '',
+          avatar: '',
+          cover: '',
+          introduction: '',
+          role: 'user',
+          followingCount: -1,
+          followerCount: -1
+        }
+      }
+    }
+  },
+  data () {
+    return {
+      user: {
+        ...this.initialUser
+      },
+      isLoading: true
+    }
+  },
+  watch: {
+    initialUser (newValue) {
+      this.user = {
+        ...this.user,
+        ...newValue
+      }
+    }
+  }
+}
+</script>

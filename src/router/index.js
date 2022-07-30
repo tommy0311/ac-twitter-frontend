@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 
 const authorizeIsAdmin = (to, from, next) => {
   const currentUser = store.state.currentUser;
-  if (currentUser && !currentUser.isAdmin) {
+  if (currentUser && currentUser.role === 'user') { // currentUser is not Admin
     next("/not-found");
     return;
   }
@@ -49,6 +49,28 @@ const routes = [
     component: () => import("../views/ReplyList.vue"),
   },
   {
+    path: "/users/:userId",
+    name: "user-id",
+    component: () => import("../views/UserOther.vue"),
+    children: [
+      {
+        path: "tweets",
+        name: "user-id-tweets",
+        component: () => import("../components/UserPostList.vue"),
+      },
+      {
+        path: "replied_tweets",
+        name: "user-id-replied_tweets",
+        component: () => import("../components/UserReplyList.vue"),
+      },
+      {
+        path: "likes",
+        name: "user-id-likes",
+        component: () => import("../components/UserLikeList.vue"),
+      },
+    ]
+  },
+  {
     path: "/user",
     name: "user",
     component: () => import("../views/UserSelf.vue"),
@@ -77,12 +99,12 @@ const routes = [
     children: [
       {
         path: "follower",
-        name: "user-follower",
+        name: "user-followerlist",
         component: () => import("../components/UserFollowList.vue"),
       },
       {
         path: "following",
-        name: "user-following",
+        name: "user-followinglist",
         component: () => import("../components/UserFollowingList.vue"),
       },
     ],
