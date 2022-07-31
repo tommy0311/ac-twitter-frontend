@@ -135,6 +135,10 @@ img {
   display: block;
 }
 
+textarea {
+  resize: none;
+}
+
 .btn,
 button,
 button:focus,
@@ -754,6 +758,7 @@ input:invalid {
   --black: #000000;
   --orange: #ff6600;
   --blue: #0099ff;
+  --pink: #FF9AD5;
   --red-errorSign: #FC5A5A;
   --gray-disabledSign: #D5D5DC ;
   --bgColor: var(--white);
@@ -1018,10 +1023,16 @@ input:invalid {
   height: 50px;
   border-radius: 50%;
 }
+#writtingTweet-container .writtingTweet-pannel .user-writing-post-form {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+}
 #writtingTweet-container .writtingTweet-pannel .user-writting-post {
   border: none;
   width: 100%;
   height: 136px;
+  padding: 1rem;
   font-weight: 700;
   font-size: 18px;
   line-height: 26px;
@@ -1460,10 +1471,27 @@ input:invalid {
 }
 
 .popup-background {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
   background-color: var(--secondaryTextColor);
-  opacity: 80%;
+  opacity: 0.8;
+  z-index: 999;
+}
+
+.popup-error-text {
+  position: absolute;
+  bottom: 3%;
+  right: 15%;
+  font-size: 12px;
+  color: var(--red-errorSign);
+  visibility: hidden;
+}
+
+.popup-error-text.show {
+  visibility: visible;
 }
 
 #popup-writtingTweet-container {
@@ -1474,8 +1502,7 @@ input:invalid {
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  z-index: 2;
-  position: fixed;
+  z-index: 1000;
 }
 #popup-writtingTweet-container .want-reply-post-container {
   width: 100%;
@@ -1516,17 +1543,23 @@ input:invalid {
 }
 #popup-writtingTweet-container .writtingTweet-pannel {
   width: 100%;
-  padding: 0 16px 16px 24px;
+  padding: 16px 16px 16px 24px;
 }
 #popup-writtingTweet-container .writtingTweet-pannel .user-headshot {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
+#popup-writtingTweet-container .writtingTweet-pannel .user-writing-post-form {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+}
 #popup-writtingTweet-container .writtingTweet-pannel .user-writting-post {
   border: none;
   width: 100%;
   height: 211px;
+  padding: 1rem;
   font-weight: 400;
   font-size: 18px;
   line-height: 26px;

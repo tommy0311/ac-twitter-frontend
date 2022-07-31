@@ -1,11 +1,16 @@
 <template>
   <div id="navbar-container">
+    <PopoutWritingTweet
+      v-if="isModalShown"
+      :show-modal="showModal"
+      :close-modal="closeModal"
+    />
     <img
       class="logo-img"
       src="../assets/logo@2.png"
       alt=""
     >
-    
+
     <ul class="nav-list">
       <li>
         <router-link
@@ -64,12 +69,11 @@
     </ul>
     <button
       class="tweet-btn main-btn-style"
-      type="submit"
+      @click="showModal"
     >
       推文
     </button>
-   
-    
+
     <li>
       <router-link
         to="/main"
@@ -106,7 +110,6 @@
         <span class="navbar-index">使用者列表</span>
       </router-link>
     </li>
-    
 
     <template v-if="isAuthenticated">
       <ul class="nav-list nav-list-bottom">
@@ -132,16 +135,30 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
+import PopoutWritingTweet from '../components/PopoutWritingTweet.vue';
+
 export default {
-  computed: {
-    ...mapState(["currentUser", "isAuthenticated"]),
-  },
-  methods: {
-    logout() {
-      this.$store.commit("revokeAuthentication");
-      this.$router.push("/login");
+    components: { PopoutWritingTweet },
+    data() {
+        return {
+            isModalShown: false,
+        };
     },
-  },
+    computed: {
+        ...mapState(["currentUser", "isAuthenticated"]),
+    },
+    methods: {
+        logout() {
+            this.$store.commit("revokeAuthentication");
+            this.$router.push("/login");
+        },
+        showModal() {
+            this.isModalShown = true;
+        },
+        closeModal() {
+            this.isModalShown = false;
+        },
+    },
 };
 </script>

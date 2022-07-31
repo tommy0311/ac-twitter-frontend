@@ -9,5 +9,8 @@ export default {
   },
   getReplies({ tweetId }) {
     return apiHelper.get(`/tweets/${tweetId}/replies`)
+  },
+  postTweet(description) {
+    return apiHelper.post('/tweets', { description })
   }
 }
