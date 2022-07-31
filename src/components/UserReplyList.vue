@@ -1,30 +1,71 @@
-<template>  
-  <div id="user-reply-list-container">
-    <img
-      class="user-headshot"
-      src="../assets/User Photo.png"
-      alt="個人頭像"
+<template>
+  <div>
+    <div
+      v-for="reply in replies"
+      id="user-reply-list-container"
+      :key="reply.id"
     >
-    <div class="ml-2">
-      <div class="d-flex align-items-center">
-        <a
-          href="#"
-          class="user-name"
-        >Pizza Hut</a>
-        <p class="user-acount-for-post ml-2">
-          <span>@</span>pizzahut<span> • </span>
-        </p>
-        <p class="post-time">
-          3小時
+      <img
+        class="user-headshot"
+        :src="reply.User.avatar | emptyImage"
+        alt="個人頭像"
+      >
+      <div class="ml-2">
+        <div class="d-flex align-items-center">
+          <a
+            href="#"
+            class="user-name"
+          >
+            {{ reply.User.name }}
+          </a>
+          <p class="user-acount-for-post ml-2">
+            <span>@</span>
+            {{ reply.User.account }}
+            <span> • </span>
+          </p>
+          <p class="post-time">
+            {{ reply.createdAt | fromNow }}
+          </p>
+        </div>
+        <div class="reply-to-who-container d-flex mt-2">
+          回覆
+          <span class="reply-to-who-acount ml-1">
+            <span>@</span>
+            {{ reply.Tweet.User.account }}
+          </span>
+        </div>
+        <p class="tweet-content mt-2">
+          {{ reply.comment }}
         </p>
       </div>
-      <div class="reply-to-who-container d-flex mt-2">
-        回覆<span class="reply-to-who-acount ml-1"><span>@</span>apple</span>
-      </div>
-      <p class="tweet-content mt-2">
-        By default, flex items will all try to fit onto one line. You can
-        change that and allow the items to wrap as needed with this property
-      </p>
     </div>
-  </div>  
+  </div>
 </template>
+
+<script>
+import { fromNowFilter } from './../utils/mixins'
+import { emptyImageFilter } from './../utils/mixins'
+export default {
+  name: "UserReplyList",
+  mixins: [fromNowFilter,emptyImageFilter],
+  props: {
+    initialReplies: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      replies: this.initialReplies
+    }
+  },
+  watch: {
+    initialReplies (newValue) {
+      this.replies = {
+        ...this.replies,
+        ...newValue
+      }
+    }
+  }
+}
+</script>

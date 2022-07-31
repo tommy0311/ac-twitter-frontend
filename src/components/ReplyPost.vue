@@ -3,7 +3,7 @@
     <div class="d-flex">
       <img
         class="user-headshot"
-        src="../assets/Photo2.png"
+        :src=" tweet.User.avatar | emptyImage "
         alt="個人頭像"
       >
       <div class="flex-column ml-2">
@@ -63,10 +63,11 @@
 import { localeSupport } from "./../utils/mixins"
 import tweetsAPI from './../apis/tweets'
 import { Toast } from './../utils/helpers'
+import { emptyImageFilter } from './../utils/mixins'
 
 export default {
   name: "ReplyPost",
-  mixins: [localeSupport],
+  mixins: [localeSupport,emptyImageFilter],
   props: {
     initialTweetid: {
       type: Number,

@@ -7,7 +7,7 @@
     >
       <img
         class="user-headshot"
-        src="../assets/User Photo.png"
+        :src="tweet.User.avatar | emptyImage"
         alt="個人頭像"
       >
       <div class="ml-2">
@@ -65,9 +65,10 @@
 
 <script>
 import { fromNowFilter } from './../utils/mixins'
+import { emptyImageFilter } from './../utils/mixins'
 export default {
   name: "UserPostList",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter,emptyImageFilter],
   props: {
     initialTweets: {
       type: Array,

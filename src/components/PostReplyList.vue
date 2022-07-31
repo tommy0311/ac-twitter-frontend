@@ -9,16 +9,21 @@
     >
       <img 
         class="user-headshot"
-        src="../assets/Photo2.png" 
+        :src=" reply.User.avatar | emptyImage "
         alt="個人頭像"
       >
 
       <div class="ml-2">
         <div class="d-flex align-items-center">
-          <a
-            href="#"
+          <router-link
+            :to="{
+              name: 'user-id-tweets',
+              params: { userId: reply.User.id }
+            }"
             class="user-name"
-          >{{ reply.User.name }}</a>
+          >
+            {{ reply.User.name }}
+          </router-link>
           <p class="user-acount-for-post ml-2">
             <span>@</span>{{ reply.User.account }}<span> • </span>
           </p>
@@ -46,10 +51,11 @@ import tweetsAPI from './../apis/tweets'
 import { Toast } from './../utils/helpers'
 import store from './../store'
 import { fromNowFilter } from './../utils/mixins'
+import { emptyImageFilter } from './../utils/mixins'
 
 export default {
   name: "PostReplyList",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter,emptyImageFilter],
   props: {
     initialTweetid: {
       type: Number,
@@ -75,9 +81,8 @@ export default {
         const { data } = await tweetsAPI.getReplies({
           tweetId: tweetId,
         })
-        // console.log('data=', data)
         this.replies = data
-
+        console.log('this.replies=', this.replies)
         this.isLoading = false
       } catch (error) {
         console.error(error)
@@ -97,7 +102,6 @@ export default {
         })
         this.tweet = data
         console.log('tweet=', this.tweet)
-
         this.isLoading = false
       }catch (error) {
         console.error(error)

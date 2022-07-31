@@ -64,15 +64,16 @@
       <div class="user-follow-info d-flex mt-2">
         <router-link to="/user/following">
           <span class="following-number">
-            {{ user.followingCount }}
+            {{ user.followingCount }} 個
           </span>
-          <span class="ml-1">個跟隨中</span>
+          <span class="ml-1">跟隨中</span>
         </router-link>
+        
         <router-link to="/user/follower">
           <span class="follower-number ml-5">
-            {{ user.followerCount }}
+            {{ user.followerCount }} 位
           </span>
-          <span class="ml-1">個跟隨者</span>
+          <span class="ml-1">跟隨者</span>
         </router-link>
       </div>
     </div>

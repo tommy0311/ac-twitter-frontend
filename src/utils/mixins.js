@@ -14,7 +14,7 @@ export const emptyImageFilter = {
       return src || 'https://loremflickr.com/100/100/avatar/?random=${Math.random()*100}'
     },
     emptyCover (src) {
-      return src || 'https://loremflickr.com/1280/960/view/?random=${Math.random()*100}'
+      return src || 'https://loremflickr.com/1280/960/view/'
     }
   }
 }

@@ -6,34 +6,24 @@
     <div class="navpill-title-container">
       <router-link
         :to="{
-          name: 'user-id-tweets',
+          name: 'user-id-followerlist',
           params: { userId: user.id }
         }"
         class="navpill-title"
       >
-        推文
+        追隨者
       </router-link>
     </div>
+
     <div class="navpill-title-container">
       <router-link
         :to="{
-          name: 'user-id-replied_tweets',
+          name: 'user-id-followinglist',
           params: { userId: user.id }
         }"
         class="navpill-title"
       >
-        回覆
-      </router-link>
-    </div>
-    <div class="navpill-title-container">
-      <router-link
-        :to="{
-          name: 'user-id-likes',
-          params: { userId: user.id }
-        }"
-        class="navpill-title"
-      >
-        喜歡的內容
+        正在追隨
       </router-link>
     </div>
   </div>
@@ -41,7 +31,7 @@
 
 <script>
 export default {
-  name: "NavpillUser",
+  name: "NavpillUserFollow",
   props: {
     initialUser: {
       type: Object,

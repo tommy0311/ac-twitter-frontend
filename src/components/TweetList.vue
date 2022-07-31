@@ -9,7 +9,7 @@
       <div class="d-flex">
         <router-link
           :to="{
-            name: 'user-id',
+            name: 'user-id-tweets',
             params: { userId: tweet.User.id }
           }"
           class="user-name"
