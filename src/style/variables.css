@@ -3,6 +3,8 @@
   --black: #000000;
   --orange: #ff6600;
   --blue: #0099ff;
+  --red-errorSign: #FC5A5A;
+  --gray-disabledSign: #D5D5DC ;
   --bgColor: var(--white);
   --mainColor: #1c1c1c;
   --formBgColor: #f5f8fa;

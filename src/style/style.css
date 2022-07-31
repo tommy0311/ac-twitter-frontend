@@ -89,7 +89,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  background-color: var(--bgColor);
 }
 
 html,
@@ -755,6 +754,8 @@ input:invalid {
   --black: #000000;
   --orange: #ff6600;
   --blue: #0099ff;
+  --red-errorSign: #FC5A5A;
+  --gray-disabledSign: #D5D5DC ;
   --bgColor: var(--white);
   --mainColor: #1c1c1c;
   --formBgColor: #f5f8fa;
@@ -785,6 +786,17 @@ input:invalid {
 
 .y-scroll {
   overflow-y: scroll;
+}
+.y-scroll::-webkit-scrollbar {
+  width: 15px;
+}
+.y-scroll::-webkit-scrollbar-thumb {
+  width: 8px;
+  height: 25px;
+  left: calc(50% - 4px + 0.5px);
+  top: calc(50% - 12.5px);
+  background: #c1c1c1;
+  border-radius: 4px;
 }
 
 #login-container,
@@ -823,7 +835,7 @@ input:invalid {
 }
 .form-container label {
   position: absolute;
-  background-color: var(--formBgColor);
+  display: block;
   color: var(--secondaryTextColor);
   font-weight: normal;
   font-size: 14px;
@@ -833,7 +845,7 @@ input:invalid {
 }
 .form-container input {
   border: none;
-  width: 356px;
+  width: 100%;
   height: 54px;
   background-color: var(--formBgColor);
   border-radius: 2px;
@@ -842,6 +854,12 @@ input:invalid {
 }
 .form-container input:hover, .form-container input:active {
   border-bottom: 2px solid var(--blue);
+}
+.form-container input.error {
+  border-bottom: 2px solid var(--red-errorSign);
+}
+.form-container input.disabled {
+  border-bottom: 2px solid var(--gray-disabledSign);
 }
 .form-container input::-moz-placeholder {
   font-weight: 400;
@@ -955,6 +973,11 @@ input:invalid {
   margin-left: 24px;
 }
 
+.admin-main-wrapper {
+  width: 936px;
+  margin-left: 24px;
+}
+
 #navpillHeader-container {
   width: 100%;
   height: 75px;
@@ -971,6 +994,7 @@ input:invalid {
 #navpillHeader-container .navpillHeader-title {
   font-weight: 700;
   font-size: 24px;
+  line-height: 26px;
   color: var(--black);
 }
 #navpillHeader-container .navpill-info-container {
@@ -1103,7 +1127,8 @@ input:invalid {
 
 #tweet-element-container,
 #user-post-list-container,
-#user-like-list-container {
+#user-like-list-container,
+#admin-tweet-element-container {
   width: 100%;
   border: 1px solid var(--borderColor);
   padding: 16px 24px;
@@ -1112,20 +1137,23 @@ input:invalid {
 }
 #tweet-element-container .user-headshot,
 #user-post-list-container .user-headshot,
-#user-like-list-container .user-headshot {
+#user-like-list-container .user-headshot,
+#admin-tweet-element-container .user-headshot {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 #tweet-element-container .tweet-icon-show-pannel,
 #user-post-list-container .tweet-icon-show-pannel,
-#user-like-list-container .tweet-icon-show-pannel {
+#user-like-list-container .tweet-icon-show-pannel,
+#admin-tweet-element-container .tweet-icon-show-pannel {
   width: 100%;
   height: 14px;
 }
 #tweet-element-container .tweet-icon-show-pannel .tweet-icon-show,
 #user-post-list-container .tweet-icon-show-pannel .tweet-icon-show,
-#user-like-list-container .tweet-icon-show-pannel .tweet-icon-show {
+#user-like-list-container .tweet-icon-show-pannel .tweet-icon-show,
+#admin-tweet-element-container .tweet-icon-show-pannel .tweet-icon-show {
   width: 13.17px;
   height: 13.17px;
 }
@@ -1134,11 +1162,25 @@ input:invalid {
 #user-post-list-container .tweet-icon-show-pannel .reply-number,
 #user-post-list-container .tweet-icon-show-pannel .like-number,
 #user-like-list-container .tweet-icon-show-pannel .reply-number,
-#user-like-list-container .tweet-icon-show-pannel .like-number {
+#user-like-list-container .tweet-icon-show-pannel .like-number,
+#admin-tweet-element-container .tweet-icon-show-pannel .reply-number,
+#admin-tweet-element-container .tweet-icon-show-pannel .like-number {
   font-weight: 600;
   font-size: 14px;
   line-height: 14px;
   color: var(--messageTextColor);
+}
+
+#admin-tweet-element-container {
+  padding: 16px 82px 16px 24px;
+  position: relative;
+}
+#admin-tweet-element-container .delete-icon {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 21.5px;
+  right: 4.5px;
 }
 
 #reply-post-container {
@@ -1370,4 +1412,291 @@ input:invalid {
 #setting-form-container .main-btn-style {
   margin-top: 8px;
   width: 88px;
+}
+
+#admin-user-Profile-card {
+  width: 249px;
+  height: 314px;
+  border-radius: 10px;
+  background-color: var(--recommendBgColor);
+  position: relative;
+}
+#admin-user-Profile-card .profile-background-img {
+  width: 100%;
+  height: 140px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px 10px 0px 0px;
+}
+#admin-user-Profile-card .profile-headshot {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top: 64px;
+}
+#admin-user-Profile-card .user-acount {
+  font-weight: 400;
+}
+#admin-user-Profile-card .user-info-icon {
+  width: 23px;
+  height: 23px;
+}
+#admin-user-Profile-card .post-amount,
+#admin-user-Profile-card .like-amount {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 15px;
+}
+#admin-user-Profile-card .user-follow-info {
+  color: var(--messageTextColor);
+}
+#admin-user-Profile-card .user-follow-info .following-number,
+#admin-user-Profile-card .user-follow-info .follower-number {
+  color: var(--black);
+}
+
+.popup-background {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--secondaryTextColor);
+  opacity: 80%;
+}
+
+#popup-writtingTweet-container {
+  width: 634px;
+  border-radius: 14px;
+  margin: 56px auto 0 auto;
+  background-color: var(--white);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 2;
+  position: fixed;
+}
+#popup-writtingTweet-container .want-reply-post-container {
+  width: 100%;
+  padding: 16px 24px 24px 24px;
+  display: flex;
+}
+#popup-writtingTweet-container .want-reply-post-container .user-headshot {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#popup-writtingTweet-container .want-reply-post-container .reply-to-who-container {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--messageTextColor);
+}
+#popup-writtingTweet-container .want-reply-post-container .tweet-content {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--contentTextColor);
+}
+#popup-writtingTweet-container .want-reply-post-container .reply-to-who-acount {
+  color: var(--orange);
+}
+#popup-writtingTweet-container .headerbox {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--borderColor);
+}
+#popup-writtingTweet-container .headerbox .popup-cancel-icon {
+  width: 15px;
+  height: 15px;
+  margin-left: 19.5px;
+}
+#popup-writtingTweet-container .writtingTweet-pannel {
+  width: 100%;
+  padding: 0 16px 16px 24px;
+}
+#popup-writtingTweet-container .writtingTweet-pannel .user-headshot {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#popup-writtingTweet-container .writtingTweet-pannel .user-writting-post {
+  border: none;
+  width: 100%;
+  height: 211px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--messageTextColor);
+}
+#popup-writtingTweet-container .writtingTweet-pannel .second-btn-style {
+  width: 64px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+#popup-writtingTweet-container .writtingTweet-pannel .second-btn-style:hover, #popup-writtingTweet-container .writtingTweet-pannel .second-btn-style:active {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+}
+
+#popup-profile-editing-container {
+  width: 634px;
+  border-radius: 14px;
+  margin: 56px auto 0 auto;
+  background-color: var(--white);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 2;
+  position: fixed;
+}
+#popup-profile-editing-container .headerbox {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--borderColor);
+}
+#popup-profile-editing-container .headerbox .popup-cancel-icon {
+  width: 15px;
+  height: 15px;
+  margin-left: 19.5px;
+}
+#popup-profile-editing-container .headerbox > p {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--black);
+  margin-left: 36.5px;
+}
+#popup-profile-editing-container .headerbox .second-btn-style {
+  margin-left: 375px;
+  width: 64px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+#popup-profile-editing-container .headerbox .second-btn-style:hover, #popup-profile-editing-container .headerbox .second-btn-style:active {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+}
+#popup-profile-editing-container .userProfile-editing-container {
+  width: 100%;
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-background-img {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-background-img .profile-background-img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  z-index: 1;
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-background-img .icon-editing-background-img-pannel {
+  width: 80px;
+  height: 24px;
+  display: flex;
+  position: absolute;
+  z-index: 2;
+  justify-content: space-between;
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-background-img .icon-editing-background-img-pannel .icon-for-background-add,
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-background-img .icon-editing-background-img-pannel .icon-for-background-delete {
+  width: 20px;
+  height: 20px;
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-headshot-img,
+#popup-profile-editing-container .userProfile-editing-container .profile-headshot {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  position: absolute;
+  left: 16px;
+  top: 181px;
+  border: 4px solid var(--white);
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-background-img,
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-headshot-img {
+  background-color: var(--secondaryTextColor);
+  opacity: 0.5;
+}
+#popup-profile-editing-container .userProfile-editing-container .profile-headshot {
+  z-index: 3;
+}
+#popup-profile-editing-container .userProfile-editing-container .img-cover-for-profile-headshot-img {
+  z-index: 4;
+}
+#popup-profile-editing-container .userProfile-editing-container .icon-for-headshot-add {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 5;
+  left: 76px;
+  top: 241px;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel {
+  width: 100%;
+  padding: 16px;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container {
+  width: 100%;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .form-element-group {
+  margin-bottom: 0;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input {
+  border: none;
+  width: 100%;
+  height: 54px;
+  background-color: var(--formBgColor);
+  border-radius: 2px;
+  border-bottom: 2px solid var(--secondaryTextColor);
+  padding: 5px 10.55px;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:hover, #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:active {
+  border-bottom: 2px solid var(--blue);
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input.error {
+  border-bottom: 2px solid var(--red-errorSign);
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input.disabled {
+  border-bottom: 2px solid var(--gray-disabledSign);
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .user-introduction {
+  height: 147px;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .editing-world-limit {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--messageTextColor);
 }/*# sourceMappingURL=style.css.map */
