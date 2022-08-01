@@ -57,14 +57,14 @@
         </router-link>
       </li>
     </ul>
-
-    <button
-      class="tweet-btn main-btn-style"
-      @click="showModal"
-    >
-      推文
-    </button>
-
+    <router-link to="/main/tweet">
+      <button
+        class="tweet-btn main-btn-style"
+        @click="showModal"
+      >
+        推文
+      </button>
+    </router-link>
     <li>
       <router-link
         to="/main"

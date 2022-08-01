@@ -42,6 +42,13 @@ const routes = [
     path: "/main",
     name: "main",
     component: MainPage,
+    children: [
+      {
+        path: "tweet",
+        name: "modal-tweet",
+        component: () => import("../components/PopoutWritingTweet.vue"),
+      },
+    ]
   },
   {
     path: "/replylist",

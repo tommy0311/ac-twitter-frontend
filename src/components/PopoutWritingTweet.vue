@@ -6,13 +6,15 @@
     />
     <div id="popup-writtingTweet-container">
       <div class="headerbox align-items-center">
-        <button @click="closeModal">
-          <img
-            class="popup-cancel-icon"
-            src="../assets/X.png"
-            alt="取消推文視窗按鈕"
-          >
-        </button>
+        <router-link to="/main">
+          <button @click="closeModal">
+            <img
+              class="popup-cancel-icon"
+              src="../assets/X.png"
+              alt="取消推文視窗按鈕"
+            >
+          </button>
+        </router-link>
       </div>
       <div class="writtingTweet-pannel d-flex">
         <img
@@ -54,55 +56,52 @@
 </template>
 
 <script>
-import tweetAPI from '../apis/tweets';
-import { Toast } from './../utils/helpers';
+import tweetAPI from '../apis/tweets'
+import { Toast } from './../utils/helpers'
 
 export default {
-	props: {
-		showModal: {
-			type: Function,
-		},
-		closeModal: {
-			type: Function,
-		},
-	},
-  data () {
+  props: {
+    closeModal: {
+      type: Function,
+    },
+  },
+  data() {
     return {
       isErrorExceed: false,
       isErrorEmpty: false,
     }
   },
-  created () {
+  created() {
     console.log(this.fetchTweets)
   },
-	methods: {
-		async handleSubmit() {
-			try {
+  methods: {
+    async handleSubmit() {
+      try {
         const trimmedTweet = this.tweet.trim()
-				if (!trimmedTweet.length) {
-					this.isErrorEmpty = true
-					return;
-				}
+        if (!trimmedTweet.length) {
+          this.isErrorEmpty = true
+          return
+        }
         if (trimmedTweet.length > 140) {
           this.isErrorExceed = true
-					return;
+          return
         }
-				await tweetAPI.postTweet(trimmedTweet);
-				Toast.fire({
-					icon: 'success',
-					title: '推文成功發佈',
-				});
+        await tweetAPI.postTweet(trimmedTweet)
+        Toast.fire({
+          icon: 'success',
+          title: '推文成功發佈',
+        })
         this.closeModal()
-			} catch (err) {
-				// 顯示錯誤提示
-				Toast.fire({
-					icon: 'warning',
-					title: '發生錯誤，請重試。',
-				});
+      } catch (err) {
+        // 顯示錯誤提示
+        Toast.fire({
+          icon: 'warning',
+          title: '發生錯誤，請重試。',
+        })
 
-				console.error(err.message);
-			}
-		},
-	},
-};
+        console.error(err.message)
+      }
+    },
+  },
+}
 </script>
