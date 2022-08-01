@@ -32,39 +32,44 @@
 </template>
 
 <script>
-import tweetAPI from '../apis/tweets';
-import { Toast } from './../utils/helpers';
+import tweetAPI from '../apis/tweets'
+import { Toast } from './../utils/helpers'
 
 export default {
-	name: 'WrittingTweet',
-	methods: {
-		async handleSubmit() {
-			try {
+  name: 'WrittingTweet',
+  data() {
+    return {
+      tweet: '',
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      try {
         const trimmedTweet = this.tweet.trim()
-				if (!trimmedTweet.length) {
-					Toast.fire({
-						icon: 'warning',
-						title: '推文內容不能為空白',
-					});
-					return;
-				}
-				await tweetAPI.postTweet(trimmedTweet);
+        if (!trimmedTweet.length) {
+          Toast.fire({
+            icon: 'warning',
+            title: '推文內容不能為空白',
+          })
+          return
+        }
+        await tweetAPI.postTweet(trimmedTweet)
         this.tweet = ''
-        console.log(this.tweet)
-				Toast.fire({
-					icon: 'success',
-					title: '推文成功發佈',
-				});
-			} catch (err) {
-				// 顯示錯誤提示
-				Toast.fire({
-					icon: 'warning',
-					title: '發生錯誤，請重試。',
-				});
+        this.$emit('fetch-tweet')
+        Toast.fire({
+          icon: 'success',
+          title: '推文成功發佈',
+        })
+      } catch (err) {
+        // 顯示錯誤提示
+        Toast.fire({
+          icon: 'warning',
+          title: '發生錯誤，請重試。',
+        })
 
-				console.error(err.message);
-			}
-		},
-	},
-};
+        console.error(err.message)
+      }
+    },
+  },
+}
 </script>
