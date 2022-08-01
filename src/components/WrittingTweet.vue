@@ -27,8 +27,8 @@
         </div>
       </form>
     </div>
+    <div class="user-post-under-line" />
   </div>
-  <!-- <div class="user-post-under-line"></div> -->
 </template>
 
 <script>

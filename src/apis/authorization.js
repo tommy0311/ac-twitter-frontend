@@ -6,10 +6,16 @@ export default {
       account,
       password
     })
-  },
+  },  
   signUp(data) {
     return apiHelper.post('/users', {
       ...data
     })
-  }
+  },
+  adminSignIn({ account, password }) {
+    return apiHelper.post('/admin', {
+      account,
+      password
+    })
+  },
 }

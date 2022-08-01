@@ -15,35 +15,36 @@
     >
     <div class="profile-info-container">
       <div class="d-flex justify-content-end">
-        <template>
-          <button
-            class="profile-btn mr-4"
-            type="submit"
+        <button
+          class="profile-btn mr-4"
+          type="submit"
+        >
+          <img
+            src="../assets/message.png"
+            alt="寄送訊息"
+            class="profile-btn-size"
           >
-            <img
-              src="../assets/btn_messege.png"
-              alt="寄送訊息"
-            >
-          </button>
-          <button
-            class="profile-btn"
-            type="submit"
+        </button>
+        <button
+          class="profile-btn"
+          type="submit"
+        >
+          <img
+            src="../assets/noti.png"
+            alt="訂閱按鈕"
+            class="profile-btn-size"
           >
-            <img
-              src="../assets/btn_noti.png"
-              alt="訂閱按鈕"
-            >
-          </button>
-          <button
-            class="profile-btn"
-            type="submit"
+        </button>
+        <button
+          class="profile-btn-solid"
+          type="submit"
+        >
+          <img
+            src="../assets/noti-white.png"
+            alt="退訂閱按鈕"
+            class="profile-btn-size"
           >
-            <img
-              src="../assets/btn_noti_or.png"
-              alt="退訂閱按鈕"
-            >
-          </button>
-        </template>
+        </button>       
         <button
           class="edit-profile-btn empty-btn-style ml-4"
           type="submit"

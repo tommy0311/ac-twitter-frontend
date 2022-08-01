@@ -29,7 +29,7 @@
 
         <button
           v-if="recommendUser.isFollowed"
-          class="follow-btn empty-btn-style"
+          class="follow-btn second-btn-style"
           type="submit"
           @click.stop.prevent="removeFollowing(recommendUser.id)"
         >

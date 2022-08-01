@@ -45,10 +45,12 @@
           註冊
         </router-link>
         <span> · </span>
-        <a
-          class="submit-other-choice"
-          href=""
-        >後台登入</a>
+        <router-link
+          to="/admin"
+          class="submit-other-choice"          
+        >
+          後台登入
+        </router-link>
       </div>
     </form>
   </div>

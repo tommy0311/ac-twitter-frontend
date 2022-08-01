@@ -6,9 +6,6 @@
 @import "./mixin.scss";
 
 //全域
-.template-center-alignment {
-  margin: 0 auto;
-}
 .user-name {
   font-weight: 700;
   font-size: 16px;
@@ -53,8 +50,7 @@
     margin-bottom: 32px;
   }
   label {
-    position: absolute;
-    background-color: var(--formBgColor);
+    position: absolute;    
     color: var(--secondaryTextColor);
     font-weight: normal;
     font-size: 14px;
@@ -217,7 +213,7 @@
   }
 }
 .user-post-under-line {
-  width: 100%;
+  width: 639px;
   height: 3px;
   background-color: var(--borderColor);
 }
@@ -253,14 +249,24 @@
         @include userHeadshotSetting;
         margin-right: 8px;
       }
-      .empty-btn-style {
+      .empty-btn-style,
+      .second-btn-style {
         position: absolute;
         right: 16px;
-        @include emptyBtnStyle;
         padding: 8px 16px;
+      }
+      .empty-btn-style {        
+        @include emptyBtnStyle;        
         &:hover,
         &:active {
           @include emptyBtnStyleChange;
+        }
+      }
+      .second-btn-style {        
+        @include secondBtnStyle;
+        &:hover,
+        &:active {
+          @include secondBtnStyleChange;
         }
       }
     }
@@ -283,7 +289,8 @@
 
 #tweet-element-container,
 #user-post-list-container,
-#user-like-list-container {
+#user-like-list-container,
+#admin-tweet-element-container {
   width: 100%;
   @include tiny-border-line;
   padding: 16px 24px;
@@ -407,9 +414,24 @@
         @include emptyBtnStyleChange;
       }
     }
-    .profile-btn {
+    .profile-btn,
+    .profile-btn-solid {
       width: 40px;
       height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;  
+    }
+    .profile-btn {      
+      border: 1px solid var(--orange);          
+    }
+    .profile-btn-solid {
+      background-color: var(--orange);
+    }    
+    .profile-btn-size{
+      width: 21px;
+      height: 21px;
     }
     .user-describe {
       color: var(--contentTextColor);
@@ -497,9 +519,21 @@
     width: 88px;
   }
 }
-<<<<<<< HEAD
-=======
 
+//admin區
+.admin-main-wrapper {
+  width: 937px;
+}
+#admin-tweet-element-container {
+  position: relative;
+  .delete-icon-size{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 21.5px;
+    right: 4.63px;
+  }
+}
 #admin-user-Profile-card {
   width: 249px;
   height: 314px;
@@ -765,4 +799,3 @@
     }
   }
 }
->>>>>>> 47222096195822edcb8888c69869131949e23702
