@@ -13,10 +13,15 @@
         >
 
         <div>
-          <a
-            href="#"
+          <router-link
+            :to="{
+              name: 'user-id-tweets',
+              params: { userId: recommendUser.id }
+            }"
             class="user-name"
-          >{{ recommendUser.name }}</a>
+          >
+            {{ recommendUser.name }}
+          </router-link>
           <h4 class="user-acount">
             <span>@</span>{{ recommendUser.account }}
           </h4>

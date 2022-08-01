@@ -89,6 +89,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  background-color: var(--bgColor);
 }
 
 html,
@@ -792,17 +793,6 @@ input:invalid {
 .y-scroll {
   overflow-y: scroll;
 }
-.y-scroll::-webkit-scrollbar {
-  width: 15px;
-}
-.y-scroll::-webkit-scrollbar-thumb {
-  width: 8px;
-  height: 25px;
-  left: calc(50% - 4px + 0.5px);
-  top: calc(50% - 12.5px);
-  background: #c1c1c1;
-  border-radius: 4px;
-}
 
 #login-container,
 #regist-container,
@@ -840,7 +830,7 @@ input:invalid {
 }
 .form-container label {
   position: absolute;
-  display: block;
+  background-color: var(--formBgColor);
   color: var(--secondaryTextColor);
   font-weight: normal;
   font-size: 14px;
@@ -850,7 +840,7 @@ input:invalid {
 }
 .form-container input {
   border: none;
-  width: 100%;
+  width: 356px;
   height: 54px;
   background-color: var(--formBgColor);
   border-radius: 2px;
@@ -859,12 +849,6 @@ input:invalid {
 }
 .form-container input:hover, .form-container input:active {
   border-bottom: 2px solid var(--blue);
-}
-.form-container input.error {
-  border-bottom: 2px solid var(--red-errorSign);
-}
-.form-container input.disabled {
-  border-bottom: 2px solid var(--gray-disabledSign);
 }
 .form-container input::-moz-placeholder {
   font-weight: 400;
@@ -978,11 +962,6 @@ input:invalid {
   margin-left: 24px;
 }
 
-.admin-main-wrapper {
-  width: 936px;
-  margin-left: 24px;
-}
-
 #navpillHeader-container {
   width: 100%;
   height: 75px;
@@ -999,7 +978,6 @@ input:invalid {
 #navpillHeader-container .navpillHeader-title {
   font-weight: 700;
   font-size: 24px;
-  line-height: 26px;
   color: var(--black);
 }
 #navpillHeader-container .navpill-info-container {
@@ -1138,8 +1116,7 @@ input:invalid {
 
 #tweet-element-container,
 #user-post-list-container,
-#user-like-list-container,
-#admin-tweet-element-container {
+#user-like-list-container {
   width: 100%;
   border: 1px solid var(--borderColor);
   padding: 16px 24px;
@@ -1148,23 +1125,20 @@ input:invalid {
 }
 #tweet-element-container .user-headshot,
 #user-post-list-container .user-headshot,
-#user-like-list-container .user-headshot,
-#admin-tweet-element-container .user-headshot {
+#user-like-list-container .user-headshot {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 #tweet-element-container .tweet-icon-show-pannel,
 #user-post-list-container .tweet-icon-show-pannel,
-#user-like-list-container .tweet-icon-show-pannel,
-#admin-tweet-element-container .tweet-icon-show-pannel {
+#user-like-list-container .tweet-icon-show-pannel {
   width: 100%;
   height: 14px;
 }
 #tweet-element-container .tweet-icon-show-pannel .tweet-icon-show,
 #user-post-list-container .tweet-icon-show-pannel .tweet-icon-show,
-#user-like-list-container .tweet-icon-show-pannel .tweet-icon-show,
-#admin-tweet-element-container .tweet-icon-show-pannel .tweet-icon-show {
+#user-like-list-container .tweet-icon-show-pannel .tweet-icon-show {
   width: 13.17px;
   height: 13.17px;
 }
@@ -1173,25 +1147,11 @@ input:invalid {
 #user-post-list-container .tweet-icon-show-pannel .reply-number,
 #user-post-list-container .tweet-icon-show-pannel .like-number,
 #user-like-list-container .tweet-icon-show-pannel .reply-number,
-#user-like-list-container .tweet-icon-show-pannel .like-number,
-#admin-tweet-element-container .tweet-icon-show-pannel .reply-number,
-#admin-tweet-element-container .tweet-icon-show-pannel .like-number {
+#user-like-list-container .tweet-icon-show-pannel .like-number {
   font-weight: 600;
   font-size: 14px;
   line-height: 14px;
   color: var(--messageTextColor);
-}
-
-#admin-tweet-element-container {
-  padding: 16px 82px 16px 24px;
-  position: relative;
-}
-#admin-tweet-element-container .delete-icon {
-  width: 15px;
-  height: 15px;
-  position: absolute;
-  top: 21.5px;
-  right: 4.5px;
 }
 
 #reply-post-container {

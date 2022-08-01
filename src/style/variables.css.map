@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+{"version":3,"sources":["variables.scss","variables.css"],"names":[],"mappings":"AAAA;EACE,gBAAA;EACA,gBAAA;EACA,iBAAA;EACA,eAAA;EACA,uBAAA;EACA,oBAAA;EACA,sBAAA;EACA,6BAAA;EACA,+BAAA;EACA,2BAAA;EACA,2BAAA;EACA,sBAAA;EACA,2BAAA;ACCF","file":"variables.css"}
+=======
 {"version":3,"sources":["variables.scss","variables.css"],"names":[],"mappings":"AAAA;EACE,gBAAA;EACA,gBAAA;EACA,iBAAA;EACA,eAAA;EACA,eAAA;EACA,wBAAA;EACA,6BAAA;EACA,uBAAA;EACA,oBAAA;EACA,sBAAA;EACA,6BAAA;EACA,+BAAA;EACA,2BAAA;EACA,2BAAA;EACA,sBAAA;EACA,2BAAA;ACCF","file":"variables.css"}
+>>>>>>> 47222096195822edcb8888c69869131949e23702

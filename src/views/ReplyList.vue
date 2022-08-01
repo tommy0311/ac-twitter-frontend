@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex template-center-alignment">
+  <div class="d-flex justify-content-center">
     <NavBar />
     <div class="main-wrapper">
       <NavpillHeader />

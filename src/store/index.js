@@ -14,6 +14,7 @@ export default new Vuex.Store({
       avatar: '',
       cover: '',
       role: '',
+      introduction: '',
       tweetsCount: -1,
     },
     isAuthenticated: false,
@@ -45,7 +46,7 @@ export default new Vuex.Store({
       try {
         // 呼叫 usersAPI.getCurrentUser() 方法，並將 response 顯示出來
         const { data } = await usersAPI.getCurrentUser()
-        const { id, account, name, email, avatar, cover, role } = data
+        const { id, account, name, email, avatar, cover, role, introduction } = data
 
         const tweets = await usersAPI.getUserTweets({ userId: id })
 
@@ -57,6 +58,7 @@ export default new Vuex.Store({
           avatar,
           cover,
           role,
+          introduction,
           tweetsCount: tweets.data.length
         })
 

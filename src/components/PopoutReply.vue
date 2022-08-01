@@ -18,10 +18,12 @@
         >
         <div class="ml-2">
           <div class="d-flex align-items-center">
-            <a
+            <a 
               href="#"
               class="user-name"
-            > Pizza Hut </a>
+            >
+              Pizza Hut
+            </a>
             <p class="user-acount-for-post ml-2">
               <span>@</span>pizzahut<span> • </span>
             </p>
@@ -34,7 +36,8 @@
             change that and allow the items to wrap as needed with this property
           </p>
           <div class="reply-to-who-container d-flex mt-3">
-            回覆給<span class="reply-to-who-acount ml-1">
+            回覆給
+            <span class="reply-to-who-acount ml-1">
               <span>@</span>
               apple
             </span>

@@ -62,14 +62,24 @@
         {{ user.introduction }}
       </p>
       <div class="user-follow-info d-flex mt-2">
-        <router-link to="/user/following">
+        <router-link
+          :to="{
+            name: 'user-id-followinglist',
+            params: { userId: user.id }
+          }"
+        >
           <span class="following-number">
             {{ user.followingCount }} 個
           </span>
           <span class="ml-1">跟隨中</span>
         </router-link>
         
-        <router-link to="/user/follower">
+        <router-link
+          :to="{
+            name: 'user-id-followerlist',
+            params: { userId: user.id }
+          }"
+        >
           <span class="follower-number ml-5">
             {{ user.followerCount }} 位
           </span>

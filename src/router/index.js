@@ -48,6 +48,30 @@ const routes = [
     name: "replylist",
     component: () => import("../views/ReplyList.vue"),
   },
+
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("../views/UserSelf.vue"),
+    children: [
+      {
+        path: "tweets",
+        name: "user-tweets",
+        component: () => import("../components/UserPostList.vue"),
+      },
+      {
+        path: "replied_tweets",
+        name: "user-replied_tweets",
+        component: () => import("../components/UserReplyList.vue"),
+      },
+      {
+        path: "likes",
+        name: "user-likes",
+        component: () => import("../components/UserLikeList.vue"),
+      },
+    ],
+  },
+
   {
     path: "/user/:userId",
     name: "user-id",
@@ -70,28 +94,25 @@ const routes = [
       },
     ]
   },
+
   {
     path: "/user",
-    name: "user",
-    component: () => import("../views/UserSelf.vue"),
+    name: "user-follower",
+    component: () => import("../views/UserFollow.vue"),
     children: [
       {
-        path: "",
-        name: "user-tweets",
-        component: () => import("../components/UserPostList.vue"),
+        path: "follower",
+        name: "user-followerlist",
+        component: () => import("../components/UserFollowerList.vue"),
       },
       {
-        path: "reply",
-        name: "user-reply",
-        component: () => import("../components/UserReplyList.vue"),
-      },
-      {
-        path: "like",
-        name: "user-like",
-        component: () => import("../components/UserLikeList.vue"),
+        path: "following",
+        name: "user-followinglist",
+        component: () => import("../components/UserFollowingList.vue"),
       },
     ],
   },
+
   {
     path: "/user/:userId",
     name: "user-id-follow",
@@ -109,23 +130,7 @@ const routes = [
       },
     ],
   },
-  {
-    path: "/user",
-    name: "user-follower",
-    component: () => import("../views/UserFollower.vue"),
-    children: [
-      {
-        path: "follower",
-        name: "user-followerlist",
-        component: () => import("../components/UserFollowerList.vue"),
-      },
-      {
-        path: "following",
-        name: "user-followinglist",
-        component: () => import("../components/UserFollowingList.vue"),
-      },
-    ],
-  },
+  
   {
     path: "/admin",
     name: "admin",

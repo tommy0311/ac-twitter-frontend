@@ -93,7 +93,7 @@
 <script>
 import { emptyImageFilter } from './../utils/mixins'
 export default {
-  name: "UserProfile",
+  name: "UserProfileOther",
   mixins: [emptyImageFilter],
   props: {
     initialUser: {

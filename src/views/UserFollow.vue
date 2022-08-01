@@ -1,25 +1,22 @@
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex template-center-alignment">
     <NavBar />
     <div class="main-wrapper">
       <NavpillHeader />
-      <UserProfileOther
+
+      <!-- 包含 追隨者、正在追隨 兩個分頁 -->
+      <NavpillUserFollow
         :initial-user="user"
       />
 
-      <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
-      <NavpillUser
-        :initial-user="user"
-      />
       <div class="y-scroll">
         <router-view
-          :initial-tweets="tweets"
-          :initial-replies="replies"
-          :initial-likes="likes"
+          :initial-followers="followers"
+          :initial-followings="followings"
         />
       </div>
     </div>
-
+    
     <div id="recommendColumn-container">
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
@@ -33,21 +30,19 @@
 import NavBar from "../components/NavBar.vue"
 import RecommendColumn from "../components/RecommendColumn.vue"
 import NavpillHeader from "../components/NavpillHeader.vue"
-import UserProfileOther from "../components/UserProfileOther.vue"
-import NavpillUser from "../components/NavpillUser.vue"
-import { Toast } from './../utils/helpers'
-import usersAPI from "./../apis/users"
+import NavpillUserFollow from "../components/NavpillUserFollow.vue"
+import { Toast } from '../utils/helpers'
+import usersAPI from "../apis/users"
 
 export default {
-  name: "UserOther",
+  name: "UserFollow",
   components: {
     NavBar,
     RecommendColumn,
     NavpillHeader,
-    UserProfileOther,
-    NavpillUser,
+    NavpillUserFollow,
   },
-  beforeRouteUpdate (to, from, next) {
+beforeRouteUpdate (to, from, next) {
     const { userId } = to.params
     this.fetchUser(userId)
     next()
@@ -66,20 +61,18 @@ export default {
         followingCount: -1,
         followerCount: -1
       },
-      tweets: [],
-      replies: [],
-      likes: [],
+      followers: [],
+      followings: [],
       isProcessing: false
     }
   },
-  watch: {
-    user: "fetchUserTweetsRepliesLikes"
-  },
+
   created () {
     const { userId } = this.$route.params
     this.fetchUser(userId)
   },
   methods: {
+    // fetch 三個東西 getUser getUserFollowings getUserFollowers
     async fetchUser (userId) {
       try {
         const followingsData = await usersAPI.getUserFollowings({ userId })
@@ -88,8 +81,8 @@ export default {
         const followersData = await usersAPI.getUserFollowers({ userId })
         const followers = followersData.data
 
-        // console.log('followings=', followings)
-        // console.log('followers=', followers)
+        console.log('followings=', followings)
+        console.log('followers=', followers)
 
         const { data } = await usersAPI.getUser({ userId })
 
@@ -126,29 +119,6 @@ export default {
         })
       }
     },
-    async fetchUserTweetsRepliesLikes() {
-      try {
-        console.log('this.user.id=', this.user.id)
-        const tweets = await usersAPI.getUserTweets({ userId: this.user.id })
-        this.tweets = tweets.data
-        // console.log('tweets=', this.tweets)
-
-        const replies = await usersAPI.getUserReplies({ userId: this.user.id })
-        this.replies = replies.data
-        // console.log('replies=', this.replies)
-
-        const likes = await usersAPI.getUserLikes({ userId: this.user.id })
-        this.likes = likes.data
-        // console.log('likes=', this.likes)
-
-      } catch (error) {
-        console.error(error.message);
-        Toast.fire({
-          icon: "error",
-          title: "無法取得 Tweets 資料",
-        });
-      }
-    }
   }
-};
+}
 </script>

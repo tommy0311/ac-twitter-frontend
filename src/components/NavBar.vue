@@ -10,41 +10,34 @@
       src="../assets/logo@2.png"
       alt=""
     >
-
     <ul class="nav-list">
       <li>
         <router-link
           to="/main"
           class="nav-link"
         >
-          <img
-            src="../assets/icon_home.png"
-            alt=""
-            class="icon-container"
-          >
-          <img
-            src="../assets/atIndex@2x.png"
-            alt=""
-            class="icon-container"
-          >
+          <div class="icon-container">
+            <img
+              src="../assets/icon_home.png"
+              alt=""
+              class="icon-size"
+            >
+          </div>
           <span class="navbar-index">首頁</span>
         </router-link>
       </li>
       <li>
         <router-link
-          to="/user"
+          to="/user/tweets"
           class="nav-link"
         >
-          <img
-            src="../assets/icon_user.png"
-            alt=""
-            class="icon-container"
-          >
-          <img
-            src="../assets/atUser.png"
-            alt=""
-            class="icon-container"
-          >
+          <div class="icon-container">
+            <img
+              src="../assets/icon_user.png"
+              alt=""
+              class="icon-size"
+            >
+          </div>
           <span class="navbar-index">個人資料</span>
         </router-link>
       </li>
@@ -53,20 +46,18 @@
           to="/setting"
           class="nav-link"
         >
-          <img
-            src="../assets/icon_setting.png"
-            alt=""
-            class="icon-container"
-          >
-          <img
-            src="../assets/cog.png"
-            alt=""
-            class="icon-container"
-          >
+          <div class="icon-container">
+            <img
+              src="../assets/icon_setting.png"
+              alt=""
+              class="icon-size"
+            >
+          </div>
           <span class="navbar-index">設定</span>
         </router-link>
       </li>
     </ul>
+
     <button
       class="tweet-btn main-btn-style"
       @click="showModal"
@@ -118,11 +109,13 @@
             href="#"
             class="nav-link"
           >
-            <img
-              src="../assets/log out.png"
-              alt=""
-              class="icon-container"
-            >
+            <div class="icon-container">
+              <img
+                src="../assets/log out.png"
+                alt=""
+                class="icon-size"
+              >
+            </div>
             <span
               class="navbar-index"
               @click="logout"
