@@ -98,7 +98,7 @@ export default {
           }
         }
         this.recommendUsers = arr
-        this.$emit('fromRCFadd')
+        this.$emit('fromRCF')
 
         this.isProcessing = false;
       } catch (error) {
@@ -125,7 +125,7 @@ export default {
           }
         }
         this.recommendUsers = arr
-        this.$emit('fromRCFremove')
+        this.$emit('fromRCF')
 
         this.isProcessing = false;
       } catch (error) {

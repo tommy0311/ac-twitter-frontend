@@ -12,8 +12,8 @@
         <router-view
           :initial-followers="followers"
           :initial-followings="followings"
-          @fromFollowingList="updateFromFollowingList"
-          @fromFollowerList="updateFromFollowerList"
+          @fromFollowingList="updatePage"
+          @fromFollowerList="updatePage"
         />
       </div>
     </div>
@@ -24,8 +24,7 @@
       </div>
       <RecommendColumnFollow
         :initial-recommend-users="recommendUsers"
-        @fromRCFremove="updateFromRCFremove"
-        @fromRCFadd="updateFromRCFadd"
+        @fromRCF="updatePage"
       />
     </div>
   </div>
@@ -80,30 +79,17 @@ export default {
     ...mapState(["currentUser"]),
   },
   created () {
-    console.log('currentUser=', this.currentUser.name)
     const { userId } = this.$route.params
     this.fetchUser(userId),
     this.userId = Number(userId),
     this.fetchRecommendUsers();
   },
   methods: {
-    updateFromFollowingList() {
-      this.fetchFollowersFollowings(this.userId)
+    updatePage() {
+      this.fetchFollowingsFollowers(this.userId)
       this.fetchRecommendUsers()
     },
-    updateFromFollowerList() {
-      this.fetchFollowersFollowings(this.userId)
-      this.fetchRecommendUsers()
-    },
-    updateFromRCFadd() {
-      this.fetchFollowersFollowings(this.userId)
-      this.fetchRecommendUsers()
-    },
-    updateFromRCFremove() {
-      this.fetchFollowersFollowings(this.userId)
-      this.fetchRecommendUsers()
-    },
-    async fetchFollowersFollowings (userId) {
+    async fetchFollowingsFollowers (userId) {
       try {
         const followersData = await usersAPI.getUserFollowers({ userId })
         const followingsData = await usersAPI.getUserFollowings({ userId })
@@ -127,7 +113,7 @@ export default {
         console.error(error.message)
         Toast.fire({
           icon: 'error',
-          title: '無法 fetchFollowers 資料，請稍後再試'
+          title: '無法 fetch Follow 資料，請稍後再試'
         })
       }
     },

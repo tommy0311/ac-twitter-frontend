@@ -11,12 +11,12 @@
       <NavpillUser
         :initial-user="user"
       />
-
       <div class="y-scroll">
         <router-view
           :initial-tweets="tweets"
           :initial-replies="replies"
           :initial-likes="likes"
+          @fromUserLikeList="updatePage"
         />
       </div>
     </div>
@@ -27,8 +27,7 @@
       </div>
       <RecommendColumnFollow
         :initial-recommend-users="recommendUsers"
-        @fromRCFremove="updateFromRCFremove"
-        @fromRCFadd="updateFromRCFadd"
+        @fromRCF="updatePage"
       />
     </div>
   </div>
@@ -70,6 +69,7 @@ export default {
       tweets: [],
       replies: [],
       likes: [],
+      currentUserLikes: [],
       recommendUsers: [],
       isProcessing: false
     }
@@ -81,14 +81,19 @@ export default {
     user: "fetchUserTweetsRepliesLikes"
   },
   created () {
-    this.fetchFollowingsFollowers()
+    const userId = this.currentUser.id
+    this.fetchFollowingsFollowers(userId)
     this.fetchRecommendUsers();
   },
   methods: {
-    async fetchFollowingsFollowers () {
+    updatePage() {
+      const userId = this.currentUser.id
+      this.fetchFollowingsFollowers(userId);
+      this.fetchRecommendUsers();
+      this.fetchUserTweetsRepliesLikes();
+    },
+    async fetchFollowingsFollowers (userId) {
       try {
-        const userId = this.currentUser.id
-        // console.log('currentUser=', this.currentUser)
         const followingsData = await usersAPI.getUserFollowings({ userId })
         const followings = followingsData.data
 
@@ -107,16 +112,33 @@ export default {
         console.error(error.message)
         Toast.fire({
           icon: 'error',
-          title: '無法取得 User 資料，請稍後再試'
+          title: '無法取得 follow 資料，請稍後再試'
         })
       }
     },
     async fetchUserTweetsRepliesLikes() {
       try {
         console.log('this.user.id=', this.user.id)
+
+        const currentUserLikes = await usersAPI.getUserLikes({userId: this.currentUser.id});
+        this.currentUserLikes = currentUserLikes.data
+
         const tweets = await usersAPI.getUserTweets({ userId: this.user.id })
         this.tweets = tweets.data
         // console.log('tweets=', this.tweets)
+        this.tweets = this.tweets.map( tweet => {
+          if( this.currentUserLikes.some(l => l.TweetId === tweet.id) ) {
+            return {
+              ...tweet,
+              isLiked: true
+            }
+          } else {
+            return {
+              ...tweet,
+              isLiked: false
+            }
+          }
+        })
 
         const replies = await usersAPI.getUserReplies({ userId: this.user.id })
         this.replies = replies.data

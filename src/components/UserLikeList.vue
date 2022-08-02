@@ -44,13 +44,17 @@
             </span>
           </div>
           <div class="d-flex align-items-center ml-8">
-            <button>
+            <button
+              v-if="like.isLiked"
+            >
               <img
-                src="../assets/like.png"
-                alt=""
+                src="../assets/likedx2.png"
+                alt="likedx2.png"
                 class="tweet-icon-show"
+                @click.stop.prevent="unLike(like.TweetId)"
               >
             </button>
+
             <span class="like-number ml-1">
               {{ like.Tweet.likeCount }}
             </span>
@@ -62,8 +66,10 @@
 </template>
 
 <script>
-import { fromNowFilter } from './../utils/mixins'
-import { emptyImageFilter } from './../utils/mixins'
+import { fromNowFilter, emptyImageFilter } from './../utils/mixins'
+import usersAPI from './../apis/users'
+import { Toast } from './../utils/helpers'
+
 export default {
   name: "UserLikeList",
   mixins: [fromNowFilter,emptyImageFilter],
@@ -83,6 +89,30 @@ export default {
       this.likes = {
         ...this.likes,
         ...newValue
+      }
+      this.likes = newValue
+    }
+  },
+  methods: {
+    async unLike (tweetId) {
+      try {
+        this.isProcessing = true
+        console.log('tweetId=',tweetId)
+        const { data } = await usersAPI.unLike({ tweetId })
+        console.log('data=',data)
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+        this.$emit('fromUserLikeList')
+
+        this.isProcessing = false
+      } catch (error) {
+        console.error(error.message)
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法對 Tweet 取消 Like，請稍後再試'
+        })
       }
     }
   }

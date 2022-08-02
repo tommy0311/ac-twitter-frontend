@@ -44,12 +44,12 @@
             alt="退訂閱按鈕"
             class="profile-btn-size"
           >
-        </button>       
+        </button>
         <button
           class="edit-profile-btn empty-btn-style ml-4"
           type="submit"
         >
-          編輯個人資料
+          正在跟隨
         </button>
       </div>
       <h4 class="user-name mt-4">

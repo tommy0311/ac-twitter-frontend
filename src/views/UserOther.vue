@@ -16,6 +16,7 @@
           :initial-tweets="tweets"
           :initial-replies="replies"
           :initial-likes="likes"
+          @fromUserLikeList="updatePage"
         />
       </div>
     </div>
@@ -24,25 +25,29 @@
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
-      <RecommendColumn />
+      <RecommendColumnFollow
+        :initial-recommend-users="recommendUsers"
+        @fromRCF="updatePage"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from "../components/NavBar.vue"
-import RecommendColumn from "../components/RecommendColumn.vue"
+import RecommendColumnFollow from "../components/RecommendColumnFollow.vue"
 import NavpillHeader from "../components/NavpillHeader.vue"
 import UserProfileOther from "../components/UserProfileOther.vue"
 import NavpillUser from "../components/NavpillUser.vue"
 import { Toast } from './../utils/helpers'
 import usersAPI from "./../apis/users"
+import { mapState } from "vuex"
 
 export default {
   name: "UserOther",
   components: {
     NavBar,
-    RecommendColumn,
+    RecommendColumnFollow,
     NavpillHeader,
     UserProfileOther,
     NavpillUser,
@@ -69,17 +74,30 @@ export default {
       tweets: [],
       replies: [],
       likes: [],
+      currentUserLikes: [],
+      recommendUsers: [],
+      userId: -1,
       isProcessing: false
     }
+  },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   watch: {
     user: "fetchUserTweetsRepliesLikes"
   },
   created () {
     const { userId } = this.$route.params
-    this.fetchUser(userId)
+    this.userId = userId
+    this.fetchUser(userId);
+    this.fetchRecommendUsers();
   },
   methods: {
+    updatePage() {
+      this.fetchFollowingsFollowers(this.userId);
+      this.fetchRecommendUsers();
+      this.fetchUserTweetsRepliesLikes();
+    },
     async fetchUser (userId) {
       try {
         const followingsData = await usersAPI.getUserFollowings({ userId })
@@ -87,12 +105,10 @@ export default {
 
         const followersData = await usersAPI.getUserFollowers({ userId })
         const followers = followersData.data
-
         // console.log('followings=', followings)
         // console.log('followers=', followers)
 
         const { data } = await usersAPI.getUser({ userId })
-
         const {
           id,
           account,
@@ -117,7 +133,6 @@ export default {
           followingCount: followings.length,
           followerCount: followers.length
         }
-
       } catch (error) {
         console.error(error.message)
         Toast.fire({
@@ -126,20 +141,73 @@ export default {
         })
       }
     },
+    async fetchFollowingsFollowers (userId) {
+      try {
+        const followingsData = await usersAPI.getUserFollowings({ userId })
+        const followings = followingsData.data
+
+        const followersData = await usersAPI.getUserFollowers({ userId })
+        const followers = followersData.data
+        // console.log('followings=', followings)
+        // console.log('followers=', followers)
+
+        this.user = {
+          ...this.user,
+          followingCount: followings.length,
+          followerCount: followers.length
+        }
+
+      } catch (error) {
+        console.error(error.message)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得 follow 資料，請稍後再試'
+        })
+      }
+    },
     async fetchUserTweetsRepliesLikes() {
       try {
         console.log('this.user.id=', this.user.id)
+
+        const currentUserLikes = await usersAPI.getUserLikes({userId: this.currentUser.id});
+        this.currentUserLikes = currentUserLikes.data
+
         const tweets = await usersAPI.getUserTweets({ userId: this.user.id })
         this.tweets = tweets.data
         // console.log('tweets=', this.tweets)
+        this.tweets = this.tweets.map( tweet => {
+          if( this.currentUserLikes.some(l => l.TweetId === tweet.id) ) {
+            return {
+              ...tweet,
+              isLiked: true
+            }
+          } else {
+            return {
+              ...tweet,
+              isLiked: false
+            }
+          }
+        })
 
         const replies = await usersAPI.getUserReplies({ userId: this.user.id })
         this.replies = replies.data
         // console.log('replies=', this.replies)
 
         const likes = await usersAPI.getUserLikes({ userId: this.user.id })
-        this.likes = likes.data
-        // console.log('likes=', this.likes)
+        this.likes = likes.data.map( like => {
+          if( this.currentUserLikes.some(l => l.TweetId === like.TweetId) ) {
+            return {
+              ...like,
+              isLiked: true
+            }
+          } else {
+            return {
+              ...like,
+              isLiked: false
+            }
+          }
+        })
+        console.log('likes=', this.likes)
 
       } catch (error) {
         console.error(error.message);
@@ -148,7 +216,33 @@ export default {
           title: "無法取得 Tweets 資料",
         });
       }
-    }
+    },
+    async fetchRecommendUsers() {
+      try {
+        this.isLoading = true;
+
+        const { data } = await usersAPI.getUserFollowings({
+          userId: this.currentUser.id,
+        });
+        const userFollowings = data;
+        const responseUsers = await usersAPI.getTopUsers();
+        this.recommendUsers = responseUsers.data.map((user) => {
+          return {
+            ...user,
+            isFollowed: userFollowings.some((f) => f.followingId === user.id),
+          };
+        });
+
+        this.isLoading = false;
+      } catch (error) {
+        console.error(error);
+        this.isLoading = false;
+        Toast.fire({
+          icon: "error",
+          title: "無法取得 RecommendUsers 資料，請稍後再試",
+        });
+      }
+    },
   }
 };
 </script>
