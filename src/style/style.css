@@ -1017,9 +1017,9 @@ input:invalid {
   color: var(--messageTextColor);
 }
 #writtingTweet-container .writtingTweet-pannel .second-btn-style {
-  width: 64px;
+  width: 80px;
   padding: 8px 16px;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   text-align: center;
   color: var(--white);
@@ -1094,7 +1094,7 @@ input:invalid {
   line-height: 24px;
   padding: 8px 16px;
 }
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:active {
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:active, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style-active {
   color: var(--white);
   background-color: var(--orange);
 }
@@ -1272,7 +1272,7 @@ input:invalid {
   line-height: 24px;
   padding: 8px 16px;
 }
-#userProfile-container .profile-info-container .empty-btn-style:hover, #userProfile-container .profile-info-container .empty-btn-style:active {
+#userProfile-container .profile-info-container .empty-btn-style:hover, #userProfile-container .profile-info-container .empty-btn-style:active, #userProfile-container .profile-info-container .empty-btn-style-active {
   color: var(--white);
   background-color: var(--orange);
 }
@@ -1363,7 +1363,7 @@ input:invalid {
   line-height: 24px;
   padding: 8px 16px;
 }
-#user-follower-list-container .empty-btn-style:hover, #user-follower-list-container .empty-btn-style:active {
+#user-follower-list-container .empty-btn-style:hover, #user-follower-list-container .empty-btn-style:active, #user-follower-list-container .empty-btn-style-active {
   color: var(--white);
   background-color: var(--orange);
 }

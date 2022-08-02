@@ -46,10 +46,19 @@
           >
         </button>
         <button
-          class="edit-profile-btn empty-btn-style ml-4"
-          type="submit"
+          v-if="user.isFollowed"
+          class="follow-btn empty-btn-style empty-btn-style-active"
+          @click.stop.prevent="removeFollowing(user.id)"
         >
           正在跟隨
+        </button>
+
+        <button
+          v-else
+          class="follow-btn empty-btn-style"
+          @click.stop.prevent="addFollowing(user.id)"
+        >
+          跟隨
         </button>
       </div>
       <h4 class="user-name mt-4">
@@ -93,6 +102,9 @@
 
 <script>
 import { emptyImageFilter } from './../utils/mixins'
+import { Toast } from "./../utils/helpers"
+import usersAPI from "./../apis/users"
+
 export default {
   name: "UserProfileOther",
   mixins: [emptyImageFilter],
@@ -129,7 +141,46 @@ export default {
         ...this.user,
         ...newValue
       }
+      this.user = newValue
     }
-  }
+  },
+  methods: {
+    async addFollowing(userId) {
+      try {
+        this.isProcessing = true;
+        const { data } = await usersAPI.addFollowing({ userId });
+        console.log("following users=", data);
+        this.user.isFollowed = true
+        this.$emit('fromUserProfileOther')
+
+        this.isProcessing = false;
+      } catch (error) {
+        console.error(error.message);
+        this.isProcessing = false;
+        Toast.fire({
+          icon: "error",
+          title: "目前無法跟隨使用者，請稍後再試",
+        });
+      }
+    },
+    async removeFollowing(userId) {
+      try {
+        this.isProcessing = true;
+        const { data } = await usersAPI.removeFollowing({ userId });
+        console.log("following users=", data);
+        this.user.isFollowed = false
+        this.$emit('fromUserProfileOther')
+
+        this.isProcessing = false;
+      } catch (error) {
+        console.error(error.message);
+        this.isProcessing = false;
+        Toast.fire({
+          icon: "error",
+          title: "目前無法取消跟隨使用者，請稍後再試",
+        });
+      }
+    },
+  },
 }
 </script>

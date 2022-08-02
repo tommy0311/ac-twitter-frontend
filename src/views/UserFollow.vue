@@ -23,7 +23,7 @@
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
-      <RecommendColumnFollow
+      <RecommendColumn
         :initial-recommend-users="recommendUsers"
         @fromRCF="updatePage"
       />
@@ -33,7 +33,7 @@
 
 <script>
 import NavBar from "../components/NavBar.vue"
-import RecommendColumnFollow from "../components/RecommendColumnFollow.vue"
+import RecommendColumn from "../components/RecommendColumn.vue"
 import NavpillHeader from "../components/NavpillHeader.vue"
 import NavpillUserFollow from "../components/NavpillUserFollow.vue"
 import { Toast } from '../utils/helpers'
@@ -44,7 +44,7 @@ export default {
   name: "UserFollow",
   components: {
     NavBar,
-    RecommendColumnFollow,
+    RecommendColumn,
     NavpillHeader,
     NavpillUserFollow,
   },

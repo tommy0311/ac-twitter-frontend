@@ -7,7 +7,7 @@
     >
       <button
         v-if="follower.isFollowed"
-        class="user-follow-btn empty-btn-style"
+        class="user-follow-btn empty-btn-style empty-btn-style-active"
         type="submit"
         @click.stop.prevent="removeFollowing(follower.followerId)"
       >

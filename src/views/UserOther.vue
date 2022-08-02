@@ -5,6 +5,7 @@
       <NavpillHeader />
       <UserProfileOther
         :initial-user="user"
+        @fromUserProfileOther="updatePage"
       />
 
       <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
@@ -25,7 +26,7 @@
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
-      <RecommendColumnFollow
+      <RecommendColumn
         :initial-recommend-users="recommendUsers"
         @fromRCF="updatePage"
       />
@@ -35,7 +36,7 @@
 
 <script>
 import NavBar from "../components/NavBar.vue"
-import RecommendColumnFollow from "../components/RecommendColumnFollow.vue"
+import RecommendColumn from "../components/RecommendColumn.vue"
 import NavpillHeader from "../components/NavpillHeader.vue"
 import UserProfileOther from "../components/UserProfileOther.vue"
 import NavpillUser from "../components/NavpillUser.vue"
@@ -47,7 +48,7 @@ export default {
   name: "UserOther",
   components: {
     NavBar,
-    RecommendColumnFollow,
+    RecommendColumn,
     NavpillHeader,
     UserProfileOther,
     NavpillUser,
@@ -69,12 +70,14 @@ export default {
         introduction: '',
         role: 'user',
         followingCount: -1,
-        followerCount: -1
+        followerCount: -1,
+        isFollowed: false
       },
       tweets: [],
       replies: [],
       likes: [],
       currentUserLikes: [],
+      currentUserFollowings: [],
       recommendUsers: [],
       userId: -1,
       isProcessing: false
@@ -88,17 +91,36 @@ export default {
   },
   created () {
     const { userId } = this.$route.params
-    this.userId = userId
-    this.fetchUser(userId);
+    this.userId = Number(userId)
+    this.fetchUser(this.userId);
+    this.fetchfollowingCount(this.userId);
+    this.fetchCurrentUserFollowings();
     this.fetchRecommendUsers();
   },
   methods: {
     updatePage() {
-      this.fetchFollowingsFollowers(this.userId);
+      this.fetchfollowingCount(this.userId);
       this.fetchRecommendUsers();
       this.fetchUserTweetsRepliesLikes();
+      this.fetchCurrentUserFollowings();
     },
-    async fetchUser (userId) {
+    // 判斷按鈕呈現為 正在跟隨？ 跟隨？
+    async fetchCurrentUserFollowings() {
+      try {
+        const followingsData = await usersAPI.getUserFollowings({ userId: this.currentUser.id })
+        const followings = followingsData.data
+        console.log('cur followings=', followings)
+        this.user.isFollowed = followings.some( f => f.followingId === this.userId) ? true : false
+      } catch (error) {
+        console.error(error.message)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得 CurrentUserFollowings 資料，請稍後再試'
+        })
+      }
+    },
+    // 更新 跟隨中、跟隨者 的數字
+    async fetchfollowingCount (userId) {
       try {
         const followingsData = await usersAPI.getUserFollowings({ userId })
         const followings = followingsData.data
@@ -107,7 +129,20 @@ export default {
         const followers = followersData.data
         // console.log('followings=', followings)
         // console.log('followers=', followers)
+        this.user.followingCount = followings.length,
+        this.user.followerCount = followers.length
 
+      } catch (error) {
+        console.error(error.message)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得 followingCount，請稍後再試'
+        })
+      }
+    },
+    // 取得 使用者基本資料
+    async fetchUser (userId) {
+      try {
         const { data } = await usersAPI.getUser({ userId })
         const {
           id,
@@ -129,9 +164,7 @@ export default {
           avatar,
           cover,
           introduction,
-          role,
-          followingCount: followings.length,
-          followerCount: followers.length
+          role
         }
       } catch (error) {
         console.error(error.message)
@@ -141,30 +174,7 @@ export default {
         })
       }
     },
-    async fetchFollowingsFollowers (userId) {
-      try {
-        const followingsData = await usersAPI.getUserFollowings({ userId })
-        const followings = followingsData.data
-
-        const followersData = await usersAPI.getUserFollowers({ userId })
-        const followers = followersData.data
-        // console.log('followings=', followings)
-        // console.log('followers=', followers)
-
-        this.user = {
-          ...this.user,
-          followingCount: followings.length,
-          followerCount: followers.length
-        }
-
-      } catch (error) {
-        console.error(error.message)
-        Toast.fire({
-          icon: 'error',
-          title: '無法取得 follow 資料，請稍後再試'
-        })
-      }
-    },
+    // 取得 推文 回覆 喜歡的內容
     async fetchUserTweetsRepliesLikes() {
       try {
         console.log('this.user.id=', this.user.id)
@@ -217,6 +227,7 @@ export default {
         });
       }
     },
+    // 更新 右邊的推薦跟隨
     async fetchRecommendUsers() {
       try {
         this.isLoading = true;

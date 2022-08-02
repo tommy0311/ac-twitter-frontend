@@ -48,22 +48,36 @@
         >
       </a>
 
-      <a href="#">
+      <button
+        v-if="tweet.isLiked"
+      >
+        <img
+          src="../assets/likedx2.png"
+          alt="likedx2.png"
+          class="tweet-icon-show like-icon"
+          @click.stop.prevent="unLike(tweet.id)"
+        >
+      </button>
+      <button
+        v-else
+      >
         <img
           src="../assets/like.png"
-          alt="愛心按鈕"
+          alt="like.png"
           class="tweet-icon-show like-icon"
+          @click.stop.prevent="addLike(tweet.id)"
         >
-      </a>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { localeSupport } from "./../utils/mixins"
+import { localeSupport, emptyImageFilter } from "./../utils/mixins"
 import tweetsAPI from './../apis/tweets'
+import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
-import { emptyImageFilter } from './../utils/mixins'
+import { mapState } from "vuex"
 
 export default {
   name: "ReplyPost",
@@ -76,8 +90,12 @@ export default {
   },
   data() {
     return {
-      tweet: this.initialTweet
+      tweet: this.initialTweet,
+      currentUserLikes: []
     };
+  },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   created () {
     this.fetchTweet({ tweetId: this.initialTweetid })
@@ -87,10 +105,14 @@ export default {
       try {
         this.isLoading = true
         
+        const currentUserLikes = await usersAPI.getUserLikes({userId: this.currentUser.id});
+        this.currentUserLikes = currentUserLikes.data
+
         const { data } = await tweetsAPI.getTweet({
           tweetId: tweetId,
         })
         this.tweet = data
+        this.tweet.isLiked = this.currentUserLikes.some(l => l.TweetId === this.tweet.id) ? true : false
         // console.log('tweet=', this.tweet)
 
         this.isLoading = false
@@ -103,6 +125,54 @@ export default {
         })
       }
     },
+    async addLike (tweetId) {
+      try {
+        this.isProcessing = true
+        console.log('tweetId=',tweetId)
+        const { data } = await usersAPI.addLike({ tweetId })
+        console.log('data=',data)
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+        this.tweet = {
+          ...this.tweet,
+          isLiked: true,
+          likeCount: this.tweet.likeCount+1
+        }
+        this.isProcessing = false
+      } catch (error) {
+        console.error(error.message)
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法對 Tweet 按 Like，請稍後再試'
+        })
+      }
+    },
+    async unLike (tweetId) {
+      try {
+        this.isProcessing = true
+        console.log('tweetId=',tweetId)
+        const { data } = await usersAPI.unLike({ tweetId })
+        console.log('data=',data)
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+        this.tweet = {
+          ...this.tweet,
+          isLiked: false,
+          likeCount: this.tweet.likeCount-1
+        }
+        this.isProcessing = false
+      } catch (error) {
+        console.error(error.message)
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法對 Tweet 取消 Like，請稍後再試'
+        })
+      }
+    }
   }
 };
 </script>

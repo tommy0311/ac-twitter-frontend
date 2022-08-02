@@ -8,17 +8,36 @@
     <div class="ml-2">
       <div class="d-flex">
         <router-link
+          v-if="isCurrentUser"
           :to="{
-            name: 'user-id-tweets',
+            name: 'user-tweets' // 導引至 UserSelf.vue
+          }"
+          class="user-name"
+        >
+          {{ tweet.User.name }}
+          <span class="user-acount-for-post ml-2">
+            <span>@</span>
+            {{ tweet.User.account }}
+            <span> • </span>
+          </span>
+        </router-link>
+
+        <router-link
+          v-else
+          :to="{
+            name: 'user-id-tweets', // 導引至 UserOther.vue
             params: { userId: tweet.User.id }
           }"
           class="user-name"
         >
           {{ tweet.User.name }}
+          <span class="user-acount-for-post ml-2">
+            <span>@</span>
+            {{ tweet.User.account }}
+            <span> • </span>
+          </span>
         </router-link>
-        <p class="user-acount-for-post ml-2">
-          <span>@</span>{{ tweet.User.account }}<span> • </span>
-        </p>
+
         <p class="post-time">
           {{ tweet.createdAt | fromNow }}
         </p>
@@ -54,7 +73,7 @@
             <img
               src="../assets/likedx2.png"
               alt="likedx2.png"
-              class="tweet-icon-show"
+              class="tweet-icon-show like-icon"
               @click.stop.prevent="unLike(tweet.id)"
             >
           </button>
@@ -64,7 +83,7 @@
             <img
               src="../assets/like.png"
               alt="like.png"
-              class="tweet-icon-show"
+              class="tweet-icon-show like-icon"
               @click.stop.prevent="addLike(tweet.id)"
             >
           </button>
@@ -81,6 +100,7 @@
 import { emptyImageFilter, fromNowFilter } from './../utils/mixins'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: "TweetList",
@@ -94,8 +114,15 @@ export default {
   data() {
     return {
       tweet: this.initialTweet,
+      isCurrentUser: false,
       isProcessing: false,
     };
+  },
+  computed: {
+    ...mapState(['currentUser'])
+  },
+  created () {
+    this.isCurrentUser = this.tweet.UserId === this.currentUser.id ? true : false
   },
   methods: {
     async addLike (tweetId) {

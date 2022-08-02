@@ -15,7 +15,10 @@
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
-      <RecommendColumn />
+      <RecommendColumn
+        :initial-recommend-users="recommendUsers"
+        @fromRCF="updatePage"
+      />
     </div>
   </div>
 </template>
@@ -44,6 +47,7 @@ export default {
     return {
       tweets: [],
       likes: [],
+      recommendUsers: [],
       isLoading: true,
     };
   },
@@ -51,9 +55,13 @@ export default {
     ...mapState(["currentUser"]),
   },
   created() {
-    this.fetchTweets()
+    this.fetchTweets();
+    this.fetchRecommendUsers();
   },
   methods: {
+    updatePage() {
+      this.fetchRecommendUsers();
+    },
     async fetchTweets() {
       try {
         this.isLoading = true;
@@ -87,7 +95,33 @@ export default {
           title: '無法取得 Tweets 資料，請稍後再試',
         });
       }
-    }
+    },
+    async fetchRecommendUsers() {
+      try {
+        this.isLoading = true;
+
+        const { data } = await usersAPI.getUserFollowings({
+          userId: this.currentUser.id, // need currentUser
+        });
+        const userFollowings = data;
+        const responseUsers = await usersAPI.getTopUsers();
+        this.recommendUsers = responseUsers.data.map((user) => {
+          return {
+            ...user,
+            isFollowed: userFollowings.some((f) => f.followingId === user.id),
+          };
+        });
+
+        this.isLoading = false;
+      } catch (error) {
+        console.error(error);
+        this.isLoading = false;
+        Toast.fire({
+          icon: "error",
+          title: "無法取得 RecommendUsers 資料，請稍後再試",
+        });
+      }
+    },
   },
 };
 </script>

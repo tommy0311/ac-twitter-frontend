@@ -202,7 +202,7 @@
       color: var(--messageTextColor);
     }
     .second-btn-style {
-      width: 64px;
+      width: 80px;
       padding: 8px 16px;
       @include secondBtnStyle;
       &:hover,
@@ -254,6 +254,10 @@
         position: absolute;
         right: 16px;
         padding: 8px 16px;
+      }
+      .empty-btn-style-active {
+        @include emptyBtnStyle;
+        @include emptyBtnStyleChange;
       }
       .empty-btn-style {        
         @include emptyBtnStyle;        
@@ -414,6 +418,11 @@
         @include emptyBtnStyleChange;
       }
     }
+    .empty-btn-style-active {
+      @include emptyBtnStyle;
+      padding: 8px 16px;
+      @include emptyBtnStyleChange;
+    }
     .profile-btn,
     .profile-btn-solid {
       width: 40px;
@@ -498,6 +507,13 @@
     &:active {
       @include emptyBtnStyleChange;
     }
+  }
+  .empty-btn-style-active {
+    position: absolute;
+    right: 30px;
+    @include emptyBtnStyle;
+    padding: 8px 16px;
+    @include emptyBtnStyleChange;
   }
 }
 
