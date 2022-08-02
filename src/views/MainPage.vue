@@ -34,7 +34,7 @@ import TweetList from '../components/TweetList.vue'
 import tweetsAPI from './../apis/tweets'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
-import { mapState } from "vuex"
+import { mapState } from 'vuex'
 
 export default {
   name: 'MainPage',
@@ -51,79 +51,84 @@ export default {
       likes: [],
       recommendUsers: [],
       isLoading: true,
-    };
+    }
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(['currentUser']),
   },
   created() {
-    this.fetchTweets();
-    this.fetchRecommendUsers();
+    this.fetchTweets()
+    this.fetchRecommendUsers()
   },
   methods: {
     updatePage() {
-      this.fetchRecommendUsers();
+      this.fetchRecommendUsers()
     },
     async fetchTweets() {
       try {
-        this.isLoading = true;
+        this.isLoading = true
 
-        const likes = await usersAPI.getUserLikes({userId: this.currentUser.id});
+        const likes = await usersAPI.getUserLikes({ userId: this.currentUser.id })
         this.likes = likes.data
 
-        const responseTweets = await tweetsAPI.getTweets();
+        const responseTweets = await tweetsAPI.getTweets()
         this.tweets = responseTweets.data
         // console.log('this.tweets=', this.tweets)
-        this.tweets = this.tweets.map( tweet => {
-          if( this.likes.some(l => l.TweetId === tweet.id) ) {
+        this.tweets = this.tweets.map(tweet => {
+          if (this.likes.some(l => l.TweetId === tweet.id)) {
             return {
               ...tweet,
-              isLiked: true
+              isLiked: true,
             }
           } else {
             return {
               ...tweet,
-              isLiked: false
+              isLiked: false,
             }
           }
         })
 
-        this.isLoading = false;
+        this.isLoading = false
       } catch (error) {
-        console.error(error);
-        this.isLoading = false;
+        console.error(error)
+        this.isLoading = false
         Toast.fire({
           icon: 'error',
           title: '無法取得 Tweets 資料，請稍後再試',
-        });
+        })
       }
     },
     async fetchRecommendUsers() {
       try {
-        this.isLoading = true;
+        this.isLoading = true
 
         const { data } = await usersAPI.getUserFollowings({
           userId: this.currentUser.id, // need currentUser
-        });
-        const userFollowings = data;
-        const responseUsers = await usersAPI.getTopUsers();
-        this.recommendUsers = responseUsers.data.map((user) => {
+        })
+        const userFollowings = data
+        const responseUsers = await usersAPI.getTopUsers()
+        this.recommendUsers = responseUsers.data.map(user => {
           return {
             ...user,
-            isFollowed: userFollowings.some((f) => f.followingId === user.id),
-          };
-        });
+            isFollowed: userFollowings.some(f => f.followingId === user.id),
+          }
+        })
 
-        this.isLoading = false;
+        this.isLoading = false
       } catch (error) {
-        console.error(error);
-        this.isLoading = false;
+        console.error(error)
+        this.isLoading = false
         Toast.fire({
-          icon: "error",
-          title: "無法取得 RecommendUsers 資料，請稍後再試",
-        });
+          icon: 'error',
+          title: '無法取得 RecommendUsers 資料，請稍後再試',
+        })
       }
     },
   },
-};
+  provide() {
+    return {
+      fetchTweets: this.fetchTweets,
+    }
+  },
+}
 </script>

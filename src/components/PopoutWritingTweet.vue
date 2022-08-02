@@ -63,6 +63,7 @@ import tweetAPI from '../apis/tweets'
 import { Toast } from './../utils/helpers'
 
 export default {
+  inject: ['fetchTweets'],
   props: {
     closeModal: {
       type: Function,
@@ -73,9 +74,6 @@ export default {
       isErrorExceed: false,
       isErrorEmpty: false,
     }
-  },
-  created() {
-    console.log(this.fetchTweets)
   },
   methods: {
     async handleSubmit() {
@@ -95,6 +93,7 @@ export default {
           title: '推文成功發佈',
         })
         this.closeModal()
+        this.fetchTweets()
       } catch (err) {
         // 顯示錯誤提示
         Toast.fire({
