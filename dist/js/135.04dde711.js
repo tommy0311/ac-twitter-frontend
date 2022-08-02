@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkforum_front_end_vue"]=self["webpackChunkforum_front_end_vue"]||[]).push([[135],{98135:(u,e,n)=>{n.r(e),n.d(e,{default:()=>o});var l,r,f=n(43736),s={},t=(0,f.Z)(s,l,r,!1,null,null,null);const o=t.exports}}]);
+//# sourceMappingURL=135.04dde711.js.map
