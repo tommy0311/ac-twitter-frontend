@@ -14,7 +14,7 @@ import NavpillHeader from "../components/NavpillHeader.vue";
 import SettingForm from "../components/SettingForm.vue";
 
 export default {
-  name: "MainPage",
+  name: "SettingPage",
   components: {
     NavBar,
     NavpillHeader,
