@@ -1,9 +1,12 @@
 <template>
   <div class="wrapper">
-    <div
-      class="popup-background"
-      @click="closeModal"
-    />
+    <router-link to="/main">
+      <div
+        class="popup-background"
+        @click="closeModal"
+      />
+    </router-link>
+
     <div id="popup-writtingTweet-container">
       <div class="headerbox align-items-center">
         <router-link to="/main">

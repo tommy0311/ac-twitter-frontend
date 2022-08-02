@@ -81,12 +81,15 @@
         </li>
       </ul>
     </template>
-    <button
-      class="tweet-btn main-btn-style"
-      @click="showModal"
-    >
-      推文
-    </button>  
+    <router-link to="/main/tweet">
+      <button
+        class="tweet-btn main-btn-style"
+        @click="showModal"
+      >
+        推文
+      </button>  
+    </router-link>
+
 
     <template v-if="isAuthenticated">
       <ul class="nav-list nav-list-bottom">

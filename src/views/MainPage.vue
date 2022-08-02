@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex justify-content-center">
-    <NavBar :show-modal="showModal" />
+    <NavBar
+      :show-modal="showModal"
+    />
     <div class="main-wrapper">
       <NavpillHeaderMain />
       <WrittingTweet @fetch-tweet="fetchTweets" />
