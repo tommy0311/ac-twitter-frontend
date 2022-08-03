@@ -16,14 +16,15 @@
       />
     </div>
 
-    <div id="recommendColumn-container">
-      <div class="recommendHeader mt-4">
-        <h1>推薦跟隨</h1>
+      <div id="recommendColumn-container">
+        <div class="recommendHeader mt-4">
+          <h1>推薦跟隨</h1>
+        </div>
+        <RecommendColumn
+          :initial-recommend-users="recommendUsers"
+          @fromRCF="updatePage"
+        />
       </div>
-      <RecommendColumn
-        :initial-recommend-users="recommendUsers"
-        @fromRCF="updatePage"
-      />
     </div>
   </div>
 </template>

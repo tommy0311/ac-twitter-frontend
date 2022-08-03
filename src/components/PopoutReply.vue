@@ -1,19 +1,24 @@
 <template>
-  <div class="popup-background">
+  <div class="wrapper">
+    <div
+      class="popup-background"
+      @click="$router.go(-1)"
+    />
+
     <div id="popup-writtingTweet-container">
       <div class="headerbox align-items-center">
-        <a href="">
+        <button @click="$router.go(-1)">
           <img
             class="popup-cancel-icon"
             src="../assets/X.png"
             alt="取消推文視窗按鈕"
           >
-        </a>
+        </button>
       </div>
       <div class="want-reply-post-container">
         <img
           class="user-headshot"
-          src="../assets/User Photo.png"
+          :src=" tweet.User.avatar | emptyImage "
           alt="個人頭像"
         >
         <div class="ml-2">
@@ -22,24 +27,23 @@
               href="#"
               class="user-name"
             >
-              Pizza Hut
+              {{ tweet.User.name }}
             </a>
             <p class="user-acount-for-post ml-2">
-              <span>@</span>pizzahut<span> • </span>
+              <span>@</span>{{ tweet.User.account }}<span> • </span>
             </p>
             <p class="post-time">
-              3小時
+              {{ tweet.createdAt | localeSupport }}
             </p>
           </div>
           <p class="tweet-content mt-2">
-            By default, flex items will all try to fit onto one line. You can
-            change that and allow the items to wrap as needed with this property
+            {{ tweet.description }}
           </p>
           <div class="reply-to-who-container d-flex mt-3">
             回覆給
             <span class="reply-to-who-acount ml-1">
               <span>@</span>
-              apple
+              {{ tweet.User.account }}
             </span>
           </div>
         </div>
@@ -51,22 +55,97 @@
           src="../assets/Photo2.png"
           alt="個人頭像"
         >
-        <input
-          id="user-writting-post"
-          type="text"
-          class="user-writting-post"
-          placeholder="有什麼新鮮事"
-          required
+        <form
+          class="user-writing-post-form"
+          @submit.prevent.stop="handleSubmit"
         >
-        <div class="d-flex justify-content-end align-items-end">
-          <button
-            class="post-btn second-btn-style"
-            type="submit"
-          >
-            推文
-          </button>
-        </div>
+          <textarea
+            id="user-writting-post"
+            v-model="comment"
+            class="user-writting-post"
+            placeholder="推你的回覆"
+            required
+          />
+          <span
+            class="popup-error-text"
+            :class="{ show: isErrorExceed }"
+          >字數不可超過140字</span>
+          <span
+            class="popup-error-text"
+            :class="{ show: isErrorEmpty }"
+          >內容不可空白</span>
+          <div class="d-flex justify-content-end align-items-end">
+            <button
+              class="post-btn second-btn-style"
+              type="submit"
+            >
+              推文
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { localeSupport, emptyImageFilter } from "./../utils/mixins"
+import { Toast } from './../utils/helpers'
+import replyAPI from '../apis/replies'
+export default {
+  name: 'PopoutReply',
+   mixins: [localeSupport, emptyImageFilter],
+   props: {
+    tweet: {
+      type: Object,
+      required: true,
+    },
+    fetchTweet: {
+      type: Function,
+      require: true,
+    },
+    fetchReplies: {
+      type: Function,
+      require: true,
+    }
+  },
+  data () {
+    return {
+      comment: '',
+      isErrorExceed: false,
+      isErrorEmpty: false,
+    }
+  },
+  methods: {
+     async handleSubmit() {
+      try {
+        const trimmedComment = this.comment.trim()
+        if (!trimmedComment.length) {
+          this.isErrorEmpty = true
+          return
+        }
+        if (trimmedComment.length > 140) {
+          this.isErrorExceed = true
+          return
+        }
+        await replyAPI.postReply(this.tweet.id, trimmedComment)
+        Toast.fire({
+          icon: 'success',
+          title: '成功回覆推文',
+        })
+        this.$router.go(-1)
+        this.fetchTweet(this.tweet.id)
+        this.fetchReplies(this.tweet.id)
+      } catch (err) {
+        // 顯示錯誤提示
+        Toast.fire({
+          icon: 'warning',
+          title: '發生錯誤，請重試。',
+        })
+
+        console.error(err.message)
+      }
+    }
+  }
+}
+</script>
