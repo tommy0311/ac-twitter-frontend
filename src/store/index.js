@@ -15,7 +15,7 @@ export default new Vuex.Store({
       cover: '',
       role: '',
       introduction: '',
-      tweetsCount: -1,
+      tweetsCount: 0,
     },
     isAuthenticated: false,
     token: ''

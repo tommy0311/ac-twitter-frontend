@@ -96,6 +96,7 @@ export default {
         // 將伺服器回傳的 token 保存在 localStorage 中
         localStorage.setItem('token', data.token)
 
+        data.user.tweetsCount = 0
         // 透過 setCurrentUser 把從 API 獲得的 data.user 存到 Vuex 的 state 中
         this.$store.commit('setCurrentUser', data.user)
 

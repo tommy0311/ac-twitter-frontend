@@ -47,7 +47,7 @@
         </button>
         <button
           v-if="user.isFollowed"
-          class="follow-btn empty-btn-style empty-btn-style-active"
+          class="follow-btn empty-btn-style-active"
           @click.stop.prevent="removeFollowing(user.id)"
         >
           正在跟隨
