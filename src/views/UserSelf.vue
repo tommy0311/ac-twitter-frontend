@@ -10,6 +10,7 @@
       <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
       <NavpillUser
         :initial-user="user"
+        :initial-is-current-user="isCurrentUser"
       />
       <div class="y-scroll">
         <router-view
@@ -71,6 +72,7 @@ export default {
       likes: [],
       currentUserLikes: [],
       recommendUsers: [],
+      isCurrentUser: false,
       isProcessing: false
     }
   },
@@ -82,8 +84,9 @@ export default {
   },
   created () {
     const userId = this.currentUser.id
-    this.fetchFollowingsFollowers(userId)
+    this.fetchFollowingsFollowers(userId);
     this.fetchRecommendUsers();
+    this.isCurrentUser = true
   },
   methods: {
     updatePage() {
@@ -124,9 +127,8 @@ export default {
         this.currentUserLikes = currentUserLikes.data
 
         const tweets = await usersAPI.getUserTweets({ userId: this.user.id })
-        this.tweets = tweets.data
-        // console.log('tweets=', this.tweets)
-        this.tweets = this.tweets.map( tweet => {
+        this.tweets = tweets.data.map( tweet => {
+          tweet.isCurrentUser = tweet.UserId === this.currentUser.id ? true : false
           if( this.currentUserLikes.some(l => l.TweetId === tweet.id) ) {
             return {
               ...tweet,
@@ -141,7 +143,12 @@ export default {
         })
 
         const replies = await usersAPI.getUserReplies({ userId: this.user.id })
-        this.replies = replies.data
+        this.replies = replies.data.map( reply => {
+          reply.isCurrentUser = reply.UserId === this.currentUser.id ? true : false
+          return {
+            ...reply
+          }
+        })
         // console.log('replies=', this.replies)
 
         const likes = await usersAPI.getUserLikes({ userId: this.user.id })

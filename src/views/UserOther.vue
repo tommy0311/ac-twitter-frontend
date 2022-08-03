@@ -11,6 +11,7 @@
       <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
       <NavpillUser
         :initial-user="user"
+        :initial-is-current-user="isCurrentUser"
       />
       <div class="y-scroll">
         <router-view
@@ -80,6 +81,7 @@ export default {
       currentUserFollowings: [],
       recommendUsers: [],
       userId: -1,
+      isCurrentUser: false,
       isProcessing: false
     }
   },
@@ -96,6 +98,7 @@ export default {
     this.fetchfollowingCount(this.userId);
     this.fetchCurrentUserFollowings();
     this.fetchRecommendUsers();
+    this.isCurrentUser = false
   },
   methods: {
     updatePage() {
@@ -183,9 +186,8 @@ export default {
         this.currentUserLikes = currentUserLikes.data
 
         const tweets = await usersAPI.getUserTweets({ userId: this.user.id })
-        this.tweets = tweets.data
-        // console.log('tweets=', this.tweets)
-        this.tweets = this.tweets.map( tweet => {
+        this.tweets = tweets.data.map( tweet => {
+          tweet.isCurrentUser = tweet.UserId === this.currentUser.id ? true : false
           if( this.currentUserLikes.some(l => l.TweetId === tweet.id) ) {
             return {
               ...tweet,

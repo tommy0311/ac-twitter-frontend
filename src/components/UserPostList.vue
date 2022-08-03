@@ -5,24 +5,64 @@
       id="user-post-list-container"
       :key="tweet.id"
     >
-      <img
-        class="user-headshot"
-        :src="tweet.User.avatar | emptyImage"
-        alt="個人頭像"
+      <router-link
+        v-if="tweet.isCurrentUser"
+        :to="{
+          name: 'user-tweets' // 導引至 UserSelf.vue
+        }"
       >
+        <img
+          class="user-headshot"
+          :src="tweet.User.avatar | emptyImage"
+          alt="個人頭像"
+        >
+      </router-link>
+      <router-link
+        v-else
+        :to="{
+          name: 'user-id-tweets', // 導引至 UserOther.vue
+          params: { userId: tweet.UserId }
+        }"
+      >
+        <img
+          class="user-headshot"
+          :src="tweet.User.avatar | emptyImage"
+          alt="個人頭像"
+        >
+      </router-link>
+
       <div class="ml-2">
         <div class="d-flex align-items-center">
-          <a
-            href="#"
+          <router-link
+            v-if="tweet.isCurrentUser"
+            :to="{
+              name: 'user-tweets' // 導引至 UserSelf.vue
+            }"
             class="user-name"
           >
             {{ tweet.User.name }}
-          </a>
-          <p class="user-acount-for-post ml-2">
-            <span>@</span>
-            {{ tweet.User.account }}
-            <span> • </span>
-          </p>
+            <span class="user-acount-for-post ml-2">
+              <span>@</span>
+              {{ tweet.User.account }}
+              <span> • </span>
+            </span>
+          </router-link>
+          <router-link
+            v-else
+            :to="{
+              name: 'user-id-tweets', // 導引至 UserOther.vue
+              params: { userId: tweet.UserId }
+            }"
+            class="user-name"
+          >
+            {{ tweet.User.name }}
+            <span class="user-acount-for-post ml-2">
+              <span>@</span>
+              {{ tweet.User.account }}
+              <span> • </span>
+            </span>
+          </router-link>
+
           <p class="post-time">
             {{ tweet.createdAt | fromNow }}
           </p>

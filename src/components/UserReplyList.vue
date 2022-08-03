@@ -12,17 +12,21 @@
       >
       <div class="ml-2">
         <div class="d-flex align-items-center">
-          <a
-            href="#"
+          <router-link
+            v-if="reply.isCurrentUser"
+            :to="{
+              name: 'user-tweets' // 導引至 UserSelf.vue
+            }"
             class="user-name"
           >
             {{ reply.User.name }}
-          </a>
-          <p class="user-acount-for-post ml-2">
-            <span>@</span>
-            {{ reply.User.account }}
-            <span> • </span>
-          </p>
+            <span class="user-acount-for-post ml-2">
+              <span>@</span>
+              {{ reply.User.account }}
+              <span> • </span>
+            </span>
+          </router-link>
+
           <p class="post-time">
             {{ reply.createdAt | fromNow }}
           </p>

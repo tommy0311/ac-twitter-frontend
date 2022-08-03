@@ -137,13 +137,7 @@ const routes = [
       },
     ],
   },
-  
-  {
-    path: "/admin",
-    name: "admin",
-    component: () => import("../views/AdminLogIn.vue"),
-    beforeEnter: authorizeIsAdmin,
-  },
+
   {
     path: "/admin/main",
     name: "admin-main",
@@ -156,6 +150,12 @@ const routes = [
     component: () => import("../views/AdminUsers.vue"),
     beforeEnter: authorizeIsAdmin,
   },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/AdminLogIn.vue"),
+  },
+
   {
     path: "*",
     name: "not-found",
@@ -181,7 +181,7 @@ router.beforeEach(async (to, from, next) => {
   if (token && token !== tokenInStore) {
     isAuthenticated = await store.dispatch("fetchCurrentUser");
   }
-  const pathsWithoutAuthentication = ["login", "regist"]; // 對於不需要驗證 token 的頁面
+  const pathsWithoutAuthentication = ["login", "regist", "admin"]; // 對於不需要驗證 token 的頁面
 
   // 如果 token 無效，且進入需要驗證的頁面，則轉址到登入頁
   if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {

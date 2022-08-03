@@ -53,6 +53,23 @@
   color: var(--white);
   background-color: var(--orange);
 }
+@mixin activeBtnStyle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+@mixin activeBtnStyleChange {
+  color: var(--orange);
+  background-color: var(--white);
+}
 
 //字體類
 @mixin navpillTitleStyle {

@@ -250,23 +250,26 @@
         margin-right: 8px;
       }
       .empty-btn-style,
-      .second-btn-style {
+      .second-btn-style,
+      .empty-btn-style-active {
         position: absolute;
         right: 16px;
         padding: 8px 16px;
       }
       .empty-btn-style-active {
-        @include emptyBtnStyle;
-        @include emptyBtnStyleChange;
+        @include activeBtnStyle;
+        &:hover {
+          @include activeBtnStyleChange;
+        }
       }
-      .empty-btn-style {        
-        @include emptyBtnStyle;        
+      .empty-btn-style {
+        @include emptyBtnStyle;
         &:hover,
         &:active {
           @include emptyBtnStyleChange;
         }
       }
-      .second-btn-style {        
+      .second-btn-style {
         @include secondBtnStyle;
         &:hover,
         &:active {
@@ -419,9 +422,12 @@
       }
     }
     .empty-btn-style-active {
-      @include emptyBtnStyle;
-      padding: 8px 16px;
-      @include emptyBtnStyleChange;
+      @include activeBtnStyle;
+        padding: 8px 16px;
+        &:hover,
+        &:active {
+          @include activeBtnStyleChange;
+        }
     }
     .profile-btn,
     .profile-btn-solid {
@@ -511,9 +517,12 @@
   .empty-btn-style-active {
     position: absolute;
     right: 30px;
-    @include emptyBtnStyle;
+    @include activeBtnStyle;
     padding: 8px 16px;
-    @include emptyBtnStyleChange;
+    &:hover,
+    &:active {
+      @include activeBtnStyleChange;
+    }
   }
 }
 
@@ -799,9 +808,9 @@
         .form-element-group {
           margin-bottom: 0;
         }
-        input {
-          @include formInputStyle;
-        }
+        // input {
+        //   @include formInputStyle;
+        // }
         .user-introduction {
           height: 147px;
         }

@@ -1,13 +1,34 @@
 <template>
   <div
     id="reply-post-list-container"
-    class="d-flex flex-column"
+    class=""
   >
-    <img 
-      class="user-headshot"
-      :src=" reply.User.avatar | emptyImage "
-      alt="個人頭像"
+    <router-link
+      v-if="isCurrentUser"
+      :to="{
+        name: 'user-tweets' // 導引至 UserSelf.vue
+      }"
     >
+      <img 
+        class="user-headshot"
+        :src=" reply.User.avatar | emptyImage "
+        alt="個人頭像"
+      >
+    </router-link>
+    <router-link
+      v-else
+      :to="{
+        name: 'user-id-tweets', // 導引至 UserOther.vue
+        params: { userId: reply.User.id }
+      }"
+    >
+      <img 
+        class="user-headshot"
+        :src=" reply.User.avatar | emptyImage "
+        alt="個人頭像"
+      >
+    </router-link>
+
     <div class="ml-2">
       <div class="d-flex align-items-center">
         <router-link

@@ -89,7 +89,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  background-color: var(--bgColor);
 }
 
 html,
@@ -773,14 +772,10 @@ input:invalid {
   --recommendBgColor: #fafafb;
 }
 
-.template-center-alignment {
-  margin: 0 auto;
-}
-
 .user-name {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
 }
 
 .user-acount {
@@ -830,7 +825,6 @@ input:invalid {
 }
 .form-container label {
   position: absolute;
-  background-color: var(--formBgColor);
   color: var(--secondaryTextColor);
   font-weight: normal;
   font-size: 14px;
@@ -1019,7 +1013,7 @@ input:invalid {
 #writtingTweet-container .writtingTweet-pannel .second-btn-style {
   width: 80px;
   padding: 8px 16px;
-  /* display: flex; */
+  display: flex;
   align-items: center;
   text-align: center;
   color: var(--white);
@@ -1037,7 +1031,7 @@ input:invalid {
 }
 
 .user-post-under-line {
-  width: 100%;
+  width: 639px;
   height: 3px;
   background-color: var(--borderColor);
 }
@@ -1078,9 +1072,31 @@ input:invalid {
   border-radius: 50%;
   margin-right: 8px;
 }
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style {
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style,
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style,
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style-active {
   position: absolute;
   right: 16px;
+  padding: 8px 16px;
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style-active {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style-active:hover {
+  color: var(--orange);
+  background-color: var(--white);
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style {
   display: flex;
   align-items: center;
   text-align: center;
@@ -1092,11 +1108,27 @@ input:invalid {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  padding: 8px 16px;
 }
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:active, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style-active {
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:active {
   color: var(--white);
   background-color: var(--orange);
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style:active {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
 }
 
 .user-acount-for-post,
@@ -1116,7 +1148,8 @@ input:invalid {
 
 #tweet-element-container,
 #user-post-list-container,
-#user-like-list-container {
+#user-like-list-container,
+#admin-tweet-element-container {
   width: 100%;
   border: 1px solid var(--borderColor);
   padding: 16px 24px;
@@ -1125,20 +1158,23 @@ input:invalid {
 }
 #tweet-element-container .user-headshot,
 #user-post-list-container .user-headshot,
-#user-like-list-container .user-headshot {
+#user-like-list-container .user-headshot,
+#admin-tweet-element-container .user-headshot {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 #tweet-element-container .tweet-icon-show-pannel,
 #user-post-list-container .tweet-icon-show-pannel,
-#user-like-list-container .tweet-icon-show-pannel {
+#user-like-list-container .tweet-icon-show-pannel,
+#admin-tweet-element-container .tweet-icon-show-pannel {
   width: 100%;
   height: 14px;
 }
 #tweet-element-container .tweet-icon-show-pannel .tweet-icon-show,
 #user-post-list-container .tweet-icon-show-pannel .tweet-icon-show,
-#user-like-list-container .tweet-icon-show-pannel .tweet-icon-show {
+#user-like-list-container .tweet-icon-show-pannel .tweet-icon-show,
+#admin-tweet-element-container .tweet-icon-show-pannel .tweet-icon-show {
   width: 13.17px;
   height: 13.17px;
 }
@@ -1147,7 +1183,9 @@ input:invalid {
 #user-post-list-container .tweet-icon-show-pannel .reply-number,
 #user-post-list-container .tweet-icon-show-pannel .like-number,
 #user-like-list-container .tweet-icon-show-pannel .reply-number,
-#user-like-list-container .tweet-icon-show-pannel .like-number {
+#user-like-list-container .tweet-icon-show-pannel .like-number,
+#admin-tweet-element-container .tweet-icon-show-pannel .reply-number,
+#admin-tweet-element-container .tweet-icon-show-pannel .like-number {
   font-weight: 600;
   font-size: 14px;
   line-height: 14px;
@@ -1272,13 +1310,46 @@ input:invalid {
   line-height: 24px;
   padding: 8px 16px;
 }
-#userProfile-container .profile-info-container .empty-btn-style:hover, #userProfile-container .profile-info-container .empty-btn-style:active, #userProfile-container .profile-info-container .empty-btn-style-active {
+#userProfile-container .profile-info-container .empty-btn-style:hover, #userProfile-container .profile-info-container .empty-btn-style:active {
   color: var(--white);
   background-color: var(--orange);
 }
-#userProfile-container .profile-info-container .profile-btn {
+#userProfile-container .profile-info-container .empty-btn-style-active {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+}
+#userProfile-container .profile-info-container .empty-btn-style-active:hover, #userProfile-container .profile-info-container .empty-btn-style-active:active {
+  color: var(--orange);
+  background-color: var(--white);
+}
+#userProfile-container .profile-info-container .profile-btn,
+#userProfile-container .profile-info-container .profile-btn-solid {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#userProfile-container .profile-info-container .profile-btn {
+  border: 1px solid var(--orange);
+}
+#userProfile-container .profile-info-container .profile-btn-solid {
+  background-color: var(--orange);
+}
+#userProfile-container .profile-info-container .profile-btn-size {
+  width: 21px;
+  height: 21px;
 }
 #userProfile-container .profile-info-container .user-describe {
   color: var(--contentTextColor);
@@ -1363,9 +1434,29 @@ input:invalid {
   line-height: 24px;
   padding: 8px 16px;
 }
-#user-follower-list-container .empty-btn-style:hover, #user-follower-list-container .empty-btn-style:active, #user-follower-list-container .empty-btn-style-active {
+#user-follower-list-container .empty-btn-style:hover, #user-follower-list-container .empty-btn-style:active {
   color: var(--white);
   background-color: var(--orange);
+}
+#user-follower-list-container .empty-btn-style-active {
+  position: absolute;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  border: 1px solid var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px;
+}
+#user-follower-list-container .empty-btn-style-active:hover, #user-follower-list-container .empty-btn-style-active:active {
+  color: var(--orange);
+  background-color: var(--white);
 }
 
 #setting-form-container {
@@ -1383,6 +1474,21 @@ input:invalid {
 #setting-form-container .main-btn-style {
   margin-top: 8px;
   width: 88px;
+}
+
+.admin-main-wrapper {
+  width: 937px;
+}
+
+#admin-tweet-element-container {
+  position: relative;
+}
+#admin-tweet-element-container .delete-icon-size {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 21.5px;
+  right: 4.63px;
 }
 
 #admin-user-Profile-card {
@@ -1665,24 +1771,6 @@ input:invalid {
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .form-element-group {
   margin-bottom: 0;
-}
-#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input {
-  border: none;
-  width: 100%;
-  height: 54px;
-  background-color: var(--formBgColor);
-  border-radius: 2px;
-  border-bottom: 2px solid var(--secondaryTextColor);
-  padding: 5px 10.55px;
-}
-#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:hover, #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:active {
-  border-bottom: 2px solid var(--blue);
-}
-#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input.error {
-  border-bottom: 2px solid var(--red-errorSign);
-}
-#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input.disabled {
-  border-bottom: 2px solid var(--gray-disabledSign);
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .user-introduction {
   height: 147px;
