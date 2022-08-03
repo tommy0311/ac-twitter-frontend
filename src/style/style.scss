@@ -21,7 +21,7 @@
   overflow-y: scroll;
 }
 
-//登陸系列
+//登入系列
 #login-container,
 #regist-container,
 #admin-login-container {
@@ -50,7 +50,7 @@
     margin-bottom: 32px;
   }
   label {
-    position: absolute;    
+    position: absolute;
     color: var(--secondaryTextColor);
     font-weight: normal;
     font-size: 14px;
@@ -65,13 +65,15 @@
     background-color: var(--formBgColor);
     border-radius: 2px;
     border-bottom: 2px solid var(--secondaryTextColor);
-    padding: 5px 10.55px;
+    padding: 30px 10.55px 4px 10.55px;
     &:hover,
     &:active {
       border-bottom: 2px solid var(--blue);
     }
   }
   input::placeholder {
+    position: absolute;
+    bottom: 4px;
     @include contentTextStyle;
     color: var(--placeholderTextColor);
   }

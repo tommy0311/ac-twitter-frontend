@@ -839,12 +839,14 @@ input:invalid {
   background-color: var(--formBgColor);
   border-radius: 2px;
   border-bottom: 2px solid var(--secondaryTextColor);
-  padding: 5px 10.55px;
+  padding: 30px 10.55px 4px 10.55px;
 }
 .form-container input:hover, .form-container input:active {
   border-bottom: 2px solid var(--blue);
 }
 .form-container input::-moz-placeholder {
+  position: absolute;
+  bottom: 4px;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -852,6 +854,8 @@ input:invalid {
   color: var(--placeholderTextColor);
 }
 .form-container input:-ms-input-placeholder {
+  position: absolute;
+  bottom: 4px;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -859,6 +863,8 @@ input:invalid {
   color: var(--placeholderTextColor);
 }
 .form-container input::placeholder {
+  position: absolute;
+  bottom: 4px;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -1128,23 +1134,6 @@ input:invalid {
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style:active {
   color: var(--white);
   background-color: var(--orange);
-}
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: var(--white);
-  background-color: var(--orange);
-  height: 40px;
-  border-radius: 50px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-}
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style:active {
-  color: var(--orange);
-  background-color: var(--white);
-  border: 1px solid var(--orange);
 }
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style {
   display: flex;
