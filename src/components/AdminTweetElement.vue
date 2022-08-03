@@ -1,149 +1,108 @@
 <template>
   <div>
-    <div id="admin-tweet-element-container">
-      <img
-        class="user-headshot"
-        src="../assets/User Photo.png"
-        alt="個人頭像"
-      >
-      <div class="ml-2">
-        <div class="d-flex">
-          <a
-            href="#"
-            class="user-name"
-          >Pizza Hut</a>
-          <p class="user-acount-for-post ml-2">
-            <span>@</span>pizzahut<span> • </span>
-          </p>
-          <p class="post-time">
-            3小時
+    <div
+      v-for="tweet in tweets"
+      :key="tweet.id"
+    >
+      <div id="admin-tweet-element-container">
+        <img
+          class="user-headshot"
+          :src="tweet.User.avatar | emptyImage"
+          alt="個人頭像"
+        >
+        <div class="ml-2">
+          <div class="d-flex">
+            <span
+              class="user-name"
+            >
+              {{ tweet.User.name }}
+            </span>
+            <span class="user-acount-for-post ml-2">
+              <span>@</span>
+              {{ tweet.User.account }}
+              <span> • </span>
+            </span>
+
+            <p class="post-time">
+              {{ tweet.createdAt | fromNow }}
+            </p>
+          </div>
+          <p class="tweet-content mt-2">
+            {{ tweet.description }}
           </p>
         </div>
-        <p class="tweet-content mt-2">
-          By default, flex items will all try to fit onto one line. You can change
-          that and allow the items to wrap as needed with this property
-        </p>        
-      </div>
-      <button>
-        <img
-          src="../assets/delete_list.png"
-          class="delete-icon-size"
-          alt=""
+        <button
+          @click.stop.prevent="deleteTweet(tweet.id, tweet.description, tweet.User.account)"
         >
-      </button>        
+          <img
+            src="../assets/delete_list.png"
+            class="delete-icon-size"
+            alt="delete-icon"
+          >
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast } from "./../utils/helpers"
-import usersAPI from "./../apis/users"
-import { mapState } from "vuex"
-import { emptyImageFilter } from './../utils/mixins'
+import { Toast } from "./../utils/helpers";
+import tweetsAPI from "./../apis/tweets";
+import authorizationAPI from './../apis/authorization';
+import { emptyImageFilter, fromNowFilter } from './../utils/mixins';
 
 export default {
   name: "AdminTweetElement",
-  mixins: [emptyImageFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
   data() {
     return {
-      recommendUsers: [],
+      tweets: [],
       isProcessing: false,
     };
   },
-  computed: {
-    ...mapState(["currentUser"]),
+  watch: {
   },
   created() {
-    this.fetchRecommendUsers();
+    this.fetchTweets()
   },
   methods: {
-    async fetchRecommendUsers() {
+    async deleteTweet(id, description, account){
       try {
-        this.isLoading = true;
-
-        const { data } = await usersAPI.getUserFollowings({
-          userId: this.currentUser.id,
-        });
-        const userFollowings = data;
-        const responseUsers = await usersAPI.getTopUsers();
-        this.recommendUsers = responseUsers.data.map((user) => {
-          return {
-            ...user,
-            isFollowed: userFollowings.some((f) => f.followingId === user.id),
-          };
-        });
-
-        this.isLoading = false;
-      } catch (error) {
-        console.error(error);
-        this.isLoading = false;
-        Toast.fire({
-          icon: "error",
-          title: "無法取得 RecommendUsers 資料，請稍後再試",
-        });
-      }
-    },
-    async addFollowing(userId) {
-      try {
-        if(userId === this.currentUser.id) {
-          Toast.fire({
-            icon: "error",
-            title: "無法跟隨自己",
-          });
-          return
+        if(confirm(`你想刪除 ${account} 的這篇 ${description} 推文嗎？`)) {
+          console.log('ok')
+          const response = await authorizationAPI.deleteTweet({tweetId: id})
+          if (response.status !== 'error') {
+            Toast.fire({
+              icon: 'success',
+              title: '刪除推文成功'
+            })
+          }
+        } else{
+          console.log('no')
         }
-        this.isProcessing = true;
-        const { data } = await usersAPI.addFollowing({ userId });
-        console.log("following users=", data);
-
-        this.recommendUsers = this.recommendUsers.map((user) => {
-          if (user.id !== userId) {
-            return user;
-          } else {
-            return {
-              ...user,
-              isFollowed: true,
-            };
-          }
-        });
-
-        this.isProcessing = false;
       } catch (error) {
-        console.error(error.message);
-        this.isProcessing = false;
         Toast.fire({
-          icon: "error",
-          title: "目前無法跟隨使用者，請稍後再試",
-        });
+          icon: 'error',
+          title: '無法刪除推文，請稍後再試'
+        })
       }
     },
-    async removeFollowing(userId) {
+    async fetchTweets(){
       try {
-        this.isProcessing = true;
-        const { data } = await usersAPI.removeFollowing({ userId });
-        console.log("following users=", data);
-
-        this.recommendUsers = this.recommendUsers.map((user) => {
-          if (user.id !== userId) {
-            return user;
-          } else {
-            return {
-              ...user,
-              isFollowed: false,
-            };
-          }
-        });
-
-        this.isProcessing = false;
+        const tweets = await tweetsAPI.getTweets()
+        this.tweets = tweets.data.map(t=> ({
+          ...t,
+          description: t.description ? t.description.substring(0,50) : ''
+        }))
+        console.log('AdminMain tweets=', this.tweets)
       } catch (error) {
         console.error(error.message);
-        this.isProcessing = false;
         Toast.fire({
           icon: "error",
-          title: "目前無法取消跟隨使用者，請稍後再試",
+          title: "無法取得 Tweets 資料",
         });
       }
-    },
+    }
   },
 };
 </script>

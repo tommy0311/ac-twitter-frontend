@@ -1,35 +1,38 @@
 <template>
   <div class="d-flex justify-content-center"> 
-    <NavBar />
+    <AdminNav
+      :initial-tweets-list="isTweetsList"
+    />
     <div class="admin-main-wrapper ml-6">
-      <NavpillHeaderMain />
+      <NavpillHeaderMain
+        :initial-admin-main="isAdminMain"
+      />
       <AdminTweetElement />
     </div>
   </div>
 </template>
 
 <script>
-import NavBar from '../components/NavBar.vue';
+import AdminNav from '../components/AdminNav.vue';
 import NavpillHeaderMain from '../components/NavpillHeaderMain.vue';
 import AdminTweetElement from '../components/AdminTweetElement.vue';
 
 export default {
-	name: 'AdminMain',
-	components: {
-		NavBar,		
-		NavpillHeaderMain,
-        AdminTweetElement,		
-	},
-	data() {
-		return {
-			
-		};
-	},
-	created() {
-		
-	},
-	methods: {
-		
-	},
+  name: 'AdminMain',
+  components: {
+    AdminNav,
+    NavpillHeaderMain,
+    AdminTweetElement,
+  },
+  data() {
+    return {
+      isTweetsList: true,
+      isAdminMain: true,
+    };
+  },
+  created() {
+  },
+  methods: {
+  },
 };
 </script>

@@ -80,7 +80,7 @@ export default {
           account: this.account,
           password: this.password
         })
-console.log('data=', data)
+
         const {data} = response
         if (data.status !== 'success') {
           throw new Error(data.message)

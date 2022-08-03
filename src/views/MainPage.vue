@@ -5,7 +5,9 @@
       :initial-main-page="isMainPage"
     />
     <div class="main-wrapper">
-      <NavpillHeaderMain />
+      <NavpillHeaderMain
+        :initial-main-page="isMainPage"
+      />
       <WrittingTweet @fetch-tweet="fetchTweets" />
       <TweetList
         v-for="tweet in tweets"

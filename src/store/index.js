@@ -44,11 +44,10 @@ export default new Vuex.Store({
   actions: {
     async fetchCurrentUser({ commit }) {
       try {
-        // 呼叫 usersAPI.getCurrentUser() 方法，並將 response 顯示出來
         const { data } = await usersAPI.getCurrentUser()
         const { id, account, name, email, avatar, cover, role, introduction } = data
-
         const tweets = await usersAPI.getUserTweets({ userId: id })
+        const tweetsCount = tweets.data.length
 
         commit('setCurrentUser', {
           id,
@@ -59,7 +58,7 @@ export default new Vuex.Store({
           cover,
           role,
           introduction,
-          tweetsCount: tweets.data.length
+          tweetsCount
         })
 
         return true

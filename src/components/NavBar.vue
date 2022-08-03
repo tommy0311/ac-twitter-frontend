@@ -174,54 +174,55 @@ import { mapState } from 'vuex';
 import PopoutWritingTweet from '../components/PopoutWritingTweet.vue';
 
 export default {
-    components: { PopoutWritingTweet },
-    props: {
-      initialMainPage: {
-        type: Boolean,
-        default: false
-      },
-      initialProfile: {
-        type: Boolean,
-        default: false
-      },
-      initialSetting: {
-        type: Boolean,
-        default: false
-      },
+  name: 'NavBar',
+  components: { PopoutWritingTweet },
+  props: {
+    initialMainPage: {
+      type: Boolean,
+      default: false
     },
-    data() {
-        return {
-            isModalShown: false,
-            isMainPage: this.initialMainPage,
-            isProfile: this.initialProfile,
-            isSetting: this.initialSetting
-        };
+    initialProfile: {
+      type: Boolean,
+      default: false
     },
-    computed: {
-        ...mapState(["currentUser", "isAuthenticated"]),
+    initialSetting: {
+      type: Boolean,
+      default: false
     },
-    watch: {
-      initialMainPage (newValue) {
-        this.isMainPage = newValue
-      },
-      initialProfile (newValue) {
-        this.isProfile = newValue
-      },
-      initialSetting (newValue) {
-        this.isSetting = newValue
-      },
+  },
+  data() {
+    return {
+        isModalShown: false,
+        isMainPage: this.initialMainPage,
+        isProfile: this.initialProfile,
+        isSetting: this.initialSetting
+    };
+  },
+  computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
+  },
+  watch: {
+    initialMainPage (newValue) {
+      this.isMainPage = newValue
     },
-    methods: {
-        logout() {
-            this.$store.commit("revokeAuthentication");
-            this.$router.push("/login");
-        },
-        showModal() {
-            this.isModalShown = true;
-        },
-        closeModal() {
-            this.isModalShown = false;
-        },
+    initialProfile (newValue) {
+      this.isProfile = newValue
     },
+    initialSetting (newValue) {
+      this.isSetting = newValue
+    },
+  },
+  methods: {
+    logout() {
+        this.$store.commit("revokeAuthentication");
+        this.$router.push("/login");
+    },
+    showModal() {
+        this.isModalShown = true;
+    },
+    closeModal() {
+        this.isModalShown = false;
+    },
+  },
 };
 </script>

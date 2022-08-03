@@ -7,13 +7,22 @@ import store from "./../store";
 
 Vue.use(VueRouter);
 
+  // 如果 token 身分是 user 但是想去後台，導引到 /admin
 const authorizeIsAdmin = (to, from, next) => {
   const currentUser = store.state.currentUser;
   if (currentUser && currentUser.role === 'user') { // currentUser is not Admin
-    next("/not-found");
+    next("/admin");
     return;
   }
-
+  next();
+};
+// 如果 token 身分是 admin 但是想去前台，導引到 /login
+const authorizeIsUser = (to, from, next) => {
+  const currentUser = store.state.currentUser;
+  if (currentUser && currentUser.role === 'admin') { // currentUser is not User
+    next("/login");
+    return;
+  }
   next();
 };
 
@@ -37,11 +46,13 @@ const routes = [
     path: "/setting",
     name: "setting",
     component: () => import("../views/SettingPage.vue"),
+    beforeEnter: authorizeIsUser,
   },
   {
     path: "/main",
     name: "main",
     component: MainPage,
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "tweet",
@@ -54,12 +65,14 @@ const routes = [
     path: "/replylist",
     name: "replylist",
     component: () => import("../views/ReplyList.vue"),
+    beforeEnter: authorizeIsUser,
   },
 
   {
     path: "/user",
     name: "user",
     component: () => import("../views/UserSelf.vue"),
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "tweets",
@@ -83,6 +96,7 @@ const routes = [
     path: "/user/:userId",
     name: "user-id",
     component: () => import("../views/UserOther.vue"),
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "tweets",
@@ -106,6 +120,7 @@ const routes = [
     path: "/user",
     name: "user-follower",
     component: () => import("../views/UserFollow.vue"),
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "follower",
@@ -124,6 +139,7 @@ const routes = [
     path: "/user/:userId",
     name: "user-id-follow",
     component: () => import("../views/UserOtherFollow.vue"),
+    beforeEnter: authorizeIsUser,
     children: [
       {
         path: "follower",
@@ -170,6 +186,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   // 每一次使用者點擊不同頁面的路由，都需要檢查使用者 token 是否過期
+  console.log('beforeEach')
+  console.log('to=', to)
 
   // 從 localStorage 取出 token
   const token = localStorage.getItem("token");
@@ -190,10 +208,10 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // 如果 token 有效，且進入不需要驗證的頁面，則轉址到 MainPage
-  if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
-    next("/main");
-    return;
-  }
+  // if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
+  //   next("/main");
+  //   return;
+  // }
 
   next();
 });
