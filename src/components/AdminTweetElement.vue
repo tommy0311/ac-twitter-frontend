@@ -85,6 +85,13 @@ export default {
     },
     async addFollowing(userId) {
       try {
+        if(userId === this.currentUser.id) {
+          Toast.fire({
+            icon: "error",
+            title: "無法跟隨自己",
+          });
+          return
+        }
         this.isProcessing = true;
         const { data } = await usersAPI.addFollowing({ userId });
         console.log("following users=", data);

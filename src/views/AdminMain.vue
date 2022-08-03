@@ -3,8 +3,8 @@
     <NavBar />
     <div class="admin-main-wrapper ml-6">
       <NavpillHeaderMain />
-      <AdminTweetElement />      
-    </div>   
+      <AdminTweetElement />
+    </div>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import NavpillHeaderMain from '../components/NavpillHeaderMain.vue';
 import AdminTweetElement from '../components/AdminTweetElement.vue';
 
 export default {
-	name: 'MainPage',
+	name: 'AdminMain',
 	components: {
 		NavBar,		
 		NavpillHeaderMain,

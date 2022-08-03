@@ -18,6 +18,7 @@
           type="text"
           class="user-account"
           placeholder="請輸入帳號"
+          required
         >
       </div>
       <div class="form-element-group">
@@ -28,6 +29,7 @@
           type="password"
           class="user-password"
           placeholder="請輸入密碼"
+          required
         >
       </div>
       <button 
@@ -57,8 +59,9 @@
 </template>
 
 <script>
-import authorizationAPI from './../apis/authorization'
-import { Toast } from './../utils/helpers'
+import authorizationAPI from './../apis/authorization';
+import { Toast } from './../utils/helpers';
+import store from "./../store";
 
 export default {
   name: 'LoginForm',
@@ -80,7 +83,6 @@ export default {
           })
           return
         }
-
         this.isProcessing = true
 
         const response = await authorizationAPI.signIn({
@@ -95,21 +97,30 @@ export default {
 
         // 將伺服器回傳的 token 保存在 localStorage 中
         localStorage.setItem('token', data.token)
-
-        data.user.tweetsCount = 0
+        
+        await store.dispatch("fetchCurrentUser");
         // 透過 setCurrentUser 把從 API 獲得的 data.user 存到 Vuex 的 state 中
         this.$store.commit('setCurrentUser', data.user)
 
-        Toast.fire({
-          icon: 'success',
-          title: `使用者-${this.account}-登入成功`
-        })
+        if(data.user.role === 'admin') {
+          Toast.fire({
+            icon: 'error',
+            title: '帳號不存在'
+          })
+          this.$store.commit('revokeAuthentication')
+          return
+        } else {
+          Toast.fire({
+            icon: 'success',
+            title: `使用者-${this.account}-登入成功`
+          })
+        }
+        
         this.$router.push('/main') // 成功登入後進行轉址
       } catch (error) {
-        this.password = '' // 密碼欄位清空
+        this.password = ''
         this.isProcessing = false
 
-        // 顯示錯誤提示
         Toast.fire({
           icon: 'warning',
           title: '輸入的帳號密碼有誤'

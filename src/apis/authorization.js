@@ -13,7 +13,7 @@ export default {
     })
   },
   adminSignIn({ account, password }) {
-    return apiHelper.post('/admin', {
+    return apiHelper.post('/signin', {
       account,
       password
     })

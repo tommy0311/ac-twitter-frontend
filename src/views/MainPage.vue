@@ -2,6 +2,7 @@
   <div class="d-flex justify-content-center">
     <NavBar
       :show-modal="showModal"
+      :initial-main-page="isMainPage"
     />
     <div class="main-wrapper">
       <NavpillHeaderMain />
@@ -50,6 +51,7 @@ export default {
       tweets: [],
       likes: [],
       recommendUsers: [],
+      isMainPage: true,
       isLoading: true,
     }
   },

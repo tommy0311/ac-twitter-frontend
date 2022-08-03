@@ -55,6 +55,7 @@
 import { emptyImageFilter } from './../utils/mixins'
 import { Toast } from "./../utils/helpers"
 import usersAPI from "./../apis/users"
+import { mapState } from "vuex"
 
 export default {
   name: "UserFollowerList",
@@ -70,6 +71,9 @@ export default {
       followers: this.initialFollowers
     }
   },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
   watch: {
     initialFollowers (newValue) {
       this.followers = {
@@ -82,6 +86,13 @@ export default {
   methods: {
     async addFollowing(userId) {
       try {
+        if(userId === this.currentUser.id) {
+          Toast.fire({
+            icon: "error",
+            title: "無法跟隨自己",
+          });
+          return
+        }
         this.isProcessing = true;
         const { data } = await usersAPI.addFollowing({ userId });
         console.log("add @UserFollowerList=", data);

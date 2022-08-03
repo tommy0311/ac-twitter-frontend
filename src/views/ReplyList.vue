@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex justify-content-center">
-    <NavBar />
+    <NavBar
+      :initial-main-page="isMainPage"
+    />
     <div class="main-wrapper">
       <NavpillHeader />
       <ReplyPost
@@ -54,6 +56,7 @@ export default {
       tweetId: -1,
       currentUser: store.state.currentUser,
       recommendUsers: [],
+      isMainPage: true,
       isLoading: true
     }
   },

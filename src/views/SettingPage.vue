@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex justify-content-center">
-    <NavBar />
+    <NavBar
+      :initial-setting="isSetting"
+    />
     <div class="main-wrapper">
       <NavpillHeader />
       <SettingForm />
@@ -20,5 +22,10 @@ export default {
     NavpillHeader,
     SettingForm,
   },
+  data () {
+    return {
+      isSetting: true,
+    }
+  }
 };
 </script>

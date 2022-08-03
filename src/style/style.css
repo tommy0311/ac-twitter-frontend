@@ -926,12 +926,28 @@ input:invalid {
 #navbar-container .nav-link:hover, #navbar-container .nav-link:active {
   color: var(--orange);
 }
+#navbar-container .nav-link:hover .house-icon, #navbar-container .nav-link:active .house-icon {
+  content: url("../assets/atIndex@2x.png");
+}
+#navbar-container .nav-link:hover .profile-icon, #navbar-container .nav-link:active .profile-icon {
+  content: url("../assets/atUser_big-removebg-preview.png");
+}
+#navbar-container .nav-link:hover .setting-icon, #navbar-container .nav-link:active .setting-icon {
+  content: url("../assets/Group_big-removebg-preview.png");
+}
+#navbar-container .nav-link:hover .logout-icon, #navbar-container .nav-link:active .logout-icon {
+  content: url("../assets/log_out_big-removebg-preview.png");
+}
 #navbar-container .nav-link .icon-container {
   width: 22px;
   height: 22px;
 }
 #navbar-container .nav-link .navbar-index {
   margin-left: 16.85px;
+}
+#navbar-container .nav-link .navbar-index-active {
+  margin-left: 16.85px;
+  color: var(--orange);
 }
 #navbar-container .main-btn-style {
   width: 100%;

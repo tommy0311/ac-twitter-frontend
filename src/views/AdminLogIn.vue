@@ -50,8 +50,9 @@
 </template>
 
 <script>
-import authorizationAPI from './../apis/authorization'
-import { Toast } from './../utils/helpers'
+import authorizationAPI from './../apis/authorization';
+import { Toast } from './../utils/helpers';
+import store from "./../store";
 
 export default {
   name: 'AdminLogIn',
@@ -73,21 +74,40 @@ export default {
           })
           return
         }
-
         this.isProcessing = true
 
         const response = await authorizationAPI.adminSignIn({
           account: this.account,
           password: this.password
         })
-
+console.log('data=', data)
         const {data} = response
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
 
-        //暫停在這
+        // 將伺服器回傳的 token 保存在 localStorage 中
+        localStorage.setItem('token', data.token)
+        
+        await store.dispatch("fetchCurrentUser");
+        // 透過 setCurrentUser 把從 API 獲得的 data.user 存到 Vuex 的 state 中
+        this.$store.commit('setCurrentUser', data.user)
 
+        if(data.user.role === 'user') {
+          Toast.fire({
+            icon: 'error',
+            title: '帳號不存在'
+          })
+          this.$store.commit('revokeAuthentication')
+          return
+        } else {
+          Toast.fire({
+            icon: 'success',
+            title: `管理者-${this.account}-登入成功`
+          })
+        }
+
+        this.$router.push('/admin/main') // 成功登入後進行轉址
       }catch (error) {
         this.password = ''
         this.isProcessing = false

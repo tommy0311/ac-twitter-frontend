@@ -5,17 +5,53 @@
       id="user-reply-list-container"
       :key="reply.id"
     >
-      <img
-        class="user-headshot"
-        :src="reply.User.avatar | emptyImage"
-        alt="個人頭像"
+      <router-link
+        v-if="reply.isCurrentUser"
+        :to="{
+          name: 'user-tweets' // 導引至 UserSelf.vue
+        }"
       >
+        <img
+          class="user-headshot"
+          :src="reply.User.avatar | emptyImage"
+          alt="個人頭像"
+        >
+      </router-link>
+      <router-link
+        v-else
+        :to="{
+          name: 'user-id-tweets', // 導引至 UserOther.vue
+          params: { userId: reply.UserId }
+        }"
+      >
+        <img
+          class="user-headshot"
+          :src="reply.User.avatar | emptyImage"
+          alt="個人頭像"
+        >
+      </router-link>
+
       <div class="ml-2">
         <div class="d-flex align-items-center">
           <router-link
             v-if="reply.isCurrentUser"
             :to="{
               name: 'user-tweets' // 導引至 UserSelf.vue
+            }"
+            class="user-name"
+          >
+            {{ reply.User.name }}
+            <span class="user-acount-for-post ml-2">
+              <span>@</span>
+              {{ reply.User.account }}
+              <span> • </span>
+            </span>
+          </router-link>
+          <router-link
+            v-else
+            :to="{
+              name: 'user-id-tweets', // 導引至 UserOther.vue
+              params: { userId: reply.UserId }
             }"
             class="user-name"
           >
@@ -47,8 +83,8 @@
 </template>
 
 <script>
-import { fromNowFilter } from './../utils/mixins'
-import { emptyImageFilter } from './../utils/mixins'
+import { fromNowFilter, emptyImageFilter } from './../utils/mixins'
+
 export default {
   name: "UserReplyList",
   mixins: [fromNowFilter,emptyImageFilter],

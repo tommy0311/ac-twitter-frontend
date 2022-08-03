@@ -12,6 +12,9 @@
       <NavpillUser
         :initial-user="user"
         :initial-is-current-user="isCurrentUser"
+        :initial-tweets-active="isTweetsActive"
+        :initial-replies-active="isRepliesActive"
+        :initial-likes-active="isLikesActive"
       />
       <div class="y-scroll">
         <router-view
@@ -57,6 +60,7 @@ export default {
   beforeRouteUpdate (to, from, next) {
     const { userId } = to.params
     this.fetchUser(userId)
+    this.updateRouteName(to.name)
     next()
   },
   data () {
@@ -82,6 +86,9 @@ export default {
       recommendUsers: [],
       userId: -1,
       isCurrentUser: false,
+      isTweetsActive: '',
+      isRepliesActive: '',
+      isLikesActive: '',
       isProcessing: false
     }
   },
@@ -99,8 +106,17 @@ export default {
     this.fetchCurrentUserFollowings();
     this.fetchRecommendUsers();
     this.isCurrentUser = false
+    this.updateRouteName( this.$route.name )
   },
   methods: {
+    updateRouteName(name) {
+      this.isTweetsActive = name === 'user-id-tweets' ? 'navpill-title-active' : ''
+      this.isRepliesActive = name === 'user-id-replied_tweets' ? 'navpill-title-active' : ''
+      this.isLikesActive = name === 'user-id-likes' ? 'navpill-title-active' : ''
+      console.log('isTweetsActive=', this.isTweetsActive)
+      console.log('isRepliesActive=', this.isRepliesActive)
+      console.log('isLikesActive=', this.isLikesActive)
+    },
     updatePage() {
       this.fetchfollowingCount(this.userId);
       this.fetchRecommendUsers();
@@ -202,11 +218,17 @@ export default {
         })
 
         const replies = await usersAPI.getUserReplies({ userId: this.user.id })
-        this.replies = replies.data
-        // console.log('replies=', this.replies)
+        this.replies = replies.data.map( reply => {
+          reply.isCurrentUser = reply.UserId === this.currentUser.id ? true : false
+          return {
+            ...reply
+          }
+        })
 
         const likes = await usersAPI.getUserLikes({ userId: this.user.id })
         this.likes = likes.data.map( like => {
+          like.isCurrentUser = like.Tweet.UserId === this.currentUser.id ? true : false
+
           if( this.currentUserLikes.some(l => l.TweetId === like.TweetId) ) {
             return {
               ...like,
@@ -219,7 +241,6 @@ export default {
             }
           }
         })
-        console.log('likes=', this.likes)
 
       } catch (error) {
         console.error(error.message);

@@ -67,9 +67,20 @@
             {{ tweet.createdAt | fromNow }}
           </p>
         </div>
-        <p class="tweet-content mt-2">
-          {{ tweet.description }}
-        </p>
+
+        <router-link
+          :to="{
+            name: 'replylist',
+            query: {
+              tweetId: tweet.id
+            }
+          }"
+        >
+          <p class="tweet-content mt-2">
+            {{ tweet.description }}
+          </p>
+        </router-link>
+
         <div class="tweet-icon-show-pannel d-flex mt-1">
           <a
             href=""
@@ -117,8 +128,7 @@
 </template>
 
 <script>
-import { fromNowFilter } from './../utils/mixins'
-import { emptyImageFilter } from './../utils/mixins'
+import { fromNowFilter, emptyImageFilter } from './../utils/mixins'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
 

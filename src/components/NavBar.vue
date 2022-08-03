@@ -18,21 +18,38 @@
             to="/main"
             class="nav-link"
           >
-            <div class="icon-container">
-              <img
-                src="../assets/icon_home.png"
-                alt=""
-                class="icon-size"
-              >             
-            </div>
-            <div class="icon-container">
+            <div
+              v-if="isMainPage"
+              class="icon-container"
+            >
               <img
                 src="../assets/atIndex@2x.png"
-                alt=""
-                class="icon-size"
-              >             
+                alt="houseActive"
+                class="icon-size house-icon"
+              >
             </div>
-            <span class="navbar-index">首頁</span>
+            <div
+              v-else
+              class="icon-container"
+            >
+              <img
+                src="../assets/icon_home.png"
+                alt="house"
+                class="icon-size house-icon"
+              >
+            </div>
+            <span
+              v-if="isMainPage"
+              class="navbar-index-active"
+            >
+              首頁
+            </span>
+            <span
+              v-else
+              class="navbar-index"
+            >
+              首頁
+            </span>
           </router-link>
         </li>
         <li>
@@ -40,21 +57,38 @@
             to="/user/tweets"
             class="nav-link"
           >
-            <div class="icon-container">
+            <div
+              v-if="isProfile"
+              class="icon-container"
+            >
+              <img
+                src="../assets/atUser_big-removebg-preview.png"
+                alt=""
+                class="icon-size profile-icon"
+              >
+            </div>
+            <div
+              v-else
+              class="icon-container"
+            >
               <img
                 src="../assets/icon_user.png"
                 alt=""
-                class="icon-size"
+                class="icon-size profile-icon"
               >
             </div>
-            <div class="icon-container">
-              <img
-                src="../assets/atUser.png"
-                alt=""
-                class="icon-size"
-              >
-            </div>
-            <span class="navbar-index">個人資料</span>
+            <span
+              v-if="isProfile"
+              class="navbar-index-active"
+            >
+              個人資料
+            </span>
+            <span
+              v-else
+              class="navbar-index"
+            >
+              個人資料
+            </span>
           </router-link>
         </li>
         <li>
@@ -62,21 +96,38 @@
             to="/setting"
             class="nav-link"
           >
-            <div class="icon-container">
+            <div
+              v-if="isSetting"
+              class="icon-container"
+            >
+              <img
+                src="../assets/Group_big-removebg-preview.png"
+                alt=""
+                class="icon-size setting-icon"
+              >
+            </div>
+            <div
+              v-else
+              class="icon-container"
+            >
               <img
                 src="../assets/icon_setting.png"
                 alt=""
-                class="icon-size"
+                class="icon-size setting-icon"
               >
             </div>
-            <div class="icon-container">
-              <img
-                src="../assets/Group.png"
-                alt=""
-                class="icon-size"
-              >
-            </div>
-            <span class="navbar-index">設定</span>
+            <span
+              v-if="isSetting"
+              class="navbar-index-active"
+            >
+              設定
+            </span>
+            <span
+              v-else
+              class="navbar-index"
+            >
+              設定
+            </span>
           </router-link>
         </li>
       </ul>
@@ -100,15 +151,17 @@
           >
             <div class="icon-container">
               <img
-                src="../assets/log out.png"
+                src="../assets/logout_black-removebg-preview.png"
                 alt=""
-                class="icon-size"
+                class="icon-size logout-icon"
               >
             </div>
             <span
               class="navbar-index"
               @click="logout"
-            >登出</span>
+            >
+              登出
+            </span>
           </a>
         </li>
       </ul>
@@ -122,13 +175,41 @@ import PopoutWritingTweet from '../components/PopoutWritingTweet.vue';
 
 export default {
     components: { PopoutWritingTweet },
+    props: {
+      initialMainPage: {
+        type: Boolean,
+        default: false
+      },
+      initialProfile: {
+        type: Boolean,
+        default: false
+      },
+      initialSetting: {
+        type: Boolean,
+        default: false
+      },
+    },
     data() {
         return {
             isModalShown: false,
+            isMainPage: this.initialMainPage,
+            isProfile: this.initialProfile,
+            isSetting: this.initialSetting
         };
     },
     computed: {
         ...mapState(["currentUser", "isAuthenticated"]),
+    },
+    watch: {
+      initialMainPage (newValue) {
+        this.isMainPage = newValue
+      },
+      initialProfile (newValue) {
+        this.isProfile = newValue
+      },
+      initialSetting (newValue) {
+        this.isSetting = newValue
+      },
     },
     methods: {
         logout() {
