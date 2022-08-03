@@ -21,7 +21,7 @@
           :initial-tweets="tweets"
           :initial-replies="replies"
           :initial-likes="likes"
-          @fromUserLikeList="updatePage"
+          @updateLikes="updatePage"
         />
       </div>
     </div>
@@ -32,7 +32,7 @@
       </div>
       <RecommendColumn
         :initial-recommend-users="recommendUsers"
-        @fromRCF="updatePage"
+        @updateRecommendColumn="updatePage"
       />
     </div>
   </div>
@@ -59,6 +59,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     const { userId } = to.params
+    this.userId = Number(userId)
     this.fetchUser(userId)
     this.updateRouteName(to.name)
     next()
@@ -196,12 +197,12 @@ export default {
     // 取得 推文 回覆 喜歡的內容
     async fetchUserTweetsRepliesLikes() {
       try {
-        console.log('this.user.id=', this.user.id)
+        console.log('this.userId=', this.userId)
 
         const currentUserLikes = await usersAPI.getUserLikes({userId: this.currentUser.id});
         this.currentUserLikes = currentUserLikes.data
 
-        const tweets = await usersAPI.getUserTweets({ userId: this.user.id })
+        const tweets = await usersAPI.getUserTweets({ userId: this.userId })
         this.tweets = tweets.data.map( tweet => {
           tweet.isCurrentUser = tweet.UserId === this.currentUser.id ? true : false
           if( this.currentUserLikes.some(l => l.TweetId === tweet.id) ) {
@@ -217,7 +218,7 @@ export default {
           }
         })
 
-        const replies = await usersAPI.getUserReplies({ userId: this.user.id })
+        const replies = await usersAPI.getUserReplies({ userId: this.userId })
         this.replies = replies.data.map( reply => {
           reply.isCurrentUser = reply.UserId === this.currentUser.id ? true : false
           return {
@@ -225,7 +226,7 @@ export default {
           }
         })
 
-        const likes = await usersAPI.getUserLikes({ userId: this.user.id })
+        const likes = await usersAPI.getUserLikes({ userId: this.userId })
         this.likes = likes.data.map( like => {
           like.isCurrentUser = like.Tweet.UserId === this.currentUser.id ? true : false
 
@@ -241,7 +242,7 @@ export default {
             }
           }
         })
-
+        console.log('user other likes=', this.likes)
       } catch (error) {
         console.error(error.message);
         Toast.fire({

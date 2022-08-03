@@ -1,8 +1,12 @@
 <template>
   <div class="d-flex justify-content-center"> 
-    <AdminNav />
+    <AdminNav
+      :initial-users-list="isUsersList"
+    />
     <div class="admin-main-wrapper ml-6">
-      <NavpillHeaderMain />
+      <NavpillHeaderMain
+        :initial-admin-users="isAdminUsers"
+      />
       <AdminUserCard />
     </div>
   </div>
@@ -22,7 +26,8 @@ export default {
   },
   data() {
     return {
-      
+      isUsersList: true,
+      isAdminUsers: true,
     };
   },
 }

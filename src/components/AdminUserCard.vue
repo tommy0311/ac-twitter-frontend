@@ -1,64 +1,111 @@
 <template>
-  <div
-    id="admin-user-Profile-card"
-    class="flex-column"
-  >
-    <img
-      class="profile-background-img"
-      src="../assets/IMG_20190730_054530.jpg"
-      alt=""
+  <div class="">
+    <div
+      v-for="user in users"
+      id="admin-user-Profile-card"
+      :key="user.id"
+      class="flex-column"
+      style="display: inline-block; margin-top: 16px; margin-left: 16px;"
     >
-    <img
-      class="profile-headshot"
-      src="../assets/Photo2.png"
-      alt="個人頭像"
-    >
-    <div class="profile-info-container text-center">
-      <h4 class="user-name mt-8">
-        apple
-      </h4>
-      <p class="user-acount">
-        <span>@</span>apple
-      </p>
-      <!-- <div class="text-canter"></div> -->
-      <div class="user-info-icon-pannel d-flex mt-5 justify-content-center">
-        <a
-          href=""
-          class="d-flex align-items-center"
-        >
-          <img
-            src="../assets/quill pen.png"
-            alt=""
-            class="user-info-icon"
+      <img
+        class="profile-background-img"
+        :src=" user.cover | emptyCover "
+        alt="cover"
+      >
+      <img
+        class="profile-headshot"
+        :src=" user.avatar | emptyImage "
+        alt="個人頭像"
+      >
+      <div class="profile-info-container text-center">
+        <h4 class="user-name mt-8">
+          {{ user.name }}
+        </h4>
+        <p class="user-acount">
+          <span>@</span>
+          {{ user.account }}
+        </p>
+        <!-- <div class="text-canter"></div> -->
+        <div class="user-info-icon-pannel d-flex mt-5 justify-content-center">
+          <span
+            class="d-flex align-items-center"
           >
-          <span class="post-amount ml-2">1.5k</span>
-        </a>
-        <a
-          href=""
-          class="d-flex align-items-center ml-5"
-        >
-          <img
-            src="../assets/like.png"
-            alt=""
-            class="user-info-icon"
+            <img
+              src="../assets/quill pen.png"
+              alt=""
+              class="user-info-icon"
+            >
+            <span class="post-amount ml-2">
+              {{ user.TweetCount }}
+            </span>
+          </span>
+          <span
+            class="d-flex align-items-center ml-5"
           >
-          <span class="like-amount ml-2">20k</span>
-        </a>
-      </div>
-      <div class="d-flex mt-3 text-center mb-6 justify-content-center">
-        <a
-          href="#"
-          class="user-follow-info"
-        >
-          <span class="following-number">34</span><span class="ml-1">個</span>跟隨中
-        </a>
-        <a
-          href="#"
-          class="user-follow-info"
-        >
-          <span class="follower-number ml-2">34</span><span class="ml-1">位</span>跟隨者
-        </a>
+            <img
+              src="../assets/like.png"
+              alt=""
+              class="user-info-icon"
+            >
+            <span class="like-amount ml-2">
+              {{ user.likeCount }}
+            </span>
+          </span>
+        </div>
+        <div class="d-flex mt-3 text-center mb-6 justify-content-center">
+          <span
+            class="user-follow-info"
+          >
+            <span class="following-number">
+              {{ user.followingCount }}
+            </span>
+            <span class="following-number">個</span>跟隨中
+          </span>
+          <span
+            class="user-follow-info"
+          >
+            <span class="follower-number ml-2">
+              {{ user.followerCount }}
+            </span>
+            <span class="following-number">位</span>跟隨者
+          </span>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import authorizationAPI from './../apis/authorization';
+import { Toast } from "./../utils/helpers";
+import { emptyImageFilter } from './../utils/mixins'
+
+export default {
+  name: "AdminUserCard",
+  mixins: [emptyImageFilter],
+  data() {
+    return {
+      users: [],
+      isProcessing: false,
+    };
+  },
+  created() {
+    this.fetchUsers()
+  },
+  methods: {
+    async fetchUsers(){
+      try {
+        const {data} = await authorizationAPI.getUsers()
+        this.users = data
+        console.log('Admin users=', this.users)
+      } catch (error) {
+        console.error(error.message);
+        Toast.fire({
+          icon: "error",
+          title: "無法取得 Users 資料",
+        });
+      }
+    }
+  }
+}
+</script>

@@ -69,7 +69,7 @@ export default {
     async deleteTweet(id, description, account){
       try {
         if(confirm(`你想刪除 ${account} 的這篇 ${description} 推文嗎？`)) {
-          console.log('ok')
+          console.log('yes')
           const response = await authorizationAPI.deleteTweet({tweetId: id})
           if (response.status !== 'error') {
             Toast.fire({
@@ -80,6 +80,7 @@ export default {
         } else{
           console.log('no')
         }
+        this.tweets = this.tweets.filter(t=>t.id !== id)
       } catch (error) {
         Toast.fire({
           icon: 'error',

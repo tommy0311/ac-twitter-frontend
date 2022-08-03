@@ -37,6 +37,12 @@
             required
           />
           <span
+            v-show="tweetLength"
+            style="margin-right:10px;"
+          >
+            {{ tweetLength }}/140
+          </span>
+          <span
             class="popup-error-text"
             :class="{ show: isErrorExceed }"
           >字數不可超過140字</span>
@@ -73,9 +79,17 @@ export default {
     return {
       isErrorExceed: false,
       isErrorEmpty: false,
+      tweet: '',
+      tweetLength: 0
     }
   },
+  watch: {
+    tweet: "showTweetLength"
+  },
   methods: {
+    showTweetLength () {
+      this.tweetLength = this.tweet.length
+    },
     async handleSubmit() {
       try {
         const trimmedTweet = this.tweet.trim()

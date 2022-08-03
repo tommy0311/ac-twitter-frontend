@@ -103,7 +103,7 @@ export default {
           }
         }
         this.recommendUsers = arr
-        this.$emit('fromRCF')
+        this.$emit('updateRecommendColumn')
 
         this.isProcessing = false;
       } catch (error) {
@@ -130,7 +130,7 @@ export default {
           }
         }
         this.recommendUsers = arr
-        this.$emit('fromRCF')
+        this.$emit('updateRecommendColumn')
 
         this.isProcessing = false;
       } catch (error) {

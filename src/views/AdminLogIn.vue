@@ -99,6 +99,7 @@ export default {
             title: '帳號不存在'
           })
           this.$store.commit('revokeAuthentication')
+          this.$router.push("/login");
           return
         } else {
           Toast.fire({

@@ -108,6 +108,7 @@ export default {
             title: '帳號不存在'
           })
           this.$store.commit('revokeAuthentication')
+          this.$router.push("/admin");
           return
         } else {
           Toast.fire({

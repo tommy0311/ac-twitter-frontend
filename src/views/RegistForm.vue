@@ -81,6 +81,7 @@
 import authorizationAPI from './../apis/authorization'
 import { Toast } from './../utils/helpers'
 export default {
+  name: "RegistForm",
   data () {
     return {
       account: '',
@@ -125,7 +126,12 @@ export default {
           password: this.password,
           checkPassword: this.checkPassword
         })
-
+        // console.log('data=', data)
+        if(data.user.email === this.email) {
+          throw new Error('email 已重複註冊！')
+        } else if(data.user.account === this.account) {
+          throw new Error('account 已重複註冊！')
+        }
         if (data.status !== 'success') {
           throw new Error(data.message)
         }
@@ -140,7 +146,7 @@ export default {
         this.isProcessing = false
         Toast.fire({
           icon: 'warning',
-          title: `無法註冊 - ${error.message}`
+          title: `無法註冊 - ${error}`
         })
       }
     }

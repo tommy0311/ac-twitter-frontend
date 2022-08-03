@@ -18,6 +18,12 @@
           required
         />
         <div class="d-flex justify-content-end align-items-end">
+          <span
+            v-show="tweetLength"
+            style="margin-right:10px;"
+          >
+            {{ tweetLength }}/140
+          </span>
           <button
             class="post-btn second-btn-style"
             type="submit"
@@ -39,16 +45,30 @@ export default {
   data() {
     return {
       tweet: '',
+      tweetLength: 0
     }
   },
+  watch: {
+    tweet: "showTweetLength"
+  },
   methods: {
+    showTweetLength () {
+      this.tweetLength = this.tweet.length
+    },
     async handleSubmit() {
       try {
         const trimmedTweet = this.tweet.trim()
+        if(trimmedTweet.length>140) {
+          Toast.fire({
+            icon: 'error',
+            title: '字數不可超過140字',
+          })
+          return
+        }
         if (!trimmedTweet.length) {
           Toast.fire({
-            icon: 'warning',
-            title: '推文內容不能為空白',
+            icon: 'error',
+            title: '內容不可空白',
           })
           return
         }
