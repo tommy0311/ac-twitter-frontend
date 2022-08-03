@@ -1,13 +1,9 @@
 <template>
   <div class="d-flex justify-content-center"> 
-    <AdminNav
-      :initial-users-list="isUsersList"
-    />
+    <AdminNav />
     <div class="admin-main-wrapper ml-6">
-      <NavpillHeaderMain
-        :initial-admin-users="isAdminUsers"
-      />
-      <AdminTweetElement />
+      <NavpillHeaderMain />
+      <AdminUserCard />
     </div>
   </div>
 </template>
@@ -15,19 +11,18 @@
 <script>
 import AdminNav from '../components/AdminNav.vue';
 import NavpillHeaderMain from '../components/NavpillHeaderMain.vue';
-import AdminTweetElement from '../components/AdminTweetElement.vue';
+import AdminUserCard from '../components/AdminUserCard.vue';
 
 export default {
   name: 'AdminUsers',
   components: {
     AdminNav,
     NavpillHeaderMain,
-    AdminTweetElement,
+    AdminUserCard,
   },
   data() {
     return {
-      isUsersList: true,
-      isAdminUsers: true,
+      
     };
   },
 }
