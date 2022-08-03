@@ -24,7 +24,7 @@
           id="user-name"
           v-model="user.name"
           type="text"
-          class="user-name"
+          class="user-account"
           placeholder="請輸入使用者名稱"
           required
         >

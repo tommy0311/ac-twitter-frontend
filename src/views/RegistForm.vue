@@ -25,8 +25,8 @@
         <input
           id="user-name"
           v-model="name"
-          type="password"
-          class="user-name"
+          type="text"
+          class="user-account"
           placeholder="請輸入使用者名稱"
         >
       </div>
@@ -67,7 +67,7 @@
       >
         註冊
       </button>
-      <a 
+      <a
         class="submit-other-choice text-center"
         href="javascript:history.back()"
       >

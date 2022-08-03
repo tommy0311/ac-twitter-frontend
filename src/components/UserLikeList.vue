@@ -164,7 +164,7 @@ export default {
         if (data.status === 'error') {
           throw new Error(data.message)
         }
-        this.$emit('fromUserLikeList')
+        this.$emit('updateLikes')
 
         this.isProcessing = false
       } catch (error) {
@@ -184,7 +184,7 @@ export default {
         if (data.status === 'error') {
           throw new Error(data.message)
         }
-        this.$emit('fromUserLikeList')
+        this.$emit('updateLikes')
 
         this.isProcessing = false
       } catch (error) {

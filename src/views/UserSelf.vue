@@ -22,7 +22,7 @@
           :initial-tweets="tweets"
           :initial-replies="replies"
           :initial-likes="likes"
-          @fromUserLikeList="updatePage"
+          @updateLikes="fetchUserTweetsRepliesLikes"
         />
       </div>
     </div>
@@ -124,8 +124,6 @@ export default {
 
         const followersData = await usersAPI.getUserFollowers({ userId })
         const followers = followersData.data
-        // console.log('followings=', followings)
-        // console.log('followers=', followers)
 
         this.user = {
           ...this.currentUser,
@@ -191,7 +189,7 @@ export default {
         console.error(error.message);
         Toast.fire({
           icon: "error",
-          title: "無法取得 Tweets 資料",
+          title: "無法取得 Tweets Replies Likes 資料",
         });
       }
     },

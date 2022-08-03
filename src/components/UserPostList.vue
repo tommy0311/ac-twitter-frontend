@@ -160,7 +160,6 @@ export default {
         this.isProcessing = true
         console.log('tweetId=',tweetId)
         const { data } = await usersAPI.addLike({ tweetId })
-        console.log('data=',data)
         if (data.status === 'error') {
           throw new Error(data.message)
         }
@@ -177,6 +176,7 @@ export default {
             return t
           }
         })
+        this.$emit('updateLikes')
 
         this.isProcessing = false
       } catch (error) {
@@ -193,7 +193,6 @@ export default {
         this.isProcessing = true
         console.log('tweetId=',tweetId)
         const { data } = await usersAPI.unLike({ tweetId })
-        console.log('data=',data)
         if (data.status === 'error') {
           throw new Error(data.message)
         }
@@ -210,6 +209,7 @@ export default {
             return t
           }
         })
+        this.$emit('updateLikes')
 
         this.isProcessing = false
       } catch (error) {
