@@ -26,8 +26,7 @@
           </button>
         </div>
       </form>
-    </div>
-    <div class="user-post-under-line" />
+    </div>    
   </div>
 </template>
 

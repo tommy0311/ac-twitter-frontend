@@ -27,7 +27,7 @@
     </router-link>
 
     <div class="ml-2">
-      <div class="d-flex">
+      <div class="d-flex align-items-center">
         <router-link
           v-if="isCurrentUser"
           :to="{

@@ -3,6 +3,27 @@
   height: 40px;
 }
 
+//輸入框類
+@mixin formInputStyle {
+  border: none;
+  width: 100%;
+  height: 54px;
+  background-color: var(--formBgColor);
+  border-radius: 2px;
+  border-bottom: 2px solid var(--secondaryTextColor);
+  padding: 5px 10.55px;
+  &:hover,
+  &:active {
+    border-bottom: 2px solid var(--blue);
+  }
+  &.error {
+    border-bottom: 2px solid var(--red-errorSign);
+  }
+  &.disabled {
+    border-bottom: 2px solid var(--gray-disabledSign);
+  }
+}
+
 //按鈕類
 @mixin mainBtnStyle {
   width: 100%;

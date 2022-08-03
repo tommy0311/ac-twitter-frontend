@@ -17,7 +17,7 @@
         :initial-replies-active="isRepliesActive"
         :initial-likes-active="isLikesActive"
       />
-      <div class="y-scroll">
+      <div class="y-scroll scrollbar">
         <router-view
           :initial-tweets="tweets"
           :initial-replies="replies"

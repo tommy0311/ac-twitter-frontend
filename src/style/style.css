@@ -902,32 +902,25 @@ input:invalid {
 
 #navbar-container {
   width: 178px;
+  height: 100%;
+  padding: 13px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 #navbar-container .logo-img {
   width: 40px;
   height: 40px;
-  margin: 13px;
 }
 #navbar-container .nav-list {
   margin-top: 29px;
-  margin-left: 13px;
-}
-#navbar-container .nav-list .nav-link {
-  display: flex;
-  align-items: center;
-}
-#navbar-container .nav-list-bottom {
-  position: absolute;
-  margin-bottom: -24px;
-  bottom: 0;
 }
 #navbar-container .nav-link {
+  display: flex;
+  align-items: center;
   font-weight: 700;
   font-size: 18px;
   color: var(--black);
-  margin-bottom: 40px;
 }
 #navbar-container .nav-link:hover, #navbar-container .nav-link:active {
   color: var(--orange);
@@ -948,12 +941,16 @@ input:invalid {
   width: 22px;
   height: 22px;
 }
-#navbar-container .nav-link .navbar-index {
+#navbar-container .nav-link .navbar-index,
+#navbar-container .nav-link .navbar-index-active {
   margin-left: 16.85px;
 }
 #navbar-container .nav-link .navbar-index-active {
-  margin-left: 16.85px;
   color: var(--orange);
+}
+#navbar-container li:nth-child(1),
+#navbar-container li:nth-child(2) {
+  margin-bottom: 40px;
 }
 #navbar-container .main-btn-style {
   width: 100%;
@@ -964,12 +961,15 @@ input:invalid {
   font-weight: 400;
   font-size: 20px;
   line-height: 30px;
-  margin-top: -16px;
+  margin-top: 24px;
 }
 #navbar-container .main-btn-style:hover, #navbar-container .main-btn-style:active {
   color: var(--orange);
   background-color: var(--white);
   border: 1px solid var(--orange);
+}
+#navbar-container .nav-list-bottom {
+  margin-top: 450px;
 }
 
 .main-wrapper {
@@ -1007,6 +1007,7 @@ input:invalid {
   width: 100%;
   border: 1px solid var(--borderColor);
   padding: 0 25px;
+  border-bottom: 3px solid var(--borderColor);
 }
 #writtingTweet-container .writtingTweet-pannel {
   width: 100%;
@@ -1033,7 +1034,7 @@ input:invalid {
   color: var(--messageTextColor);
 }
 #writtingTweet-container .writtingTweet-pannel .second-btn-style {
-  width: 80px;
+  width: 68px;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -1050,12 +1051,6 @@ input:invalid {
   color: var(--orange);
   background-color: var(--white);
   border: 1px solid var(--orange);
-}
-
-.user-post-under-line {
-  width: 639px;
-  height: 3px;
-  background-color: var(--borderColor);
 }
 
 #recommendColumn-container {
@@ -1185,6 +1180,13 @@ input:invalid {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+#tweet-element-container .tweet-content,
+#user-post-list-container .tweet-content,
+#user-like-list-container .tweet-content,
+#admin-tweet-element-container .tweet-content {
+  width: 100%;
+  background-color: #92929d;
 }
 #tweet-element-container .tweet-icon-show-pannel,
 #user-post-list-container .tweet-icon-show-pannel,
@@ -1671,7 +1673,7 @@ input:invalid {
   color: var(--messageTextColor);
 }
 #popup-writtingTweet-container .writtingTweet-pannel .second-btn-style {
-  width: 64px;
+  width: 68px;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -1810,6 +1812,24 @@ input:invalid {
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .form-element-group {
   margin-bottom: 0;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input {
+  border: none;
+  width: 100%;
+  height: 54px;
+  background-color: var(--formBgColor);
+  border-radius: 2px;
+  border-bottom: 2px solid var(--secondaryTextColor);
+  padding: 5px 10.55px;
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:hover, #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:active {
+  border-bottom: 2px solid var(--blue);
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input.error {
+  border-bottom: 2px solid var(--red-errorSign);
+}
+#popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input.disabled {
+  border-bottom: 2px solid var(--gray-disabledSign);
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .user-introduction {
   height: 147px;

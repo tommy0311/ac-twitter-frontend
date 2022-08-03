@@ -1,0 +1,862 @@
+//全域
+.user-name {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+}
+.user-acount {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: #92929d;
+}
+.y-scroll {
+  overflow-y: scroll;
+}
+.scrollbar {    
+  &::-webkit-scrollbar {
+    width: 15px;
+  }  
+  &::-webkit-scrollbar-thumb {    
+    width: 8px;
+    height: 25px;    
+    background: #C1C1C1;
+    border-radius: 4px;
+  }
+}
+
+//登入系列
+#login-container,
+#regist-container,
+#admin-login-container {
+  width: 356px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 69px auto 0 auto;
+  .logo-img {
+    @include logoImg;
+  }
+  h1 {
+    margin-top: 24px;
+    font-weight: 700;
+    font-size: 28px;
+  }
+}
+.form-container {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .form-element-group {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  label {
+    position: absolute;
+    color: var(--secondaryTextColor);
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: 400;
+    left: 10.55px;
+    top: 5px;
+  }
+  input {
+    border: none;
+    width: 356px;
+    height: 54px;
+    background-color: var(--formBgColor);
+    border-radius: 2px;
+    border-bottom: 2px solid var(--secondaryTextColor);
+    padding: 30px 10.55px 4px 10.55px;
+    &:hover,
+    &:active {
+      border-bottom: 2px solid var(--blue);
+    }
+  }
+  input::placeholder {
+    position: absolute;
+    bottom: 4px;
+    @include contentTextStyle;
+    color: var(--placeholderTextColor);
+  }
+  .main-btn-style {
+    @include mainBtnStyle;
+    margin-bottom: 22px;
+    &:hover,
+    &:active {
+      @include mainBtnStyleChange;
+    }
+  }
+  .admin-text-link-container {
+    width: 100%;
+    display: block;
+  }
+  .submit-other-choice {
+    color: var(--blue);
+    text-decoration-line: underline;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+//navbar
+#navbar-container {
+  width: 178px;
+  height: 100%;
+  padding: 13px;
+  display: flex;  
+  flex-direction: column;
+  position: relative;
+  .logo-img {
+    @include logoImg;    
+  }
+  .nav-list {
+    margin-top: 29px;    
+  }    
+  .nav-link {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--black);    
+    &:hover,
+    &:active {
+      color: var(--orange);
+      .house-icon {
+        content: url('../assets/atIndex@2x.png');
+      }
+      .profile-icon {
+        content: url('../assets/atUser_big-removebg-preview.png');
+      }
+      .setting-icon {
+        content: url('../assets/Group_big-removebg-preview.png');
+      }
+      .logout-icon {
+        content: url('../assets/log_out_big-removebg-preview.png');
+      }
+    }
+    .icon-container {
+      width: 22px;
+      height: 22px;
+    }
+    .navbar-index,
+    .navbar-index-active {
+      margin-left: 16.85px;
+    }
+    .navbar-index-active {      
+      color: var(--orange);
+    }
+  }
+  li:nth-child(1),
+  li:nth-child(2) {
+    margin-bottom: 40px;
+  }
+  .main-btn-style {
+    @include mainBtnStyle;
+    margin-top: 24px;
+    &:hover,
+    &:active {
+      @include mainBtnStyleChange;
+    }
+  }
+  .nav-list-bottom {    
+    // position: absolute;
+    // bottom: 0;
+    // margin-bottom: 13px;
+    margin-top: 450px;    
+  }
+}
+
+//main area
+.main-wrapper {
+  width: 639px;
+  margin-right: 21px;
+  margin-left: 24px;
+}
+#navpillHeader-container {
+  width: 100%;
+  height: 75px;
+  @include tiny-border-line;
+  @include main-border-padding;
+  display: flex;
+  align-items: center;
+  .arrow-icon {
+    width: 17px;
+    height: 14px;
+    margin-right: 19px;
+  }
+  .navpillHeader-title {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--black);
+  }
+  .navpill-info-container {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--messageTextColor);
+  }
+}
+
+#writtingTweet-container {
+  width: 100%;
+  @include tiny-border-line;
+  @include main-border-padding;
+  border-bottom: 3px solid var(--borderColor);
+  .writtingTweet-pannel {
+    width: 100%;
+    padding: 16px 0;
+    .user-headshot {
+      @include userHeadshotSetting;
+    }
+    .user-writing-post-form {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+    }
+    .user-writting-post {
+      border: none;
+      width: 100%;
+      height: 136px;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 26px;
+      color: var(--messageTextColor);
+    }
+    .second-btn-style {
+      width: 68px;
+      padding: 8px 16px;
+      @include secondBtnStyle;
+      &:hover,
+      &:active {
+        @include secondBtnStyleChange;
+      }
+    }
+  }
+}
+
+
+#recommendColumn-container {
+  width: 273px;
+  height: 731px;
+  margin-top: 16px;
+  border-radius: 16px;
+  background-color: var(--recommendBgColor);
+  .recommendHeader {
+    width: 100%;
+    height: 74px;
+    @include bottom-tiny-border-line;
+    background-color: var(--recommendBgColor);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    h1 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      background-color: var(--recommendBgColor);
+    }
+  }
+  .recommendAccount-panel {
+    width: 100%;
+    .recommendAccount-element {
+      padding: 16px;
+      background-color: var(--recommendBgColor);
+      position: relative;
+      .user-headshot {
+        @include userHeadshotSetting;
+        margin-right: 8px;
+      }
+      .empty-btn-style,
+      .second-btn-style,
+      .empty-btn-style-active {
+        position: absolute;
+        right: 16px;
+        padding: 8px 16px;
+      }
+      .empty-btn-style-active {
+        @include activeBtnStyle;
+        &:hover {
+          @include activeBtnStyleChange;
+        }
+      }
+      .empty-btn-style {
+        @include emptyBtnStyle;
+        &:hover,
+        &:active {
+          @include emptyBtnStyleChange;
+        }
+      }
+      .second-btn-style {
+        @include secondBtnStyle;
+        &:hover,
+        &:active {
+          @include secondBtnStyleChange;
+        }
+      }
+    }
+  }
+}
+
+.user-acount-for-post,
+.post-time {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--messageTextColor);
+}
+.tweet-content {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #171725;
+}
+
+#tweet-element-container,
+#user-post-list-container,
+#user-like-list-container,
+#admin-tweet-element-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: row;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .tweet-content{
+    width: 100%; 
+    background-color: #92929d;   
+  }
+  .tweet-icon-show-pannel {
+    width: 100%;
+    height: 14px;
+    .tweet-icon-show {
+      width: 13.17px;
+      height: 13.17px;
+    }
+    .reply-number,
+    .like-number {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 14px;
+      color: var(--messageTextColor);
+    }
+  }
+}
+
+#reply-post-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 16px 0 16px;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .tweet-content {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .tweet-post-time-pannel {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--messageTextColor);
+  }
+  .reply-like-number-container {
+    height: 60px;
+    align-items: center;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 23px;
+    color: var(--messageTextColor);
+    border-top: 1px solid var(--borderColor);
+    @include bottom-tiny-border-line;
+    .tweet-reply-number,
+    .tweet-like-number {
+      color: var(--black);
+    }
+  }
+  .tweet-icon-show-pannel {
+    width: 100%;
+    height: 68px;
+    align-items: center;
+    .tweet-icon-show {
+      width: 25px;
+      height: 25px;
+    }
+    .like-icon {
+      margin-left: 133px;
+    }
+  }
+}
+
+#reply-post-list-container,
+#user-reply-list-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 23px;
+  display: flex;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .reply-to-who-container {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--messageTextColor);
+  }
+  .tweet-content {
+    @include contentTextStyle;
+  }
+  .reply-to-who-acount {
+    color: var(--orange);
+  }
+}
+
+#userProfile-container {
+  width: 100%;
+  height: 378px;
+  position: relative;
+  @include tiny-border-line;
+  .profile-background-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  .profile-headshot {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid var(--white);
+    position: absolute;
+    left: 16px;
+    top: 124px;
+  }
+  .profile-info-container {
+    padding: 16px 16px 0 16px;
+    .empty-btn-style {
+      @include emptyBtnStyle;
+      padding: 8px 16px;
+      &:hover,
+      &:active {
+        @include emptyBtnStyleChange;
+      }
+    }
+    .empty-btn-style-active {
+      @include activeBtnStyle;
+        padding: 8px 16px;
+        &:hover,
+        &:active {
+          @include activeBtnStyleChange;
+        }
+    }
+    .profile-btn,
+    .profile-btn-solid {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;  
+    }
+    .profile-btn {      
+      border: 1px solid var(--orange);          
+    }
+    .profile-btn-solid {
+      background-color: var(--orange);
+    }    
+    .profile-btn-size{
+      width: 21px;
+      height: 21px;
+    }
+    .user-describe {
+      color: var(--contentTextColor);
+      margin-top: 6px;
+    }
+    .user-describe,
+    .user-follow-info {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .following-number,
+    .follower-number {
+      color: var(--messageTextColor);
+    }
+  }
+}
+
+#navpillUser-container {
+  width: 100%;
+  @include tiny-border-line;
+  .navpill-title-container {
+    width: 130px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    &:hover,
+    &:active {
+      @include navpillTitleContainerChange;
+      .navpill-title {
+        @include navpillTitleChange;
+      }
+    }
+  }
+  .navpill-title {
+    @include navpillTitleStyle;
+  }
+  .navpill-title-active {
+    width: 130px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      @include navpillTitleContainerChange;
+      @include navpillTitleChange;
+  }
+}
+
+#user-follower-list-container {
+  width: 100%;
+  @include tiny-border-line;
+  padding: 16px 30px 16px 23px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  .user-headshot {
+    @include userHeadshotSetting;
+  }
+  .user-name {
+    margin-top: 7px;
+  }
+  .tweet-content {
+    @include contentTextStyle;
+  }
+  .empty-btn-style {
+    position: absolute;
+    right: 30px;
+    @include emptyBtnStyle;
+    padding: 8px 16px;
+    &:hover,
+    &:active {
+      @include emptyBtnStyleChange;
+    }
+  }
+  .empty-btn-style-active {
+    position: absolute;
+    right: 30px;
+    @include activeBtnStyle;
+    padding: 8px 16px;
+    &:hover,
+    &:active {
+      @include activeBtnStyleChange;
+    }
+  }
+}
+
+#setting-form-container {
+  width: 639px;
+  height: 100vh;
+  @include tiny-border-line;
+  padding: 24px 23px 0 23px;
+  .form-container {
+    margin-top: 0;
+  }
+  .form-element-group {
+    input {
+      width: 100%;
+    }
+  }
+  .main-btn-style {
+    margin-top: 8px;
+    width: 88px;
+  }
+}
+
+//admin區
+.admin-main-wrapper {
+  width: 937px;
+}
+#admin-tweet-element-container {
+  position: relative;
+  .delete-icon-size{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 21.5px;
+    right: 4.63px;
+  }
+}
+#admin-user-Profile-card {
+  width: 249px;
+  height: 314px;
+  border-radius: 10px;
+  background-color: var(--recommendBgColor);
+  position: relative;
+  .profile-background-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .profile-headshot {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid var(--white);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 64px;
+  }
+  .user-acount {
+    font-weight: 400;
+  }
+  .user-info-icon {
+    width: 23px;
+    height: 23px;
+  }
+  .post-amount,
+  .like-amount {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 15px;
+  }
+  .user-follow-info {
+    color: var(--messageTextColor);
+    .following-number,
+    .follower-number {
+      color: var(--black);
+    }
+  }
+}
+
+//彈跳視窗類
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--secondaryTextColor);
+  opacity: 0.8;
+  z-index: 999;
+}
+.popup-error-text {
+  position: absolute;
+  bottom: 3%;
+  right: 15%;
+  font-size: 12px;
+  color: var(--red-errorSign);
+  visibility: hidden;
+}
+.popup-error-text.show {
+  visibility: visible;
+}
+#popup-writtingTweet-container {
+  width: 634px;
+  border-radius: 14px;
+  margin: 56px auto 0 auto;
+  background-color: var(--white);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1000;
+  // visibility: hidden;
+  .want-reply-post-container {
+    width: 100%;
+    padding: 16px 24px 24px 24px;
+    display: flex;
+    .user-headshot {
+      @include userHeadshotSetting;
+    }
+    .reply-to-who-container {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+      color: var(--messageTextColor);
+    }
+    .tweet-content {
+      @include contentTextStyle;
+    }
+    .reply-to-who-acount {
+      color: var(--orange);
+    }
+  }
+  .headerbox {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    @include bottom-tiny-border-line;
+    .popup-cancel-icon {
+      width: 15px;
+      height: 15px;
+      margin-left: 19.5px;
+    }
+  }
+  .writtingTweet-pannel {
+    width: 100%;
+    padding: 16px 16px 16px 24px;
+    .user-headshot {
+      @include userHeadshotSetting;
+    }
+    .user-writing-post-form {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+    }
+    .user-writting-post {
+      border: none;
+      width: 100%;
+      height: 211px;
+      padding: 1rem;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 26px;
+      color: var(--messageTextColor);
+    }
+    .second-btn-style {
+      width: 68px;
+      padding: 8px 16px;
+      @include secondBtnStyle;
+      &:hover,
+      &:active {
+        @include secondBtnStyleChange;
+      }
+    }
+  }
+}
+
+#popup-profile-editing-container {
+  width: 634px;
+  border-radius: 14px;
+  margin: 56px auto 0 auto;
+  background-color: var(--white);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 2;
+  position: fixed;
+  .headerbox {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    @include bottom-tiny-border-line;
+    .popup-cancel-icon {
+      width: 15px;
+      height: 15px;
+      margin-left: 19.5px;
+    }
+    > p {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 26px;
+      color: var(--black);
+      margin-left: 36.5px;
+    }
+    .second-btn-style {
+      margin-left: 375px;
+      width: 64px;
+      padding: 8px 16px;
+      @include secondBtnStyle;
+      &:hover,
+      &:active {
+        @include secondBtnStyleChange;
+      }
+    }
+  }
+  .userProfile-editing-container {
+    width: 100%;
+    //背景圖
+    .img-cover-for-profile-background-img {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      .profile-background-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        z-index: 1;
+      }
+      .icon-editing-background-img-pannel {
+        width: 80px;
+        height: 24px;
+        display: flex;
+        position: absolute;
+        z-index: 2;
+        justify-content: space-between;
+        .icon-for-background-add,
+        .icon-for-background-delete {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    //大頭貼
+    .img-cover-for-profile-headshot-img,
+    .profile-headshot {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      position: absolute;
+      left: 16px;
+      top: 181px;
+      border: 4px solid var(--white);
+    }
+    .img-cover-for-profile-background-img,
+    .img-cover-for-profile-headshot-img {
+      background-color: var(--secondaryTextColor);
+      opacity: 0.5;
+    }
+    .profile-headshot {
+      z-index: 3;
+    }
+    .img-cover-for-profile-headshot-img {
+      z-index: 4;
+    }
+    .icon-for-headshot-add {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      z-index: 5;
+      left: 76px;
+      top: 241px;
+    }
+    .editing-form-pannel {
+      width: 100%;
+      padding: 16px;
+      .form-container {
+        width: 100%;
+        .form-element-group {
+          margin-bottom: 0;
+        }
+        input {
+          @include formInputStyle;
+        }
+        .user-introduction {
+          height: 147px;
+        }
+        .editing-world-limit {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 20px;
+          color: var(--messageTextColor);
+        }
+      }
+    }
+  }
+}
