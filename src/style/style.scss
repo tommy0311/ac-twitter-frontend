@@ -486,6 +486,16 @@
   .navpill-title {
     @include navpillTitleStyle;
   }
+  .navpill-title-active {
+    width: 130px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      @include navpillTitleContainerChange;
+      @include navpillTitleChange;
+  }
 }
 
 #user-follower-list-container {

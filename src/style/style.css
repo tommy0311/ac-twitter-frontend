@@ -1130,6 +1130,23 @@ input:invalid {
   background-color: var(--white);
   border: 1px solid var(--orange);
 }
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style:hover, #recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style:active {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
+}
 
 .user-acount-for-post,
 .post-time {
@@ -1394,6 +1411,23 @@ input:invalid {
   font-size: 15px;
   line-height: 22px;
   color: var(--secondaryTextColor);
+}
+#navpillUser-container .navpill-title-active {
+  width: 130px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--orange);
+}
+#navpillUser-container .navpill-title-active::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 2px;
+  bottom: 0.5px;
+  background: var(--orange);
 }
 
 #user-follower-list-container {

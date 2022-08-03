@@ -11,6 +11,9 @@
       <NavpillUser
         :initial-user="user"
         :initial-is-current-user="isCurrentUser"
+        :initial-tweets-active="isTweetsActive"
+        :initial-replies-active="isRepliesActive"
+        :initial-likes-active="isLikesActive"
       />
       <div class="y-scroll">
         <router-view
@@ -53,6 +56,10 @@ export default {
     UserProfile,
     NavpillUser,
   },
+  beforeRouteUpdate(to, from, next) {
+    this.updateRouteName(to.name)
+    next()
+  },
   data () {
     return {
       user: {
@@ -73,6 +80,9 @@ export default {
       currentUserLikes: [],
       recommendUsers: [],
       isCurrentUser: false,
+      isTweetsActive: '',
+      isRepliesActive: '',
+      isLikesActive: '',
       isProcessing: false
     }
   },
@@ -86,9 +96,18 @@ export default {
     const userId = this.currentUser.id
     this.fetchFollowingsFollowers(userId);
     this.fetchRecommendUsers();
-    this.isCurrentUser = true
+    this.isCurrentUser = true;
+    this.updateRouteName( this.$route.name )
   },
   methods: {
+    updateRouteName(name) {
+      this.isTweetsActive = name === 'user-tweets' ? 'navpill-title-active' : ''
+      this.isRepliesActive = name === 'user-replied_tweets' ? 'navpill-title-active' : ''
+      this.isLikesActive = name === 'user-likes' ? 'navpill-title-active' : ''
+      console.log('isTweetsActive=', this.isTweetsActive)
+      console.log('isRepliesActive=', this.isRepliesActive)
+      console.log('isLikesActive=', this.isLikesActive)
+    },
     updatePage() {
       const userId = this.currentUser.id
       this.fetchFollowingsFollowers(userId);

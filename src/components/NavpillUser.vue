@@ -10,6 +10,7 @@
           name: 'user-tweets' // 導引至 UserSelf.vue
         }"
         class="navpill-title"
+        :class="isTweetsActive"
       >
         推文
       </router-link>
@@ -20,6 +21,7 @@
           params: { userId: user.id }
         }"
         class="navpill-title"
+        :class="isTweetsActive"
       >
         推文
       </router-link>
@@ -31,6 +33,7 @@
           name: 'user-replied_tweets' // 導引至 UserSelf.vue
         }"
         class="navpill-title"
+        :class="isRepliesActive"
       >
         回覆
       </router-link>
@@ -41,6 +44,7 @@
           params: { userId: user.id }
         }"
         class="navpill-title"
+        :class="isRepliesActive"
       >
         回覆
       </router-link>
@@ -52,6 +56,7 @@
           name: 'user-likes' // 導引至 UserSelf.vue
         }"
         class="navpill-title"
+        :class="isLikesActive"
       >
         喜歡的內容
       </router-link>
@@ -62,6 +67,7 @@
           params: { userId: user.id }
         }"
         class="navpill-title"
+        :class="isLikesActive"
       >
         喜歡的內容
       </router-link>
@@ -95,7 +101,19 @@ export default {
     initialIsCurrentUser: {
       type: Boolean,
       require: true
-    }
+    },
+    initialTweetsActive: {
+      type: String,
+      default: ''
+    },
+    initialRepliesActive: {
+      type: String,
+      default: ''
+    },
+    initialLikesActive: {
+      type: String,
+      default: ''
+    },
   },
   data () {
     return {
@@ -103,7 +121,11 @@ export default {
         ...this.initialUser
       },
       isCurrentUser: this.initialIsCurrentUser,
-      isLoading: true
+      isTweetsActive: this.initialTweetsActive,
+      isRepliesActive: this.initialRepliesActive,
+      isLikesActive: this.initialLikesActive,
+      routeName: '',
+      isLoading: true,
     }
   },
   computed: {
@@ -116,7 +138,16 @@ export default {
         ...newValue
       }
       this.user = newValue
-    }
+    },
+    initialTweetsActive (newValue) {
+      this.isTweetsActive = newValue
+    },
+    initialRepliesActive (newValue) {
+      this.isRepliesActive = newValue
+    },
+    initialLikesActive (newValue) {
+      this.isLikesActive = newValue
+    },
   },
 }
 </script>
