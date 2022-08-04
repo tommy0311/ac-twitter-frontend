@@ -199,8 +199,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   // 每一次使用者點擊不同頁面的路由，都需要檢查使用者 token 是否過期
-  console.log('beforeEach')
-  console.log('to=', to)
+  //console.log('beforeEach')
+  //console.log('to=', to)
 
   // 從 localStorage 取出 token
   const token = localStorage.getItem("token");

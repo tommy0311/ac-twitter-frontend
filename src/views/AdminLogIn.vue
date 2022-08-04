@@ -64,9 +64,8 @@ export default {
     }
   },
   methods: {
-    async handleSubmit (e) {
-      try{
-        console.log('e=',e)
+    async handleSubmit() {
+      try {
         if (!this.account || !this.password){
           Toast.fire({
             icon: 'warning',
@@ -82,7 +81,7 @@ export default {
         })
 
         const {data} = response
-        if (data.status !== 'success') {
+        if (data.status === 'error') {
           throw new Error(data.message)
         }
 
@@ -113,12 +112,16 @@ export default {
         this.password = ''
         this.isProcessing = false
 
+        if (error.message === "Error: User didn't exist!") {
+          error.message = '帳號不存在！'
+        } else {
+          error.message = '輸入的帳號密碼有誤'
+        }
+
         Toast.fire({
           icon: 'warning',
-          title: '輸入的帳號密碼有誤'
+          title: `${error.message}`
         })
-        
-        console.error(error.message)
       }
     }
   }
