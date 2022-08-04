@@ -33,7 +33,7 @@
               <span>@</span>{{ tweet.User.account }}<span> • </span>
             </p>
             <p class="post-time">
-              {{ tweet.createdAt | localeSupport }}
+              {{ tweet.createdAt | fromNow }}
             </p>
           </div>
           <p class="tweet-content mt-2">
@@ -94,12 +94,12 @@
 </template>
 
 <script>
-import { localeSupport, emptyImageFilter } from "./../utils/mixins"
+import { fromNowFilter, emptyImageFilter } from "./../utils/mixins"
 import { Toast } from './../utils/helpers'
 import replyAPI from '../apis/replies'
 export default {
   name: 'PopoutReply',
-   mixins: [localeSupport, emptyImageFilter],
+   mixins: [fromNowFilter, emptyImageFilter],
    props: {
     tweet: {
       type: Object,
