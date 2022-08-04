@@ -116,14 +116,8 @@ export default {
         this.isProcessing = true
 
         const { data } = await userAPI.putUser(this.user)
-        if ( data.status ) {
+        if ( data.status === 'error' ) {
           throw new Error(data.message)
-        }
-        console.log('putUser data=', data)
-        if(data.user.email === this.user.email) {
-          throw new Error('email 已重複註冊！')
-        } else if(data.user.account === this.user.account) {
-          throw new Error('account 已重複註冊！')
         }
         this.$store.commit('setCurrentUser', data)
 
@@ -131,10 +125,17 @@ export default {
           icon: 'success',
           title: `使用者-${this.user.account}-設定儲存成功`
         })
-        
+
         this.isProcessing = false
       } catch (error) {
         this.isProcessing = false
+
+        if (error.message === 'Error: Account already exists!') {
+          error.message = "此 Account 已有人使用"
+        } else if (error.message === 'Error: Email already exists!') {
+          error.message = "此 Email 已有人使用"
+        }
+
         Toast.fire({
           icon: 'warning',
           title: `設定儲存失敗 - ${error.message}`

@@ -4,7 +4,8 @@ import process from "process";
 const baseURL = process.env.VUE_APP_BASE_URL || "https://twitterac.herokuapp.com/api";
 
 const axiosInstance = axios.create({
-  baseURL
+  baseURL,
+  validateStatus: () => { return true }
 })
 
 axiosInstance.interceptors.request.use(
