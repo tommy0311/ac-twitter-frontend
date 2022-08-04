@@ -26,7 +26,7 @@
       >
     </router-link>
 
-    <div class="ml-2">
+    <div class="tweet-wrapper ml-2">
       <div class="d-flex align-items-center">
         <router-link
           v-if="isCurrentUser"
@@ -72,8 +72,8 @@
           }
         }"
       >
-        <p class="tweet-content mt-2">
-          {{ tweet.description }}
+        <p class="tweet-content">
+          {{ tweet.description }}         
         </p>
       </router-link>
 

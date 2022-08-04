@@ -12,7 +12,7 @@
           alt="個人頭像"
         >
 
-        <div>
+        <div class="length-ellipsis-70">
           <router-link
             :to="{
               name: 'user-id-tweets',
@@ -22,9 +22,9 @@
           >
             {{ recommendUser.name }}
           </router-link>
-          <h4 class="user-acount">
+          <p class="user-acount">
             <span>@</span>{{ recommendUser.account }}
-          </h4>
+          </p>
         </div>
 
         <button
