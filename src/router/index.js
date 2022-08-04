@@ -49,6 +49,11 @@ const routes = [
     beforeEnter: authorizeIsUser,
   },
   {
+    path: "/maintest",
+    name: "maintest",
+    component: () => import("../views/MainPageTest.vue"),
+  },
+  {
     path: "/main",
     name: "main",
     component: MainPage,

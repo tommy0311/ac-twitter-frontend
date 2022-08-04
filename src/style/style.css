@@ -225,7 +225,7 @@
 
 #navbar-container {
   width: 178px;
-  height: 100%;
+  height: 100vh;
   padding: 13px;
   display: flex;
   flex-direction: column;
@@ -276,6 +276,7 @@
   margin-bottom: 40px;
 }
 #navbar-container .main-btn-style {
+  position: absolute;
   width: 100%;
   color: var(--white);
   background-color: var(--orange);
@@ -284,7 +285,9 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 30px;
-  margin-top: 24px;
+  width: 178px;
+  left: 0;
+  top: 264px;
 }
 #navbar-container .main-btn-style:hover, #navbar-container .main-btn-style:active {
   color: var(--orange);
@@ -292,13 +295,23 @@
   border: 1px solid var(--orange);
 }
 #navbar-container .nav-list-bottom {
-  margin-top: 450px;
+  position: absolute;
+  bottom: 0;
 }
 
 .main-wrapper {
   width: 639px;
+  height: 100vh;
+  overflow: hidden;
   margin-right: 21px;
   margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.main-wrapper .container-for-scroll {
+  flex: 1;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 #navpillHeader-container {
@@ -328,6 +341,7 @@
 
 #writtingTweet-container {
   width: 100%;
+  max-height: 139px;
   border: 1px solid var(--borderColor);
   padding: 0 25px;
   border-bottom: 3px solid var(--borderColor);
@@ -349,7 +363,6 @@
 #writtingTweet-container .writtingTweet-pannel .user-writting-post {
   border: none;
   width: 100%;
-  height: 136px;
   padding: 1rem;
   font-weight: 700;
   font-size: 18px;
@@ -378,14 +391,14 @@
 
 #recommendColumn-container {
   width: 273px;
-  height: 731px;
+  max-height: 100%;
   margin-top: 16px;
-  border-radius: 16px;
-  background-color: var(--recommendBgColor);
 }
 #recommendColumn-container .recommendHeader {
   width: 100%;
   height: 74px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   border-bottom: 1px solid var(--borderColor);
   background-color: var(--recommendBgColor);
   padding: 24px;
@@ -396,7 +409,6 @@
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
-  background-color: var(--recommendBgColor);
 }
 #recommendColumn-container .recommendAccount-panel {
   width: 100%;
@@ -475,6 +487,10 @@
   color: var(--orange);
   background-color: var(--white);
   border: 1px solid var(--orange);
+}
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element:last-child {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 .user-acount-for-post,
@@ -568,9 +584,13 @@
   border-radius: 50%;
 }
 #reply-post-container .tweet-content {
+  width: 100%;
+  max-height: 150px;
   font-weight: 400;
   font-size: 24px;
   line-height: 36px;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 #reply-post-container .tweet-post-time-pannel {
   font-weight: 500;
@@ -860,6 +880,7 @@
 
 .admin-main-wrapper {
   width: 937px;
+  height: 100%;
 }
 
 #admin-tweet-element-container {

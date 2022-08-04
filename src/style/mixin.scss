@@ -24,6 +24,12 @@
   }
 }
 
+//貼文蘭訊息排版
+@mixin content-word-wrap{
+  word-wrap:break-word;  
+  overflow: hidden; 
+}
+
 //按鈕類
 @mixin mainBtnStyle {
   width: 100%;

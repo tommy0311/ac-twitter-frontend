@@ -21,7 +21,7 @@
     </div>
 
     <div id="recommendColumn-container">
-      <div class="recommendHeader mt-4">
+      <div class="recommendHeader">
         <h1>推薦跟隨</h1>
       </div>
       <RecommendColumn

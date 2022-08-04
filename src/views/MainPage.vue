@@ -9,21 +9,27 @@
         :initial-main-page="isMainPage"
       />
       <WrittingTweet @fetch-tweet="fetchTweets" />
-      <TweetList
-        v-for="tweet in tweets"
-        :key="tweet.id"
-        :initial-tweet="tweet"
-      />
+      <div
+        class="container-for-scroll scrollbar"
+        style="overflow:scroll"        
+        height:100%
+      >
+        <TweetList
+          v-for="tweet in tweets"
+          :key="tweet.id"
+          :initial-tweet="tweet"
+        />
+      </div>
     </div>
 
-      <div id="recommendColumn-container">
-        <div class="recommendHeader mt-4">
-          <h1>推薦跟隨</h1>
-        </div>
-        <RecommendColumn
-          :initial-recommend-users="recommendUsers"
-          @updateRecommendColumn="updatePage"
-        />
+    <div id="recommendColumn-container">
+      <div class="recommendHeader">
+        <h1>推薦跟隨</h1>
+      </div>
+      <RecommendColumn
+        :initial-recommend-users="recommendUsers"
+        @updateRecommendColumn="updatePage"
+      />
     </div>
   </div>
 </template>
