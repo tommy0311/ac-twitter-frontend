@@ -82,7 +82,7 @@ export default {
       } catch (err) {
         // 顯示錯誤提示
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '發生錯誤，請重試。',
         })
 

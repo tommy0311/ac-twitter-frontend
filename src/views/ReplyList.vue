@@ -65,7 +65,7 @@ export default {
       currentUser: store.state.currentUser,
       tweet: {},
       recommendUsers: [],
-      isProcessing: false
+      isProcessing: false,
       isMainPage: true,
       isLoading: true
     }

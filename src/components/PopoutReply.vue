@@ -67,6 +67,11 @@
             required
           />
           <span
+            v-show="commentLength"
+          >
+            {{ commentLength }}/140
+          </span>
+          <span
             class="popup-error-text"
             :class="{ show: isErrorExceed }"
           >字數不可超過140字</span>
@@ -112,11 +117,18 @@ export default {
   data () {
     return {
       comment: '',
+      commentLength: 0,
       isErrorExceed: false,
       isErrorEmpty: false,
     }
   },
+  watch: {
+    comment: "showCommentLength"
+  },
   methods: {
+    showCommentLength () {
+      this.commentLength = this.comment.length
+    },
      async handleSubmit() {
       try {
         const trimmedComment = this.comment.trim()
@@ -139,7 +151,7 @@ export default {
       } catch (err) {
         // 顯示錯誤提示
         Toast.fire({
-          icon: 'warning',
+          icon: 'error',
           title: '發生錯誤，請重試。',
         })
 

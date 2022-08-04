@@ -119,6 +119,12 @@ export default {
         if ( data.status ) {
           throw new Error(data.message)
         }
+        console.log('putUser data=', data)
+        if(data.user.email === this.user.email) {
+          throw new Error('email 已重複註冊！')
+        } else if(data.user.account === this.user.account) {
+          throw new Error('account 已重複註冊！')
+        }
         this.$store.commit('setCurrentUser', data)
 
         Toast.fire({
