@@ -32,7 +32,7 @@
           </p>
         </div>
         <button
-          @click.stop.prevent="deleteTweet(tweet.id, tweet.description, tweet.User.account)"
+          @click.stop.prevent="deleteTweet(tweet.id, tweet.description, tweet.User.account, tweet.User.avatar)"
         >
           <img
             src="../assets/delete_list.png"
@@ -50,6 +50,7 @@ import { Toast } from "./../utils/helpers";
 import tweetsAPI from "./../apis/tweets";
 import authorizationAPI from './../apis/authorization';
 import { emptyImageFilter, fromNowFilter } from './../utils/mixins';
+import { pop } from './../utils/helpers';
 
 export default {
   name: "AdminTweetElement",
@@ -66,9 +67,18 @@ export default {
     this.fetchTweets()
   },
   methods: {
-    async deleteTweet(id, description, account){
+    async deleteTweet(id, description, account, avatar){
       try {
-        if(confirm(`你想刪除 ${account} 的這篇 ${description} 推文嗎？`)) {
+        const src = avatar ? avatar : 'https://loremflickr.com/100/100/avatar/?random=${Math.random()*100}'
+        const ans = await pop.fire({
+          icon: 'question',
+          imageUrl: `${src}`,
+          imageWidth: 80,
+          imageHeight: 80,
+          title: `你想刪除 @${account} 的這篇`,
+          text: `${description} 推文嗎？`
+        })
+        if (ans.value === true) {
           console.log('yes')
           const response = await authorizationAPI.deleteTweet({tweetId: id})
           if (response.status !== 'error') {
@@ -76,11 +86,11 @@ export default {
               icon: 'success',
               title: '刪除推文成功'
             })
+            this.tweets = this.tweets.filter(t=>t.id !== id)
           }
-        } else{
+        } else {
           console.log('no')
         }
-        this.tweets = this.tweets.filter(t=>t.id !== id)
       } catch (error) {
         Toast.fire({
           icon: 'error',

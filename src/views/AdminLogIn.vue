@@ -18,7 +18,6 @@
           type="text"
           class="admin-account"
           placeholder="請輸入帳號"
-          required
         >
       </div>
       <div class="form-element-group">
@@ -29,7 +28,6 @@
           type="password"
           class="admin-password"
           placeholder="請輸入密碼"
-          required
         >
       </div>
       <button
