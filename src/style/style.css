@@ -983,11 +983,8 @@
 #popup-writtingTweet-container {
   width: 634px;
   border-radius: 14px;
-  margin: 56px auto 0 auto;
   background-color: var(--white);
   position: absolute;
-  left: 50%;
-  transform: translate(-50%);
   z-index: 1000;
 }
 #popup-writtingTweet-container .want-reply-post-container {

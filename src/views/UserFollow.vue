@@ -7,9 +7,13 @@
       <!-- 包含 追隨者、正在追隨 兩個分頁 -->
       <NavpillUserFollow
         :initial-user="user"
+        :initial-is-current-user="isCurrentUser"
+        :initial-follower-active="isfollowerActive"
+        :initial-following-user="isfollowingActive"        
       />
 
-      <div class="scrollbar">
+
+      <div class="container-for-scroll scrollbar">
         <router-view
           :initial-followers="followers"
           :initial-followings="followings"
@@ -73,6 +77,9 @@ beforeRouteUpdate (to, from, next) {
       followings: [],
       currentUserFollowings: [],
       recommendUsers: [],
+      isCurrentUser: false,      
+      isFollowerActive:'',
+      isFollowingActive: '',         
       isProcessing: false
     }
   },
@@ -84,8 +91,15 @@ beforeRouteUpdate (to, from, next) {
     this.fetchUser(userId),
     this.userId = Number(userId),
     this.fetchRecommendUsers();
+    this.updateRouteName(this.$route.name)
   },
   methods: {
+    updateRouteName(name){
+      this.isFollowerActive = name === 'user-followerlist' ? 'navpill-title-active' : ''
+      this.isFollowingActive = name === 'user-followinglist' ? 'navpill-title-active' : ''
+      console.log('isfollowerActive=', this.isFollowerActive)
+      console.log('isfollowingActive=', this.isFollowingActive) 
+    },
     updatePage() {
       this.fetchFollowingsFollowers(this.userId)
       this.fetchRecommendUsers()

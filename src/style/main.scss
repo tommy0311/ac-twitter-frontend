@@ -12,6 +12,8 @@
   line-height: 22px;
   color: #92929d;
 }
+
+//scrollbar 
 .scrollbar {    
   &::-webkit-scrollbar {
     position: absolute;
@@ -265,7 +267,6 @@
     }
   }
 }
-
 
 #recommendColumn-container {
   width: 273px; 
@@ -694,6 +695,9 @@
 }
 
 //彈跳視窗類
+.popup-wrapper{
+  position: absolute;
+}
 .popup-background {
   position: fixed;
   top: 0;
@@ -719,7 +723,7 @@
   width: 634px;
   border-radius: 14px;
   margin: 56px auto 0 auto;
-  background-color: var(--white);
+  background-color: var(--white);  
   position: absolute;
   left: 50%;
   transform: translate(-50%);

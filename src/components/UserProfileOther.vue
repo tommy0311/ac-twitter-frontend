@@ -47,7 +47,7 @@
         </button>
         <button
           v-if="user.isFollowed"
-          class="follow-btn empty-btn-style-active"
+          class="follow-btn empty-btn-style-active ml-4"
           @click.stop.prevent="removeFollowing(user.id)"
         >
           正在跟隨
@@ -55,7 +55,7 @@
 
         <button
           v-else
-          class="follow-btn empty-btn-style"
+          class="follow-btn empty-btn-style ml-4"
           @click.stop.prevent="addFollowing(user.id)"
         >
           跟隨

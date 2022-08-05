@@ -869,6 +869,10 @@
   color: var(--black);
 }
 
+.popup-wrapper {
+  position: absolute;
+}
+
 .popup-background {
   position: fixed;
   top: 0;

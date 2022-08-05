@@ -12,6 +12,7 @@
     </router-link>
 
     <div id="popup-writtingTweet-container">
+
       <div class="headerbox align-items-center">
         <router-link
           :to="{
