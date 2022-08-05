@@ -9,7 +9,7 @@
         :initial-user="user"
       />
 
-      <div class="y-scroll scrollbar">
+      <div class="scrollbar">
         <router-view
           :initial-followers="followers"
           :initial-followings="followings"

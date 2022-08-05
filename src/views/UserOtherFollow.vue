@@ -8,7 +8,7 @@
       <NavpillUserFollow
         :initial-user="user"
       />
-      <div class="y-scroll scrollbar">
+      <div class="container-for-scroll scrollbar">
         <router-view
           :initial-followers="followers"
           :initial-followings="followings"

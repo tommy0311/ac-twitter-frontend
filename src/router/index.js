@@ -49,11 +49,6 @@ const routes = [
     beforeEnter: authorizeIsUser,
   },
   {
-    path: "/maintest",
-    name: "maintest",
-    component: () => import("../views/MainPageTest.vue"),
-  },
-  {
     path: "/main",
     name: "main",
     component: MainPage,
@@ -69,9 +64,8 @@ const routes = [
         name: "reply-modal",
         component: () => import("../components/PopoutReply.vue")
       }
-    ],
-    
-  },
+    ],    
+  },  
   {
     path: "/replylist",
     name: "replylist",
@@ -85,7 +79,6 @@ const routes = [
     ],
     beforeEnter: authorizeIsUser,
   },
-
   {
     path: "/user",
     name: "user",
@@ -114,7 +107,6 @@ const routes = [
       },
     ],
   },
-
   {
     path: "/user/:userId",
     name: "user-id",
@@ -138,7 +130,6 @@ const routes = [
       },
     ]
   },
-
   {
     path: "/user",
     name: "user-follower",
@@ -157,7 +148,6 @@ const routes = [
       },
     ],
   },
-
   {
     path: "/user/:userId",
     name: "user-id-follow",
@@ -176,7 +166,6 @@ const routes = [
       },
     ],
   },
-
   {
     path: "/admin/main",
     name: "admin-main",
