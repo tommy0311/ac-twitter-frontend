@@ -7,28 +7,74 @@
     >
     <h1>建立你的帳號</h1>
     <form 
-      class="form-container" 
+      class="form-container"
       @submit.prevent.stop="handleSubmit"
     >
       <div class="form-element-group">
         <label for="user-account">帳號</label>
         <input
+          v-if="accountLength > 10"
+          id="user-account"
+          v-model="account"
+          type="text"
+          class="user-account"
+          placeholder="請輸入帳號"
+          style="border-bottom: 2px solid red;"
+        >
+        <input
+          v-else
           id="user-account"
           v-model="account"
           type="text"
           class="user-account"
           placeholder="請輸入帳號"
         >
+
+        <span
+          v-show="accountLength > 10"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          字數超出上限！
+        </span>
+        <span
+          v-show="accountLength"
+          style="position: absolute; right: 0px; bottom: -18px; font-size:12px;"
+        >
+          {{ accountLength }}/10
+        </span>
       </div>
       <div class="form-element-group">
         <label for="user-name">名稱</label>
         <input
+          v-if="nameLength > 50"
+          id="user-name"
+          v-model="name"
+          type="text"
+          class="user-account"
+          placeholder="請輸入使用者名稱"
+          style="border-bottom: 2px solid red;"
+        >
+        <input
+          v-else
           id="user-name"
           v-model="name"
           type="text"
           class="user-account"
           placeholder="請輸入使用者名稱"
         >
+
+        <span
+          v-show="nameLength > 50"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          字數超出上限！
+        </span>
+        <span
+          v-show="nameLength"
+          style="position: absolute; right: 0px; bottom: -18px; font-size:12px;"
+        >
+          {{ nameLength }}/50
+        </span>
       </div>
       <div class="form-element-group">
         <label for="user-name">Email</label>
@@ -85,14 +131,26 @@ export default {
   data () {
     return {
       account: '',
+      accountLength: 0,
       name: '',
+      nameLength: 0,
       email: '',
       password: '',
       checkPassword: '',
       isProcessing: false
     }
   },
+  watch: {
+    name: "showNameLength",
+    account: "showAccountLength"
+  },
   methods: {
+    showAccountLength () {
+      this.accountLength = this.account.length
+    },
+    showNameLength () {
+      this.nameLength = this.name.length
+    },
     async handleSubmit () {
       try {
         if (
@@ -117,6 +175,22 @@ export default {
           this.checkPassword = ''
           return
         }
+
+        if(this.accountLength > 10) {
+          Toast.fire({
+            icon: 'warning',
+            title: '帳號上限 10 字'
+          })
+          return
+        }
+        if(this.nameLength > 50) {
+          Toast.fire({
+            icon: 'warning',
+            title: '暱稱上限 50 字'
+          })
+          return
+        }
+
         this.isProcessing = true
 
         const { data } = await authorizationAPI.signUp({
@@ -142,7 +216,7 @@ export default {
         if (error.message === 'Error: Account already exists!') {
           error.message = "account 已重複註冊！"
         } else if (error.message === 'Error: Email already exists!') {
-          error.message = "mail 已重複註冊！"
+          error.message = "email 已重複註冊！"
         }
 
         Toast.fire({

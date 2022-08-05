@@ -13,12 +13,28 @@
       <div class="form-element-group">
         <label for="user-account">帳號</label>
         <input
+          v-if="accountWrong"
+          id="user-account"
+          v-model="account"
+          type="text"
+          class="user-account"
+          placeholder="請輸入帳號"
+          style="border-bottom: 2px solid red;"
+        >
+        <input
+          v-else
           id="user-account"
           v-model="account"
           type="text"
           class="user-account"
           placeholder="請輸入帳號"
         >
+        <span
+          v-show="accountWrong"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          帳號不存在
+        </span>
       </div>
       <div class="form-element-group">
         <label for="user-password">密碼</label>
@@ -39,14 +55,18 @@
       </button>
       <div class="d-flex admin-text-link-container text-right">
         <router-link
-          to="/regist"
+          :to="{
+            name: 'regist' // 導引至 註冊頁
+          }"
           class="submit-other-choice"
         >
           註冊
         </router-link>
         <span> · </span>
         <router-link
-          to="/admin"
+          :to="{
+            name: 'admin' // 導引至 後台登入頁
+          }"
           class="submit-other-choice"          
         >
           後台登入
@@ -67,6 +87,7 @@ export default {
     return {
       account: '',
       password: '',
+      accountWrong: false,
       isProcessing: false
     }
   },
@@ -99,6 +120,7 @@ export default {
         this.$store.commit('setCurrentUser', data.user)
 
         if (data.user.role === 'admin') {
+          this.accountWrong = true
           Toast.fire({
             icon: 'error',
             title: '帳號不存在'
@@ -119,6 +141,10 @@ export default {
         this.isProcessing = false
 
         if (error.message === "Error: User didn't exist!") {
+          this.accountWrong = true
+          setTimeout(() => {
+            this.accountWrong = false
+          }, 3000)
           error.message = '帳號不存在！'
         } else {
           error.message = '輸入的帳號密碼有誤'

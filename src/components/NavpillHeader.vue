@@ -10,7 +10,9 @@
 
     <div class="navpill-info-container flex-column">
       <router-link
-        to="/user"
+        :to="{
+          name: 'user-tweets' // 導引至 個人推文頁
+        }"
         class="navpillHeader-title"
       >
         {{ currentUser.name }}

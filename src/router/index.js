@@ -93,17 +93,22 @@ const routes = [
     beforeEnter: authorizeIsUser,
     children: [
       {
-        path: "tweets",
+        path: "self/edit",
+        name: "user-self-edit",
+        component: () => import("../components/PopoutEditProfile.vue"),
+      },
+      {
+        path: "self/tab=tweets",
         name: "user-tweets",
         component: () => import("../components/UserPostList.vue"),
       },
       {
-        path: "replied_tweets",
+        path: "self/tab=replies&tweets",
         name: "user-replied_tweets",
         component: () => import("../components/UserReplyList.vue"),
       },
       {
-        path: "likes",
+        path: "self/like",
         name: "user-likes",
         component: () => import("../components/UserLikeList.vue"),
       },
@@ -117,17 +122,17 @@ const routes = [
     beforeEnter: authorizeIsUser,
     children: [
       {
-        path: "tweets",
+        path: "tab=tweets",
         name: "user-id-tweets",
         component: () => import("../components/UserPostList.vue"),
       },
       {
-        path: "replied_tweets",
+        path: "tab=replies&tweets",
         name: "user-id-replied_tweets",
         component: () => import("../components/UserReplyList.vue"),
       },
       {
-        path: "likes",
+        path: "like",
         name: "user-id-likes",
         component: () => import("../components/UserLikeList.vue"),
       },
@@ -141,12 +146,12 @@ const routes = [
     beforeEnter: authorizeIsUser,
     children: [
       {
-        path: "follower",
+        path: "self/follower",
         name: "user-followerlist",
         component: () => import("../components/UserFollowerList.vue"),
       },
       {
-        path: "following",
+        path: "self/following",
         name: "user-followinglist",
         component: () => import("../components/UserFollowingList.vue"),
       },
@@ -204,8 +209,6 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   // 每一次使用者點擊不同頁面的路由，都需要檢查使用者 token 是否過期
-  //console.log('beforeEach')
-  //console.log('to=', to)
 
   // 從 localStorage 取出 token
   const token = localStorage.getItem("token");

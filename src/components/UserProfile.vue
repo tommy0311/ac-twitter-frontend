@@ -15,12 +15,14 @@
     >
     <div class="profile-info-container">
       <div class="d-flex justify-content-end">
-        <button
+        <router-link
           class="edit-profile-btn empty-btn-style ml-4"
-          type="submit"
+          :to="{
+            name: 'user-self-edit' // 導引至 編輯個人資料頁
+          }"
         >
           編輯個人資料
-        </button>
+        </router-link>
       </div>
       <h4 class="user-name mt-4">
         {{ user.name }}

@@ -38,7 +38,9 @@
         登入
       </button>
       <router-link
-        to="/login"
+        :to="{
+          name: 'login' // 導引至 登入頁
+        }"
         class="submit-other-choice text-right"        
       >
         前台登入

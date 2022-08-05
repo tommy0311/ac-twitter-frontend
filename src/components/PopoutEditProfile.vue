@@ -5,7 +5,11 @@
     />
     <div id="popup-profile-editing-container">
       <div class="headerbox d-flex">
-        <router-link to="/user">
+        <router-link 
+          :to="{
+            name: 'user-tweets' // 導引至 個人推文頁
+          }"
+        >
           <button>
             <img
               class="popup-cancel-icon"

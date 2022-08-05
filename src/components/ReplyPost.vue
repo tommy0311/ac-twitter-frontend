@@ -40,7 +40,11 @@
       </p>
     </div>
     <div class="tweet-icon-show-pannel d-flex mt-1">
-      <router-link to="/replylist/reply-modal">
+      <router-link 
+        :to="{
+          name: 'reply-modal'
+        }"
+      >
         <img
           src="../assets/reply.png"
           alt="回覆按鈕"

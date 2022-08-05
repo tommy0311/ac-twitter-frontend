@@ -1,6 +1,10 @@
 <template>
   <div class="wrapper">
-    <router-link to="/main">
+    <router-link
+      :to="{
+        name: 'main' // 導引至 主頁
+      }"
+    >
       <div
         class="popup-background"
         @click="closeModal"
@@ -9,7 +13,11 @@
 
     <div id="popup-writtingTweet-container">
       <div class="headerbox align-items-center">
-        <router-link to="/main">
+        <router-link
+          :to="{
+            name: 'main' // 導引至 主頁
+          }"
+        >
           <button @click="closeModal">
             <img
               class="popup-cancel-icon"

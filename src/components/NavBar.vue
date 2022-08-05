@@ -15,7 +15,9 @@
       <ul class="nav-list">
         <li>
           <router-link
-            to="/main"
+            :to="{
+              name: 'main' // 導引至 主頁
+            }"
             class="nav-link"
           >
             <div
@@ -54,7 +56,9 @@
         </li>
         <li>
           <router-link
-            to="/user/tweets"
+            :to="{
+              name: 'user-tweets' // 導引至 個人推文頁
+            }"
             class="nav-link"
           >
             <div
@@ -93,7 +97,9 @@
         </li>
         <li>
           <router-link
-            to="/setting"
+            :to="{
+              name: 'setting' // 導引至 設定(前台)
+            }"
             class="nav-link"
           >
             <div

@@ -15,7 +15,9 @@
       <ul class="nav-list">
         <li>
           <router-link
-            to="/admin/main"
+            :to="{
+              name: 'admin-main' // 導引至 全部推文頁
+            }"
             class="nav-link"
           >
             <div
@@ -54,7 +56,9 @@
         </li>
         <li>
           <router-link
-            to="/admin/users"
+            :to="{
+              name: 'admin-users' // 導引至 全部使用者頁
+            }"
             class="nav-link"
           >
             <div
