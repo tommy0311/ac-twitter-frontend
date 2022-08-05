@@ -42,7 +42,7 @@
     <div class="tweet-icon-show-pannel d-flex mt-1">
       <router-link 
         :to="{
-          name: 'reply-modal'
+          name: 'reply-list-modal'
         }"
       >
         <img
@@ -95,6 +95,19 @@ export default {
       type: Function,
       require: true
     }
+  },
+  data() {
+    return {
+      isModalShown: false,
+    };
+  },
+  methods: {
+    showModal() {
+        this.isModalShown = true;
+    },
+    closeModal() {
+        this.isModalShown = false;
+    },
   },
 }
 </script>

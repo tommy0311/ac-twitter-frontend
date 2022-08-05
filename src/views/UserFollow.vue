@@ -52,7 +52,7 @@ export default {
     NavpillHeader,
     NavpillUserFollow,
   },
-beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate (to, from, next) {
     const { userId } = to.params
     this.fetchUser(userId)
     this.userId = Number(userId),

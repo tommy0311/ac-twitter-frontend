@@ -73,27 +73,25 @@
         }"
       >
         <p class="tweet-content">
-          {{ tweet.description }}         
+          {{ tweet.description }}
         </p>
       </router-link>
 
       <div class="tweet-icon-show-pannel d-flex mt-1">
         <div class="d-flex align-items-center">
-          <router-link 
-            :to="{
-              name: 'reply-modal'
-            }"
+          <button
             class="d-flex"
+            @click.stop.prevent="showModal(tweet.id, tweet.User.avatar, tweet.User.name, tweet.User.account, tweet.createdAt, tweet.description)"
           >
             <img
               src="../assets/reply.png"
-              alt=""
+              alt="回覆按鈕"
               class="tweet-icon-show"
             >
             <span class="reply-number ml-1">
               {{ tweet.replyCount }}
             </span>
-          </router-link>
+          </button>
         </div>
 
 
@@ -161,12 +159,28 @@ export default {
     this.isCurrentUser = this.tweet.UserId === this.currentUser.id ? true : false
   },
   methods: {
+    showModal (tweetId, toAvatar, toName, toAccount, toCreatedAt, toDescription) {
+      // console.log('tweetId=',tweetId)
+      // console.log('toAvatar=',toAvatar)
+      // console.log('toName=',toName)
+      // console.log('toAccount=',toAccount)
+      // console.log('toCreatedAt=',toCreatedAt)
+      // console.log('toDescription=',toDescription)
+
+      this.$store.commit('setReply', {
+        tweetId,
+        toAvatar,
+        toName,
+        toAccount,
+        toCreatedAt,
+        toDescription,
+        myAvatar: this.currentUser.avatar
+      })
+    },
     async addLike (tweetId) {
       try {
         this.isProcessing = true
-        console.log('tweetId=',tweetId)
         const { data } = await usersAPI.addLike({ tweetId })
-        console.log('data=',data)
         if (data.status === 'error') {
           throw new Error(data.message)
         }
@@ -188,9 +202,7 @@ export default {
     async unLike (tweetId) {
       try {
         this.isProcessing = true
-        console.log('tweetId=',tweetId)
         const { data } = await usersAPI.unLike({ tweetId })
-        console.log('data=',data)
         if (data.status === 'error') {
           throw new Error(data.message)
         }

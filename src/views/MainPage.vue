@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex justify-content-center">
     <NavBar
-      :show-modal="showModal"
       :initial-main-page="isMainPage"
     />
+
     <div class="main-wrapper">
       <NavpillHeaderMain
         :initial-main-page="isMainPage"
@@ -136,7 +136,7 @@ export default {
           title: '無法取得 RecommendUsers 資料，請稍後再試',
         })
       }
-    },    
+    },
   },
 }
 </script>

@@ -61,7 +61,7 @@ const routes = [
       },
       {
         path: "reply-modal",
-        name: "reply-modal",
+        name: "main-reply-modal",
         component: () => import("../components/PopoutReply.vue")
       }
     ],    
@@ -73,7 +73,7 @@ const routes = [
     children: [
       {
         path: "reply-modal",
-        name: "reply-modal",
+        name: "reply-list-modal",
         component: () => import("../components/PopoutReply.vue")
       }
     ],

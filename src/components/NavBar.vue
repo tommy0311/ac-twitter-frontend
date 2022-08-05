@@ -138,14 +138,13 @@
         </li>
       </ul>
     </template>
-    <router-link to="/main/tweet">
-      <button
-        class="tweet-btn main-btn-style"
-        @click="showModal"
-      >
-        推文
-      </button>  
-    </router-link>
+
+    <button
+      class="tweet-btn main-btn-style"
+      @click="showModal"
+    >
+      推文
+    </button>
 
 
     <template v-if="isAuthenticated">
@@ -198,10 +197,10 @@ export default {
   },
   data() {
     return {
-        isModalShown: false,
-        isMainPage: this.initialMainPage,
-        isProfile: this.initialProfile,
-        isSetting: this.initialSetting
+      isModalShown: false,
+      isMainPage: this.initialMainPage,
+      isProfile: this.initialProfile,
+      isSetting: this.initialSetting
     };
   },
   computed: {

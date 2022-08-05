@@ -22,21 +22,30 @@
         <span>推文</span>
       </p>
     </div>
+
+    <PopoutReply
+      v-if="replyModalShow"
+    />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import PopoutReply from '../components/PopoutReply.vue';
 
 export default {
   name: "NavpillHeader",
+  components: { PopoutReply },
   data () {
     return {
       isLoading: true,
     }
   },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(['currentUser','replyModalShow'])
+  },
+  created () {
+    console.log('replyModalShow=', this.replyModalShow)
   },
 };
 </script>

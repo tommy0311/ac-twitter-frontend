@@ -17,6 +17,16 @@ export default new Vuex.Store({
       introduction: '',
       tweetsCount: 0,
     },
+    reply: {
+      tweetId: -1,
+      toAvatar: '',
+      toName: '',
+      toAccount: '',
+      toCreatedAt: '',
+      toDescription: '',
+      myAvatar: ''
+    },
+    replyModalShow: false,
     isAuthenticated: false,
     token: ''
   },
@@ -29,9 +39,18 @@ export default new Vuex.Store({
         ...state.currentUser,
         ...currentUser // 透過 API 取得的 currentUser 覆蓋原本 Vuex state 中的 currentUser
       }
-
       state.isAuthenticated = true // 將使用者的登入狀態改為 true
       state.token = localStorage.getItem('token')
+    },
+    setReply(state, reply) {
+      state.reply = {
+        ...state.reply,
+        ...reply
+      }
+      state.replyModalShow = true
+    },
+    closeReplyModal(state) {
+      state.replyModalShow = false
     },
     revokeAuthentication(state) {
       state.currentUser = {}

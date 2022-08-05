@@ -5,7 +5,17 @@
   >
     <div class="navpill-title-container">
       <router-link
-        v-if="isCurrentUser"
+        v-if="currentUser.id === user.id"
+        :to="{
+          name: 'user-followerlist',
+          params: { userId: user.id }
+        }"
+        class="navpill-title"
+      >
+        追隨者
+      </router-link>
+      <router-link
+        v-else
         :to="{
           name: 'user-followerlist' // 導引至自己          
         }"
@@ -29,7 +39,17 @@
 
     <div class="navpill-title-container">
       <router-link
-        v-if="isCurrentUser"
+        v-if="currentUser.id === user.id"
+        :to="{
+          name: 'user-followinglist',
+          params: { userId: user.id }
+        }"
+        class="navpill-title"
+      >
+        正在追隨
+      </router-link>
+      <router-link
+        v-else
         :to="{
           name: 'user-followinglist' // 導引至自己
         }"

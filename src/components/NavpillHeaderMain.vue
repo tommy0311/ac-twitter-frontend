@@ -7,12 +7,19 @@
         <span v-if="isAdminUsers">使用者列表</span>
       </p>
     </div>
+    <PopoutReply
+      v-if="replyModalShow"
+    />
   </div>
 </template>
 
 <script>
+import PopoutReply from '../components/PopoutReply.vue';
+import { mapState } from 'vuex';
+
 export default {
   name: 'NavpillHeaderMain',
+  components: { PopoutReply },
   props: {
     initialMainPage: {
       type: Boolean,
@@ -33,6 +40,9 @@ export default {
         isAdminMain: this.initialAdminMain,
         isAdminUsers: this.initialAdminUsers
     };
+  },
+  computed: {
+    ...mapState(['replyModalShow'])
   },
   watch: {
     initialMainPage (newValue) {

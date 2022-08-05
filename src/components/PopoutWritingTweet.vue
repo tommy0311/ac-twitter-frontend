@@ -1,37 +1,25 @@
 <template>
   <div class="wrapper">
-    <router-link
-      :to="{
-        name: 'main' // 導引至 主頁
-      }"
-    >
-      <div
-        class="popup-background"
-        @click="closeModal"
-      />
-    </router-link>
+    <div
+      class="popup-background"
+      @click="closeModal"
+    />
 
     <div id="popup-writtingTweet-container">
 
       <div class="headerbox align-items-center">
-        <router-link
-          :to="{
-            name: 'main' // 導引至 主頁
-          }"
-        >
-          <button @click="closeModal">
-            <img
-              class="popup-cancel-icon"
-              src="../assets/X.png"
-              alt="取消推文視窗按鈕"
-            >
-          </button>
-        </router-link>
+        <button @click="closeModal">
+          <img
+            class="popup-cancel-icon"
+            src="../assets/X.png"
+            alt="取消推文視窗按鈕"
+          >
+        </button>
       </div>
       <div class="writtingTweet-pannel d-flex">
         <img
           class="user-headshot"
-          src="../assets/Photo2.png"
+          :src=" currentUser.avatar | emptyImage "
           alt="個人頭像"
         >
         <form
@@ -75,8 +63,12 @@
 <script>
 import tweetAPI from '../apis/tweets'
 import { Toast } from './../utils/helpers'
+import { mapState } from 'vuex';
+import { emptyImageFilter } from './../utils/mixins'
 
 export default {
+  name: 'PopoutWritingTweet',
+  mixins: [emptyImageFilter],
   inject: ['fetchTweets'],
   props: {
     closeModal: {
@@ -90,6 +82,9 @@ export default {
       tweet: '',
       tweetLength: 0
     }
+  },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   watch: {
     tweet: "showTweetLength"

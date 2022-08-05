@@ -2,12 +2,12 @@
   <div class="wrapper">
     <div
       class="popup-background"
-      @click="$router.go(-1)"
+      @click="closeModal"
     />
 
     <div id="popup-writtingTweet-container">
       <div class="headerbox align-items-center">
-        <button @click="$router.go(-1)">
+        <button @click="closeModal">
           <img
             class="popup-cancel-icon"
             src="../assets/X.png"
@@ -18,7 +18,7 @@
       <div class="want-reply-post-container">
         <img
           class="user-headshot"
-          :src=" tweet.User.avatar | emptyImage "
+          :src=" reply.toAvatar | emptyImage "
           alt="個人頭像"
         >
         <div class="ml-2">
@@ -27,23 +27,23 @@
               href="#"
               class="user-name"
             >
-              {{ tweet.User.name }}
+              {{ reply.toName }}
             </a>
             <p class="user-acount-for-post ml-2">
-              <span>@</span>{{ tweet.User.account }}<span> • </span>
+              <span>@</span>{{ reply.toAccount }}<span> • </span>
             </p>
             <p class="post-time">
-              {{ tweet.createdAt | fromNow }}
+              {{ reply.toCreatedAt | fromNow }}
             </p>
           </div>
           <p class="tweet-content mt-2">
-            {{ tweet.description }}
+            {{ reply.toDescription }}
           </p>
           <div class="reply-to-who-container d-flex mt-3">
             回覆給
             <span class="reply-to-who-acount ml-1">
               <span>@</span>
-              {{ tweet.User.account }}
+              {{ reply.toAccount }}
             </span>
           </div>
         </div>
@@ -52,7 +52,7 @@
       <div class="writtingTweet-pannel d-flex">
         <img
           class="user-headshot"
-          src="../assets/Photo2.png"
+          :src=" currentUser.avatar | emptyImage "
           alt="個人頭像"
         >
         <form
@@ -97,9 +97,15 @@
 import { fromNowFilter, emptyImageFilter } from "./../utils/mixins"
 import { Toast } from './../utils/helpers'
 import replyAPI from '../apis/replies'
+import { mapState } from 'vuex';
+
 export default {
   name: 'PopoutReply',
    mixins: [fromNowFilter, emptyImageFilter],
+   beforeRouteUpdate (to, from, next) {
+    console.log('to=',to)
+    next()
+  },
    props: {
     tweet: {
       type: Object,
@@ -122,10 +128,19 @@ export default {
       isErrorEmpty: false,
     }
   },
+  created() {
+    console.log('created to=',this.$route.to)
+  },
+  computed: {
+    ...mapState(["currentUser","reply"]),
+  },
   watch: {
     comment: "showCommentLength"
   },
   methods: {
+    closeModal() {
+      this.$store.commit('closeReplyModal')
+    },
     showCommentLength () {
       this.commentLength = this.comment.length
     },
@@ -140,19 +155,21 @@ export default {
           this.isErrorExceed = true
           return
         }
-        await replyAPI.postReply(this.tweet.id, trimmedComment)
+        await replyAPI.postReply(this.reply.tweetId, trimmedComment)
         Toast.fire({
           icon: 'success',
           title: '成功回覆推文',
         })
-        this.$router.go(-1)
-        this.fetchTweet(this.tweet.id)
-        this.fetchReplies(this.tweet.id)
+        this.closeModal()
+        this.$router.go()
+        // this.$router.go(-1)
+        // this.fetchTweet(this.tweet.id)
+        // this.fetchReplies(this.tweet.id)
       } catch (err) {
         // 顯示錯誤提示
         Toast.fire({
           icon: 'error',
-          title: '發生錯誤，請重試。',
+          title: '回覆推文發生錯誤，請重試。',
         })
 
         console.error(err.message)

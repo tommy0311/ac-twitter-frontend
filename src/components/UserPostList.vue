@@ -82,19 +82,19 @@
         </router-link>
 
         <div class="tweet-icon-show-pannel d-flex mt-1">
-          <a
-            href=""
+          <button
             class="d-flex align-items-center"
+            @click.stop.prevent="showModal(tweet.id, tweet.User.avatar, tweet.User.name, tweet.User.account, tweet.createdAt, tweet.description)"
           >
             <img
               src="../assets/reply.png"
-              alt=""
+              alt="回覆按鈕"
               class="tweet-icon-show"
             >
             <span class="reply-number ml-1">
               {{ tweet.replyCount }}
             </span>
-          </a>
+          </button>
 
           <div class="d-flex align-items-center ml-8">
             <button
@@ -131,6 +131,7 @@
 import { fromNowFilter, emptyImageFilter } from './../utils/mixins'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: "UserPostList",
@@ -146,6 +147,9 @@ export default {
       tweets: this.initialTweets
     }
   },
+  computed: {
+    ...mapState(['currentUser'])
+  },
   watch: {
     initialTweets (newValue) {
       this.tweets = {
@@ -155,6 +159,24 @@ export default {
     }
   },
   methods: {
+    showModal (tweetId, toAvatar, toName, toAccount, toCreatedAt, toDescription) {
+      // console.log('tweetId=',tweetId)
+      // console.log('toAvatar=',toAvatar)
+      // console.log('toName=',toName)
+      // console.log('toAccount=',toAccount)
+      // console.log('toCreatedAt=',toCreatedAt)
+      // console.log('toDescription=',toDescription)
+
+      this.$store.commit('setReply', {
+        tweetId,
+        toAvatar,
+        toName,
+        toAccount,
+        toCreatedAt,
+        toDescription,
+        myAvatar: this.currentUser.avatar
+      })
+    },
     async addLike (tweetId) {
       try {
         this.isProcessing = true
