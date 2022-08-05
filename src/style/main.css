@@ -796,6 +796,13 @@
 #setting-form-container .form-element-group input {
   width: 100%;
 }
+#setting-form-container .label-name-style {
+  display: flex;
+  width: 96%;
+}
+#setting-form-container .span-neme-style {
+  flex: 1;
+}
 #setting-form-container .main-btn-style {
   margin-top: 8px;
   width: 88px;
