@@ -4,20 +4,20 @@
       :initial-profile="isProfile"
     />
     <div class="main-wrapper">
-      <NavpillHeader />
-      <UserProfile
-        :initial-user="user"
-      />
-      
-      <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
-      <NavpillUser
-        :initial-user="user"
-        :initial-is-current-user="isCurrentUser"
-        :initial-tweets-active="isTweetsActive"
-        :initial-replies-active="isRepliesActive"
-        :initial-likes-active="isLikesActive"
-      />
+      <NavpillHeader />           
+
       <div class="container-for-scroll scrollbar">
+        <UserProfile
+          :initial-user="user"
+        /> 
+        <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
+        <NavpillUser
+          :initial-user="user"
+          :initial-is-current-user="isCurrentUser"
+          :initial-tweets-active="isTweetsActive"
+          :initial-replies-active="isRepliesActive"
+          :initial-likes-active="isLikesActive"
+        />
         <router-view
           :initial-tweets="tweets"
           :initial-replies="replies"

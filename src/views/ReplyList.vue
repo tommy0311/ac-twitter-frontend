@@ -5,19 +5,20 @@
     />
     <div class="main-wrapper">
       <NavpillHeader />
-      <ReplyPost
-        :initial-tweetid="tweetId"
-        :tweet="tweet"
-        :add-like="addLike"
-        :un-like="unLike"
-      />
-
-      <PostReplyList
-        v-for="reply in replies"
-        :key="reply.id"
-        :initial-reply="reply"
-        :initial-tweetid="tweetId"
-      />
+      <div class="container-for-scroll scrollbar">
+        <ReplyPost
+          :initial-tweetid="tweetId"
+          :tweet="tweet"
+          :add-like="addLike"
+          :un-like="unLike"
+        />
+        <PostReplyList
+          v-for="reply in replies"
+          :key="reply.id"
+          :initial-reply="reply"
+          :initial-tweetid="tweetId"
+        />
+      </div>
     </div>
 
     <div id="recommendColumn-container">

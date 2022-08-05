@@ -7,11 +7,11 @@
     <div class="main-wrapper">
       <NavpillHeaderMain
         :initial-main-page="isMainPage"
-      />
-      <WrittingTweet @fetch-tweet="fetchTweets" />
+      />      
       <div
         class="container-for-scroll scrollbar"
       >
+        <WrittingTweet @fetch-tweet="fetchTweets" />
         <TweetList
           v-for="tweet in tweets"
           :key="tweet.id"
@@ -21,7 +21,7 @@
     </div>
 
     <div id="recommendColumn-container">
-      <div class="recommendHeader">
+      <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
       <RecommendColumn

@@ -317,6 +317,7 @@
   margin-left: 24px;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--borderColor);
 }
 .main-wrapper .container-for-scroll {
   flex: 1;
@@ -422,10 +423,12 @@
 }
 #recommendColumn-container .recommendAccount-panel {
   width: 100%;
+  background-color: var(--recommendBgColor);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element {
   padding: 16px;
-  background-color: var(--recommendBgColor);
   position: relative;
 }
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element .user-headshot {
@@ -497,10 +500,6 @@
   color: var(--orange);
   background-color: var(--white);
   border: 1px solid var(--orange);
-}
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element:last-child {
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
 }
 
 .user-acount-for-post,
@@ -956,6 +955,10 @@
   color: var(--black);
 }
 
+.popup-wrapper {
+  position: absolute;
+}
+
 .popup-background {
   position: fixed;
   top: 0;
@@ -983,8 +986,11 @@
 #popup-writtingTweet-container {
   width: 634px;
   border-radius: 14px;
+  margin: 56px auto 0 auto;
   background-color: var(--white);
   position: absolute;
+  left: 50%;
+  transform: translate(-50%);
   z-index: 1000;
 }
 #popup-writtingTweet-container .want-reply-post-container {

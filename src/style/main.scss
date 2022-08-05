@@ -197,6 +197,7 @@
   margin-left: 24px;
   display: flex;
   flex-direction: column;
+  @include tiny-border-line;
   .container-for-scroll {
     flex: 1;
     height: 100%;
@@ -290,9 +291,11 @@
   }
   .recommendAccount-panel {
     width: 100%;
+    background-color: var(--recommendBgColor);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
     .recommendAccount-element {
-      padding: 16px;
-      background-color: var(--recommendBgColor);
+      padding: 16px;      
       position: relative;
       .user-headshot {
         @include userHeadshotSetting;
@@ -331,11 +334,7 @@
           @include secondBtnStyleChange;
         }
       }     
-    }
-    .recommendAccount-element:last-child {
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
-    }      
+    }         
   }  
 }
 
