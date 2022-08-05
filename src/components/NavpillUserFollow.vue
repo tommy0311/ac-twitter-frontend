@@ -5,9 +5,9 @@
   >
     <div class="navpill-title-container">
       <router-link
-        v-if="isCurrentUser"
+        v-if="currentUser.id === user.id"
         :to="{
-          name: 'user-followerlist' // 導引至自己          
+          name: 'user-followerlist' // 導引至自己
         }"
         class="navpill-title"
         :class="isFollowerActive"
@@ -29,7 +29,7 @@
 
     <div class="navpill-title-container">
       <router-link
-        v-if="isCurrentUser"
+        v-if="currentUser.id === user.id"
         :to="{
           name: 'user-followinglist' // 導引至自己
         }"
@@ -76,10 +76,7 @@ export default {
         }
       }
     },
-    initialIsCurrentUser: {
-      type: Boolean,
-      require: true
-    },
+
     initialFollowerActive: {
       type: String,
       default: ''
@@ -94,7 +91,6 @@ export default {
       user: {
         ...this.initialUser
       },
-      isCurrentUser: this.initialIsCurrentUser,
       isFollowerActive: this.initialFollowerActive,
       isFollowingActive: this.initialFollowingActive, 
       routeName: '',

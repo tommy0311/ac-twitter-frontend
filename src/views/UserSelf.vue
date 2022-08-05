@@ -100,7 +100,7 @@ export default {
     this.fetchFollowingsFollowers(userId);
     this.fetchRecommendUsers();
     this.isCurrentUser = true;
-    this.updateRouteName( this.$route.name )    
+    this.updateRouteName( this.$route.name )
   },
   methods: {
     updateRouteName(name) {      
