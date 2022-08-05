@@ -25,17 +25,9 @@
             class="profile-btn-size"
           >
         </button>
+
         <button
-          class="profile-btn"
-          type="submit"
-        >
-          <img
-            src="../assets/noti.png"
-            alt="訂閱按鈕"
-            class="profile-btn-size"
-          >
-        </button>
-        <button
+          v-if="isNoti"
           class="profile-btn-solid"
           type="submit"
         >
@@ -43,8 +35,22 @@
             src="../assets/noti-white.png"
             alt="退訂閱按鈕"
             class="profile-btn-size"
+            @click="unsubscribe"
           >
         </button>
+        <button
+          v-else
+          class="profile-btn"
+          type="submit"
+        >
+          <img
+            src="../assets/noti.png"
+            alt="訂閱按鈕"
+            class="profile-btn-size"
+            @click="subscribe"
+          >
+        </button>
+
         <button
           v-if="user.isFollowed"
           class="follow-btn empty-btn-style-active ml-4"
@@ -132,6 +138,7 @@ export default {
       user: {
         ...this.initialUser
       },
+      isNoti: false,
       isLoading: true
     }
   },
@@ -145,6 +152,12 @@ export default {
     }
   },
   methods: {
+    unsubscribe(){
+      this.isNoti = false
+    },
+    subscribe(){
+      this.isNoti = true
+    },
     async addFollowing(userId) {
       try {
         this.isProcessing = true;
