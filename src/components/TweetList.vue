@@ -78,28 +78,29 @@
       </router-link>
 
       <div class="tweet-icon-show-pannel d-flex mt-1">
-        <router-link
-          :to="{
-            name: 'replylist',
-            query: {
-              tweetId: tweet.id
-            }
-          }"
-        >
-          <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
+          <router-link 
+            :to="{
+              name: 'reply-modal'
+            }"
+            class="d-flex"
+          >
             <img
               src="../assets/reply.png"
               alt=""
               class="tweet-icon-show"
             >
-            <span class="reply-number ml-1">{{ tweet.replyCount }}</span>
-          </div>
-        </router-link>
+            <span class="reply-number ml-1">
+              {{ tweet.replyCount }}
+            </span>
+          </router-link>
+        </div>
 
 
         <div class="d-flex align-items-center ml-8">
           <button
             v-if="tweet.isLiked"
+            class="d-flex"
           >
             <img
               src="../assets/likedx2.png"
@@ -107,9 +108,13 @@
               class="tweet-icon-show like-icon"
               @click.stop.prevent="unLike(tweet.id)"
             >
+            <span class="like-number ml-1">
+              {{ tweet.likeCount }}
+            </span>
           </button>
           <button
             v-else
+            class="d-flex"
           >
             <img
               src="../assets/like.png"
@@ -117,10 +122,10 @@
               class="tweet-icon-show like-icon"
               @click.stop.prevent="addLike(tweet.id)"
             >
+            <span class="like-number ml-1">
+              {{ tweet.likeCount }}
+            </span>
           </button>
-          <span class="like-number ml-1">
-            {{ tweet.likeCount }}
-          </span>
         </div>
       </div>
     </div>
