@@ -8,7 +8,17 @@
       @submit.prevent.stop="handleSubmit"
     >
       <div class="form-element-group">
-        <label for="user-account">帳號</label>
+        <label 
+          for="user-account"
+          class="label-name-style"
+        >
+          <span class="span-neme-style">
+            帳號
+          </span>
+          <span>
+            {{ user.account.length }} / 10
+          </span>
+        </label>
         <input
           id="user-account"
           v-model="user.account"
@@ -119,6 +129,14 @@ export default {
           return
         }
 
+        if (this.user.account.length > 10) {
+          Toast.fire({
+            icon: 'warning',
+            title: '帳號字數不可超過10字'
+          })
+          return
+        }
+
         if (this.user.name.length > 50) {
           Toast.fire({
             icon: 'warning',
@@ -137,7 +155,7 @@ export default {
         }
         this.isProcessing = true
 
-        const { data } = await userAPI.putUser(this.user)
+        const { data } = await userAPI.putUserForSettingFrom(this.user)
         if ( data.status === 'error' ) {
           throw new Error(data.message)
         }
