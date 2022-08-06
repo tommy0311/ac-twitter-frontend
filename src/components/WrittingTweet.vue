@@ -13,7 +13,7 @@
         >
       </router-link>
       <form
-        class="user-writing-post-form"
+        class="user-writing-post-form ml-2"
         @submit.prevent.stop="handleSubmit"
       >
         <textarea
@@ -24,18 +24,21 @@
           required
         />
         <div class="d-flex justify-content-end align-items-end">
-          <span
-            v-show="tweetLength"
-            style="margin-right:10px;"
-          >
-            {{ tweetLength }}/140
-          </span>
-          <button
-            class="post-btn second-btn-style"
-            type="submit"
-          >
-            推文
-          </button>
+          <div class="d-flex align-items-center">
+            <span
+              v-show="tweetLength"
+              style="margin-right:10px;"
+              class="tweet-length-sign"
+            >
+              {{ tweetLength }}/140
+            </span>
+            <button
+              class="post-btn second-btn-style"
+              type="submit"
+            >
+              推文
+            </button>
+          </div>
         </div>
       </form>
     </div>    

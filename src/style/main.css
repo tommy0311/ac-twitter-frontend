@@ -226,8 +226,7 @@
   width: 639px;
   height: 100vh;
   overflow: hidden;
-  margin-right: 24px;
-  margin-left: 24px;
+  margin: 0 24px;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--borderColor);
@@ -265,14 +264,13 @@
 
 #writtingTweet-container {
   width: 100%;
-  max-height: 139px;
   border: 1px solid var(--borderColor);
   padding: 0 25px;
-  border-bottom: 3px solid var(--borderColor);
+  border-bottom: 10px solid var(--borderColor);
 }
 #writtingTweet-container .writtingTweet-pannel {
   width: 100%;
-  padding: 16px 0;
+  padding: 16px;
 }
 #writtingTweet-container .writtingTweet-pannel .user-headshot {
   width: 50px;
@@ -280,17 +278,22 @@
   border-radius: 50%;
 }
 #writtingTweet-container .writtingTweet-pannel .user-writing-post-form {
-  position: relative;
-  display: flex;
-  flex-grow: 1;
+  width: calc(100% - 58px);
 }
 #writtingTweet-container .writtingTweet-pannel .user-writting-post {
   border: none;
   width: 100%;
-  padding: 1rem;
+  height: 90px;
+  overflow: hidden;
   font-weight: 700;
   font-size: 18px;
   line-height: 26px;
+  color: var(--messageTextColor);
+}
+#writtingTweet-container .writtingTweet-pannel .tweet-length-sign {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
   color: var(--messageTextColor);
 }
 #writtingTweet-container .writtingTweet-pannel .second-btn-style {
@@ -337,8 +340,6 @@
 #recommendColumn-container .recommendAccount-panel {
   width: 100%;
   background-color: var(--recommendBgColor);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
 }
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element {
   padding: 16px;
@@ -413,6 +414,10 @@
   color: var(--orange);
   background-color: var(--white);
   border: 1px solid var(--orange);
+}
+#recommendColumn-container .recommendAccount-panel:last-child {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 .user-acount-for-post,
@@ -883,7 +888,8 @@
   z-index: 999;
 }
 
-.popup-error-text {
+.popup-error-text,
+.show-red-sign {
   position: absolute;
   bottom: 3%;
   right: 15%;
@@ -917,7 +923,7 @@
   border-radius: 50%;
 }
 #popup-writtingTweet-container .want-reply-post-container .tweet-wrapper {
-  width: calc(100% - 58px);
+  max-width: calc(100% - 58px);
 }
 #popup-writtingTweet-container .want-reply-post-container .reply-to-who-container {
   font-weight: 400;

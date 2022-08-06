@@ -34,6 +34,7 @@
           />
           <span
             v-show="tweetLength"
+            class="tweet-length-sign"            
           >
             {{ tweetLength }}/140
           </span>
@@ -128,3 +129,4 @@ export default {
   },
 }
 </script>
+
