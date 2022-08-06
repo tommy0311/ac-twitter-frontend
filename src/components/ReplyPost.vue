@@ -40,17 +40,16 @@
       </p>
     </div>
     <div class="tweet-icon-show-pannel d-flex mt-1">
-      <router-link 
-        :to="{
-          name: 'reply-list-modal'
-        }"
+      <button
+        class="d-flex"
+        @click.stop.prevent="showModal(tweet.id, tweet.User.avatar, tweet.User.name, tweet.User.account, tweet.createdAt, tweet.description)"
       >
         <img
           src="../assets/reply.png"
           alt="回覆按鈕"
           class="tweet-icon-show"
         >
-      </router-link>
+      </button>
 
       <button
         v-if="tweet.isLiked"
@@ -78,6 +77,7 @@
 
 <script>
 import { localeSupport, emptyImageFilter } from "./../utils/mixins"
+import { mapState } from 'vuex'
 
 export default {
   name: "ReplyPost",
@@ -98,16 +98,23 @@ export default {
   },
   data() {
     return {
-      isModalShown: false,
     };
   },
+  computed: {
+    ...mapState(['currentUser'])
+  },
   methods: {
-    showModal() {
-        this.isModalShown = true;
-    },
-    closeModal() {
-        this.isModalShown = false;
-    },
+    showModal (tweetId, toAvatar, toName, toAccount, toCreatedAt, toDescription) {
+      this.$store.commit('setReply', {
+        tweetId,
+        toAvatar,
+        toName,
+        toAccount,
+        toCreatedAt,
+        toDescription,
+        myAvatar: this.currentUser.avatar
+      })
+    }
   },
 }
 </script>
