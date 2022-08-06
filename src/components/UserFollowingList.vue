@@ -22,30 +22,68 @@
         跟隨
       </button>
 
-      <img
-        class="user-headshot"
-        :src="following.avatar | emptyImage"
-        alt="個人頭像"
+      <router-link
+        v-if="currentUser.id === following.followingId"
+        :to="{
+          name: 'user-tweets' // 導引至 UserSelf.vue
+        }"
       >
+        <img
+          class="user-headshot"
+          :src="following.avatar | emptyImage"
+          alt="個人頭像"
+        >
+      </router-link>
+      <router-link
+        v-else
+        :to="{
+          name: 'user-id-tweets', // 導引至 UserOther.vue
+          params: { userId: following.followingId }
+        }"
+      >
+        <img
+          class="user-headshot"
+          :src="following.avatar | emptyImage"
+          alt="個人頭像"
+        >
+      </router-link>
+
       <div class="ml-2">
-        <div class="">
-          <router-link
-            :to="{
-              name: 'user-id-tweets',
-              params: { userId: following.followingId }
-            }"
-            class="user-name"
-          >
+        <router-link
+          v-if="currentUser.id === following.followingId"
+          :to="{
+            name: 'user-tweets' // 導引至 UserSelf.vue
+          }"
+        >
+          <span class="user-name">
             {{ following.name }}
-          </router-link>
+          </span>
           <div class="user-acount">
             <span>@</span>
             {{ following.account }}
           </div>
-        </div>
-        <p class="tweet-content mt-4">
-          {{ following.introduction }}
-        </p>
+          <p class="tweet-content mt-4">
+            {{ following.introduction }}
+          </p>
+        </router-link>
+        <router-link
+          v-else
+          :to="{
+            name: 'user-id-tweets', // 導引至 UserOther.vue
+            params: { userId: following.followingId }
+          }"
+        >
+          <span class="user-name">
+            {{ following.name }}
+          </span>
+          <div class="user-acount">
+            <span>@</span>
+            {{ following.account }}
+          </div>
+          <p class="tweet-content mt-4">
+            {{ following.introduction }}
+          </p>
+        </router-link>
       </div>
     </div>
   </div>

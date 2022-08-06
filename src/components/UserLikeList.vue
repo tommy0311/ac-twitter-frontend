@@ -6,7 +6,7 @@
       :key="like.id"
     >
       <router-link
-        v-if="like.isCurrentUser"
+        v-if="currentUser.id === like.Tweet.User.id"
         :to="{
           name: 'user-tweets' // 導引至 UserSelf.vue
         }"
@@ -21,7 +21,7 @@
         v-else
         :to="{
           name: 'user-id-tweets', // 導引至 UserOther.vue
-          params: { userId: like.Tweet.UserId }
+          params: { userId: like.Tweet.User.id }
         }"
       >
         <img
@@ -30,33 +30,33 @@
           alt="個人頭像"
         >
       </router-link>
-
       <div class="tweet-wrapper ml-2">
         <div class="d-flex align-items-center">
           <router-link
-            v-if="like.isCurrentUser"
+            v-if="currentUser.id === like.Tweet.User.id"
             :to="{
               name: 'user-tweets' // 導引至 UserSelf.vue
             }"
-            class="user-name"
           >
-            {{ like.Tweet.User.name }}
+            <span class="user-name">
+              {{ like.Tweet.User.name }}
+            </span>
             <span class="user-acount-for-post ml-2">
               <span>@</span>
               {{ like.Tweet.User.account }}
               <span> • </span>
             </span>
           </router-link>
-
           <router-link
             v-else
             :to="{
               name: 'user-id-tweets', // 導引至 UserOther.vue
-              params: { userId: like.Tweet.UserId }
+              params: { userId: like.Tweet.User.id }
             }"
-            class="user-name"
           >
-            {{ like.Tweet.User.name }}
+            <span class="user-name">
+              {{ like.Tweet.User.name }}
+            </span>
             <span class="user-acount-for-post ml-2">
               <span>@</span>
               {{ like.Tweet.User.account }}

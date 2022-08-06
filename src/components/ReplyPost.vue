@@ -1,23 +1,51 @@
 <template>
   <div id="reply-post-container">
     <div class="d-flex">
-      <img
-        class="user-headshot"
-        :src=" tweet.User.avatar | emptyImage "
-        alt="個人頭像"
+      <router-link
+        v-if="currentUser.id === tweet.User.id"
+        :to="{
+          name: 'user-tweets' // 導引至 UserSelf.vue
+        }"
+        class="d-flex"
       >
-      <div class="flex-column ml-2">
-        <a
-          href="#"
-          class="user-name"
+        <img
+          class="user-headshot"
+          :src=" tweet.User.avatar | emptyImage "
+          alt="個人頭像"
         >
-          {{ tweet.User.name }}
-        </a>
-        <p class="user-acount-for-post">
-          <span>@</span>
-          {{ tweet.User.account }}
-        </p>
-      </div>
+        <div class="flex-column ml-2">
+          <span class="user-name">
+            {{ tweet.User.name }}
+          </span>
+          <p class="user-acount-for-post">
+            <span>@</span>
+            {{ tweet.User.account }}
+          </p>
+        </div>
+      </router-link>
+      <router-link
+        v-else
+        :to="{
+          name: 'user-id-tweets', // 導引至 UserOther.vue
+          params: { userId: tweet.User.id }
+        }"
+        class="d-flex"
+      >
+        <img
+          class="user-headshot"
+          :src=" tweet.User.avatar | emptyImage "
+          alt="個人頭像"
+        >
+        <div class="flex-column ml-2">
+          <span class="user-name">
+            {{ tweet.User.name }}
+          </span>
+          <p class="user-acount-for-post">
+            <span>@</span>
+            {{ tweet.User.account }}
+          </p>
+        </div>
+      </router-link>
     </div>
     <p class="tweet-content mt-2">
       {{ tweet.description }}

@@ -6,26 +6,49 @@
       class="recommendAccount-panel"
     >
       <div class="recommendAccount-element d-flex align-items-center">
-        <img
-          class="user-headshot"
-          :src="recommendUser.avatar | emptyImage"
-          alt="個人頭像"
+        <router-link
+          v-if="currentUser.id === recommendUser.id"
+          :to="{
+            name: 'user-tweets' // 導引至 UserSelf.vue
+          }"
+          class="d-flex"
         >
-
-        <div class="length-ellipsis-70">
-          <router-link
-            :to="{
-              name: 'user-id-tweets',
-              params: { userId: recommendUser.id }
-            }"
-            class="user-name"
+          <img
+            class="user-headshot"
+            :src="recommendUser.avatar | emptyImage"
+            alt="個人頭像"
           >
-            {{ recommendUser.name }}
-          </router-link>
-          <p class="user-acount">
-            <span>@</span>{{ recommendUser.account }}
-          </p>
-        </div>
+          <div class="length-ellipsis-70">
+            <span class="user-name">
+              {{ recommendUser.name }}
+            </span>
+            <p class="user-acount">
+              <span>@</span>{{ recommendUser.account }}
+            </p>
+          </div>
+        </router-link>
+        <router-link
+          v-else
+          :to="{
+            name: 'user-id-tweets', // 導引至 UserOther.vue
+            params: { userId: recommendUser.id }
+          }"
+          class="d-flex"
+        >
+          <img
+            class="user-headshot"
+            :src="recommendUser.avatar | emptyImage"
+            alt="個人頭像"
+          >
+          <div class="length-ellipsis-70">
+            <span class="user-name">
+              {{ recommendUser.name }}
+            </span>
+            <p class="user-acount">
+              <span>@</span>{{ recommendUser.account }}
+            </p>
+          </div>
+        </router-link>
 
         <button
           v-if="recommendUser.isFollowed"

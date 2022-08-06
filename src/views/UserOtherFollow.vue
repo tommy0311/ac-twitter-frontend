@@ -3,11 +3,13 @@
     <NavBar />
     <div class="main-wrapper">
       <NavpillHeader />
-      <NavpillUserFollow
-        :initial-user="user"
-      />      
       <div class="container-for-scroll scrollbar">
-        <!-- 包含 追隨者、正在追隨 兩個分頁 -->        
+        <!-- 包含 追隨者、正在追隨 兩個分頁 -->
+        <NavpillUserFollow
+          :initial-user="user"
+          :initial-follower-active="isFollowerActive"
+          :initial-following-active="isFollowingActive"
+        />
         <router-view
           :initial-followers="followers"
           :initial-followings="followings"
@@ -18,7 +20,7 @@
     </div>
 
     <div id="recommendColumn-container">
-      <div class="recommendHeader mt-4">
+      <div class="recommendHeader">
         <h1>推薦跟隨</h1>
       </div>
       <LoadingSpinner v-if="isRecommendUsersLoading" />
@@ -52,8 +54,10 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     const { userId } = to.params
-    this.fetchUser(userId)
-    this.userId = Number(userId),
+    this.userId = Number(userId)
+    this.fetchUser(this.userId)
+    this.fetchRecommendUsers()
+    this.updateRouteName(to.name)
     next()
   },
   data () {
@@ -75,6 +79,8 @@ export default {
       followings: [],
       currentUserFollowings: [],
       recommendUsers: [],
+      isFollowerActive:'',
+      isFollowingActive: '',
       isProcessing: false,
       isRecommendUsersLoading: true,
     }
@@ -84,11 +90,16 @@ export default {
   },
   created () {
     const { userId } = this.$route.params
-    this.fetchUser(userId),
-    this.userId = Number(userId),
-    this.fetchRecommendUsers();
+    this.userId = Number(userId)
+    this.fetchUser(this.userId)
+    this.fetchRecommendUsers()
+    this.updateRouteName(this.$route.name)
   },
   methods: {
+    updateRouteName(name){
+      this.isFollowerActive = name === 'user-id-followerlist' ? 'navpill-title-active' : ''
+      this.isFollowingActive = name === 'user-id-followinglist' ? 'navpill-title-active' : ''
+    },
     updatePage() {
       this.fetchFollowingsFollowers(this.userId)
       this.fetchRecommendUsers()

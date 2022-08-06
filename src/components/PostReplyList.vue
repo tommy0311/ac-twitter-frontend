@@ -70,10 +70,29 @@
       </div>
       <div class="reply-to-who-container d-flex mt-2">
         回覆
-        <span class="reply-to-who-acount ml-1">
-          <span>@</span>
-          {{ tweet.User.account }}
-        </span>
+        <router-link
+          v-if="currentUser.id === tweet.User.id"
+          :to="{
+            name: 'user-tweets' // 導引至 UserSelf.vue
+          }"
+        >
+          <span class="reply-to-who-acount ml-1">
+            <span>@</span>
+            {{ tweet.User.account }}
+          </span>
+        </router-link>
+        <router-link
+          v-else
+          :to="{
+            name: 'user-id-tweets', // 導引至 UserOther.vue
+            params: { userId: tweet.User.id }
+          }"
+        >
+          <span class="reply-to-who-acount ml-1">
+            <span>@</span>
+            {{ tweet.User.account }}
+          </span>
+        </router-link>
       </div>
       <p class="tweet-content mt-2">
         {{ reply.comment }}

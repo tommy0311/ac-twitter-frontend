@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center">
     <NavBar />
     <div class="main-wrapper">
-      <NavpillHeader />   
+      <NavpillHeader />
       <div class="container-for-scroll scrollbar">
         <!-- 包含 追隨者、正在追隨 兩個分頁 -->
         <NavpillUserFollow
@@ -56,7 +56,6 @@ export default {
     this.fetchFollowingsFollowers(this.currentUser.id)
     this.fetchRecommendUsers()
     this.updateRouteName(to.name)
-    console.log('to.name',to.name)
     next()
   },
   data () {
@@ -91,7 +90,6 @@ export default {
     this.fetchFollowingsFollowers(this.currentUser.id)
     this.fetchRecommendUsers()
     this.updateRouteName(this.$route.name)
-    console.log('this.$route.name=',this.$route.name)
   },
   methods: {
     updateRouteName(name){
