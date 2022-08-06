@@ -462,8 +462,13 @@
     line-height: 22px;
     color: var(--messageTextColor);
   }
-  .tweet-content {
+  .tweet-wrapper{
+    width: calc(100% - 58px );      
+  }
+  .tweet-content{    
+    width: 100%;   
     @include contentTextStyle;
+    @include content-word-wrap;      
   }
   .reply-to-who-acount {
     color: var(--orange);
