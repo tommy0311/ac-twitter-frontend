@@ -112,7 +112,6 @@ export default {
     ...mapState(['currentUser'])
   },
   created () {
-    // console.log('reply=', this.reply)
     this.isCurrentUser = this.reply.UserId === this.currentUser.id ? true : false
     this.fetchTweet({ tweetId: this.initialTweetid })
   },

@@ -12,8 +12,10 @@
         class="container-for-scroll scrollbar"
       >
         <WrittingTweet @fetch-tweet="fetchTweets" />
+        <LoadingSpinner v-if="isLoading" />
         <TweetList
           v-for="tweet in tweets"
+          v-else
           :key="tweet.id"
           :initial-tweet="tweet"
         />
@@ -24,7 +26,9 @@
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
+      <LoadingSpinner v-if="isRecommendUsersLoading" />
       <RecommendColumn
+        v-else
         :initial-recommend-users="recommendUsers"
         @updateRecommendColumn="updatePage"
       />
@@ -42,6 +46,7 @@ import tweetsAPI from './../apis/tweets'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
 import { mapState } from 'vuex'
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
   name: 'MainPage',
@@ -51,6 +56,7 @@ export default {
     NavpillHeaderMain,
     WrittingTweet,
     TweetList,
+    LoadingSpinner
   },
   provide() {
     return {
@@ -64,6 +70,7 @@ export default {
       recommendUsers: [],
       isMainPage: true,
       isLoading: true,
+      isRecommendUsersLoading: true,
     }
   },
   computed: {
@@ -86,7 +93,6 @@ export default {
 
         const responseTweets = await tweetsAPI.getTweets()
         this.tweets = responseTweets.data
-        // console.log('this.tweets=', this.tweets)
         this.tweets = this.tweets.map(tweet => {
           if (this.likes.some(l => l.TweetId === tweet.id)) {
             return {
@@ -113,7 +119,7 @@ export default {
     },
     async fetchRecommendUsers() {
       try {
-        this.isLoading = true
+        this.isRecommendUsersLoading = true
 
         const { data } = await usersAPI.getUserFollowings({
           userId: this.currentUser.id, // need currentUser
@@ -127,10 +133,10 @@ export default {
           }
         })
 
-        this.isLoading = false
+        this.isRecommendUsersLoading = false
       } catch (error) {
         console.error(error)
-        this.isLoading = false
+        this.isRecommendUsersLoading = false
         Toast.fire({
           icon: 'error',
           title: '無法取得 RecommendUsers 資料，請稍後再試',

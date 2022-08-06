@@ -23,7 +23,9 @@
       <div class="recommendHeader">
         <h1>推薦跟隨</h1>
       </div>
+      <LoadingSpinner v-if="isRecommendUsersLoading" />
       <RecommendColumn
+        v-else
         :initial-recommend-users="recommendUsers"
         @updateRecommendColumn="updatePage"
       />
@@ -39,6 +41,7 @@ import NavpillUserFollow from "../components/NavpillUserFollow.vue"
 import { Toast } from '../utils/helpers'
 import usersAPI from "../apis/users"
 import { mapState } from "vuex"
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
   name: "UserFollow",
@@ -47,6 +50,7 @@ export default {
     RecommendColumn,
     NavpillHeader,
     NavpillUserFollow,
+    LoadingSpinner
   },
   beforeRouteUpdate (to, from, next) {
     this.fetchFollowingsFollowers(this.currentUser.id)
@@ -75,7 +79,8 @@ export default {
       recommendUsers: [],
       isFollowerActive:'',
       isFollowingActive: '',
-      isProcessing: false
+      isProcessing: false,
+      isRecommendUsersLoading: true,
     }
   },
   computed: {
@@ -92,8 +97,6 @@ export default {
     updateRouteName(name){
       this.isFollowerActive = name === 'user-followerlist' ? 'navpill-title-active' : ''
       this.isFollowingActive = name === 'user-followinglist' ? 'navpill-title-active' : ''
-      console.log('isfollowerActive=', this.isFollowerActive)
-      console.log('isfollowingActive=', this.isFollowingActive) 
     },
     updatePage() {
       this.fetchFollowingsFollowers(this.currentUser.id)
@@ -128,7 +131,7 @@ export default {
     },
     async fetchRecommendUsers() {
       try {
-        this.isLoading = true;
+        this.isRecommendUsersLoading = true;
 
         const { data } = await usersAPI.getUserFollowings({
           userId: this.currentUser.id,
@@ -142,10 +145,10 @@ export default {
           };
         });
 
-        this.isLoading = false;
+        this.isRecommendUsersLoading = false;
       } catch (error) {
         console.error(error);
-        this.isLoading = false;
+        this.isRecommendUsersLoading = false;
         Toast.fire({
           icon: "error",
           title: "無法取得 RecommendUsers 資料，請稍後再試",

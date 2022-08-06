@@ -160,13 +160,6 @@ export default {
   },
   methods: {
     showModal (tweetId, toAvatar, toName, toAccount, toCreatedAt, toDescription) {
-      // console.log('tweetId=',tweetId)
-      // console.log('toAvatar=',toAvatar)
-      // console.log('toName=',toName)
-      // console.log('toAccount=',toAccount)
-      // console.log('toCreatedAt=',toCreatedAt)
-      // console.log('toDescription=',toDescription)
-
       this.$store.commit('setReply', {
         tweetId,
         toAvatar,
@@ -180,7 +173,6 @@ export default {
     async addLike (tweetId) {
       try {
         this.isProcessing = true
-        console.log('tweetId=',tweetId)
         const { data } = await usersAPI.addLike({ tweetId })
         if (data.status === 'error') {
           throw new Error(data.message)
@@ -213,7 +205,6 @@ export default {
     async unLike (tweetId) {
       try {
         this.isProcessing = true
-        console.log('tweetId=',tweetId)
         const { data } = await usersAPI.unLike({ tweetId })
         if (data.status === 'error') {
           throw new Error(data.message)

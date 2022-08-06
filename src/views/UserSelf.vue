@@ -31,7 +31,9 @@
       <div class="recommendHeader">
         <h1>推薦跟隨</h1>
       </div>
+      <LoadingSpinner v-if="isRecommendUsersLoading" />
       <RecommendColumn
+        v-else
         :initial-recommend-users="recommendUsers"
         @updateRecommendColumn="updatePage"
       />
@@ -48,6 +50,7 @@ import NavpillUser from "../components/NavpillUser.vue"
 import { mapState } from "vuex"
 import { Toast } from './../utils/helpers'
 import usersAPI from "./../apis/users"
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
   name: "UserSelf",
@@ -57,6 +60,7 @@ export default {
     NavpillHeader,
     UserProfile,
     NavpillUser,
+    LoadingSpinner
   },
   beforeRouteUpdate(to, from, next) {
     this.updateRouteName(to.name)
@@ -86,7 +90,8 @@ export default {
       isRepliesActive: '',
       isLikesActive: '',
       isProfile: true,
-      isProcessing: false
+      isProcessing: false,
+      isRecommendUsersLoading: true,
     }
   },
   computed: {
@@ -96,8 +101,7 @@ export default {
     user: "fetchUserTweetsRepliesLikes"
   },
   created () {
-    const userId = this.currentUser.id
-    this.fetchFollowingsFollowers(userId);
+    this.fetchFollowingsFollowers(this.currentUser.id);
     this.fetchRecommendUsers();
     this.isCurrentUser = true;
     this.updateRouteName( this.$route.name )
@@ -107,13 +111,9 @@ export default {
       this.isTweetsActive = name === 'user-tweets' ? 'navpill-title-active' : ''
       this.isRepliesActive = name === 'user-replied_tweets' ? 'navpill-title-active' : ''
       this.isLikesActive = name === 'user-likes' ? 'navpill-title-active' : ''
-      console.log('isTweetsActive=', this.isTweetsActive)
-      console.log('isRepliesActive=', this.isRepliesActive)
-      console.log('isLikesActive=', this.isLikesActive)
     },
     updatePage() {
-      const userId = this.currentUser.id
-      this.fetchFollowingsFollowers(userId);
+      this.fetchFollowingsFollowers(this.currentUser.id);
       this.fetchRecommendUsers();
       this.fetchUserTweetsRepliesLikes();
     },
@@ -125,7 +125,7 @@ export default {
         const followersData = await usersAPI.getUserFollowers({ userId })
         const followers = followersData.data
 
-        this.user = {
+        this.user = { // initialize this.user
           ...this.currentUser,
           followingCount: followings.length,
           followerCount: followers.length
@@ -141,8 +141,6 @@ export default {
     },
     async fetchUserTweetsRepliesLikes() {
       try {
-        console.log('this.user.id=', this.user.id)
-
         const currentUserLikes = await usersAPI.getUserLikes({userId: this.currentUser.id});
         this.currentUserLikes = currentUserLikes.data
 
@@ -170,18 +168,10 @@ export default {
           }
         })
 
-        const likes = await usersAPI.getUserLikes({ userId: this.user.id })
-        this.likes = likes.data.map( like => {
-          if( this.currentUserLikes.some(l => l.TweetId === like.TweetId) ) {
-            return {
-              ...like,
-              isLiked: true
-            }
-          } else {
-            return {
-              ...like,
-              isLiked: false
-            }
+        this.likes = this.currentUserLikes.map( like => {
+          return {
+            ...like,
+            isLiked: true
           }
         })
 
@@ -195,7 +185,7 @@ export default {
     },
     async fetchRecommendUsers() {
       try {
-        this.isLoading = true;
+        this.isRecommendUsersLoading = true;
 
         const { data } = await usersAPI.getUserFollowings({
           userId: this.currentUser.id,
@@ -209,10 +199,10 @@ export default {
           };
         });
 
-        this.isLoading = false;
+        this.isRecommendUsersLoading = false;
       } catch (error) {
         console.error(error);
-        this.isLoading = false;
+        this.isRecommendUsersLoading = false;
         Toast.fire({
           icon: "error",
           title: "無法取得 RecommendUsers 資料，請稍後再試",

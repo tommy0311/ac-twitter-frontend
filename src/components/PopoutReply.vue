@@ -103,7 +103,6 @@ export default {
   name: 'PopoutReply',
    mixins: [fromNowFilter, emptyImageFilter],
    beforeRouteUpdate (to, from, next) {
-    console.log('to=',to)
     next()
   },
    props: {

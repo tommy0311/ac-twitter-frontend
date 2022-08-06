@@ -1,7 +1,9 @@
 <template>
   <div class="">
+    <LoadingSpinner v-if="isLoading" />
     <div
       v-for="user in users"
+      v-else
       id="admin-user-Profile-card"
       :key="user.id"
       class="flex-column"
@@ -79,14 +81,19 @@
 import authorizationAPI from './../apis/authorization';
 import { Toast } from "./../utils/helpers";
 import { emptyImageFilter } from './../utils/mixins'
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
   name: "AdminUserCard",
+  components: {
+    LoadingSpinner
+  },
   mixins: [emptyImageFilter],
   data() {
     return {
       users: [],
       isProcessing: false,
+      isLoading: true,
     };
   },
   created() {
@@ -95,11 +102,13 @@ export default {
   methods: {
     async fetchUsers(){
       try {
+        this.isLoading = true
         const {data} = await authorizationAPI.getUsers()
         this.users = data
-        console.log('Admin users=', this.users)
+        this.isLoading = false
       } catch (error) {
         console.error(error.message);
+        this.isLoading = false
         Toast.fire({
           icon: "error",
           title: "無法取得 Users 資料",

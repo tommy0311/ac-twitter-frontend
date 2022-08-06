@@ -95,7 +95,7 @@ export default {
         }
         this.isProcessing = true;
         const { data } = await usersAPI.addFollowing({ userId });
-        console.log("add @UserFollowingList=", data);
+        console.log("data=", data);
         const obj = JSON.parse(JSON.stringify(this.followings))
         const arr = Object.values(obj)
         for(const user of arr ) {
@@ -121,7 +121,7 @@ export default {
       try {
         this.isProcessing = true;
         const { data } = await usersAPI.removeFollowing({ userId });
-        console.log("remove @UserFollowingList=", data);
+        console.log("data=", data);
         const obj = JSON.parse(JSON.stringify(this.followings))
         const arr = Object.values(obj)
         for(const user of arr ) {

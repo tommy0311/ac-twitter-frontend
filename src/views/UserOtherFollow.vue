@@ -21,7 +21,9 @@
       <div class="recommendHeader mt-4">
         <h1>推薦跟隨</h1>
       </div>
+      <LoadingSpinner v-if="isRecommendUsersLoading" />
       <RecommendColumn
+        v-else
         :initial-recommend-users="recommendUsers"
         @updateRecommendColumn="updatePage"
       />
@@ -37,6 +39,7 @@ import NavpillUserFollow from "../components/NavpillUserFollow.vue"
 import { Toast } from '../utils/helpers'
 import usersAPI from "../apis/users"
 import { mapState } from "vuex"
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
   name: "UserOtherFollow",
@@ -45,6 +48,7 @@ export default {
     RecommendColumn,
     NavpillHeader,
     NavpillUserFollow,
+    LoadingSpinner
   },
   beforeRouteUpdate (to, from, next) {
     const { userId } = to.params
@@ -71,7 +75,8 @@ export default {
       followings: [],
       currentUserFollowings: [],
       recommendUsers: [],
-      isProcessing: false
+      isProcessing: false,
+      isRecommendUsersLoading: true,
     }
   },
   computed: {
@@ -176,7 +181,7 @@ export default {
     },
     async fetchRecommendUsers() {
       try {
-        this.isLoading = true;
+        this.isRecommendUsersLoading = true;
 
         const { data } = await usersAPI.getUserFollowings({
           userId: this.currentUser.id,
@@ -190,10 +195,10 @@ export default {
           };
         });
 
-        this.isLoading = false;
+        this.isRecommendUsersLoading = false;
       } catch (error) {
         console.error(error);
-        this.isLoading = false;
+        this.isRecommendUsersLoading = false;
         Toast.fire({
           icon: "error",
           title: "無法取得 RecommendUsers 資料，請稍後再試",

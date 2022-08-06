@@ -1,7 +1,9 @@
 <template>
   <div>
+    <LoadingSpinner v-if="isLoading" />
     <div
       v-for="tweet in tweets"
+      v-else
       :key="tweet.id"
     >
       <div id="admin-tweet-element-container">
@@ -51,14 +53,19 @@ import tweetsAPI from "./../apis/tweets";
 import authorizationAPI from './../apis/authorization';
 import { emptyImageFilter, fromNowFilter } from './../utils/mixins';
 import { pop } from './../utils/helpers';
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
   name: "AdminTweetElement",
+  components: {
+    LoadingSpinner
+  },
   mixins: [fromNowFilter, emptyImageFilter],
   data() {
     return {
       tweets: [],
       isProcessing: false,
+      isLoading: true,
     };
   },
   watch: {
@@ -79,7 +86,6 @@ export default {
           text: `${description} 推文嗎？`
         })
         if (ans.value === true) {
-          console.log('yes')
           const response = await authorizationAPI.deleteTweet({tweetId: id})
           if (response.status !== 'error') {
             Toast.fire({
@@ -100,14 +106,16 @@ export default {
     },
     async fetchTweets(){
       try {
+        this.isLoading = true
         const tweets = await tweetsAPI.getTweets()
         this.tweets = tweets.data.map(t=> ({
           ...t,
           description: t.description ? t.description.substring(0,50) : ''
         }))
-        console.log('AdminMain tweets=', this.tweets)
+        this.isLoading = false
       } catch (error) {
         console.error(error.message);
+        this.isLoading = false
         Toast.fire({
           icon: "error",
           title: "無法取得 Tweets 資料",
