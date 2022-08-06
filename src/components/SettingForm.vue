@@ -20,6 +20,17 @@
           </span>
         </label>
         <input
+          v-if="user.account.length > 10"
+          id="user-account"
+          v-model="user.account"
+          type="text"
+          class="user-account"
+          placeholder="請輸入帳號"
+          required
+          style="border-bottom: 2px solid red;"
+        >
+        <input
+          v-else
           id="user-account"
           v-model="user.account"
           type="text"
@@ -27,6 +38,12 @@
           placeholder="請輸入帳號"
           required
         >
+        <span
+          v-show="user.account.length > 10"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          字數超出上限！
+        </span>
       </div>
       <div class="form-element-group">
         <label
@@ -41,6 +58,17 @@
           </span>
         </label>
         <input
+          v-if="user.name.length > 50"
+          id="user-name"
+          v-model="user.name"
+          type="text"
+          class="user-account"
+          placeholder="請輸入使用者名稱"
+          required
+          style="border-bottom: 2px solid red;"
+        >
+        <input
+          v-else
           id="user-name"
           v-model="user.name"
           type="text"
@@ -48,6 +76,12 @@
           placeholder="請輸入使用者名稱"
           required
         >
+        <span
+          v-show="user.name.length > 50"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          字數超出上限！
+        </span>
       </div>
       <div class="form-element-group">
         <label for="user-name">Email</label>

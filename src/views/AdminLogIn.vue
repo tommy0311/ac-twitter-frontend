@@ -13,12 +13,34 @@
       <div class="form-element-group">
         <label for="admin-account">帳號</label>
         <input
+          v-if="account.length > 10"
+          id="admin-account"
+          v-model="account"
+          type="text"
+          class="admin-account"
+          placeholder="請輸入帳號"
+          style="border-bottom: 2px solid red;"
+        >
+        <input
+          v-else
           id="admin-account"
           v-model="account"
           type="text"
           class="admin-account"
           placeholder="請輸入帳號"
         >
+        <span
+          v-show="account.length > 10"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          字數超出上限！
+        </span>
+        <span
+          v-show="account.length"
+          style="position: absolute; right: 0px; bottom: -18px; font-size:12px;"
+        >
+          {{ account.length }}/10
+        </span>
       </div>
       <div class="form-element-group">
         <label for="admin-password">密碼</label>

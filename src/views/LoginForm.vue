@@ -22,6 +22,15 @@
           style="border-bottom: 2px solid red;"
         >
         <input
+          v-else-if="account.length > 10"
+          id="user-account"
+          v-model="account"
+          type="text"
+          class="user-account"
+          placeholder="請輸入帳號"
+          style="border-bottom: 2px solid red;"
+        >
+        <input
           v-else
           id="user-account"
           v-model="account"
@@ -30,10 +39,22 @@
           placeholder="請輸入帳號"
         >
         <span
-          v-show="accountWrong"
+          v-if="accountWrong"
           style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
         >
           帳號不存在
+        </span>
+        <span
+          v-else-if="account.length > 10"
+          style="position: absolute; left: 0px; bottom: -18px; font-size:12px; color: red;"
+        >
+          字數超出上限！
+        </span>
+        <span
+          v-show="account.length"
+          style="position: absolute; right: 0px; bottom: -18px; font-size:12px;"
+        >
+          {{ account.length }}/10
         </span>
       </div>
       <div class="form-element-group">

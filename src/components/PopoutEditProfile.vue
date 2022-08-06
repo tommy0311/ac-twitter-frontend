@@ -101,6 +101,16 @@
               <div class="form-element-group">
                 <label for="user-account">名稱</label>
                 <input
+                  v-if="nameLength > 50"
+                  id="user-account"
+                  v-model="name"
+                  type="text"
+                  name="name"
+                  class="user-account formInputStyle error"
+                  required
+                >
+                <input
+                  v-else
                   id="user-account"
                   v-model="name"
                   type="text"
