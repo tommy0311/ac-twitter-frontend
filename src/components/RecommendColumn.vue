@@ -22,9 +22,9 @@
             <span class="user-name">
               {{ recommendUser.name }}
             </span>
-            <p class="user-acount">
+            <div class="user-acount">
               <span>@</span>{{ recommendUser.account }}
-            </p>
+            </div>
           </div>
         </router-link>
         <router-link
