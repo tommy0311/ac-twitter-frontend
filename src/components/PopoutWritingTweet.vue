@@ -68,10 +68,11 @@ import { emptyImageFilter } from './../utils/mixins'
 export default {
   name: 'PopoutWritingTweet',
   mixins: [emptyImageFilter],
-  inject: ['fetchTweets'],
+  //inject: ['fetchTweets'],
   props: {
-    closeModal: {
+    fetchTweet: {
       type: Function,
+      require: true,
     },
   },
   data() {
@@ -89,6 +90,9 @@ export default {
     tweet: "showTweetLength"
   },
   methods: {
+    closeModal() {
+      this.$store.commit('closeWritingTweetModal')
+    },
     showTweetLength () {
       this.tweetLength = this.tweet.length
     },
@@ -109,7 +113,8 @@ export default {
           title: '推文成功發佈',
         })
         this.closeModal()
-        this.fetchTweets()
+        this.$router.go()
+        //this.fetchTweets()
       } catch (err) {
         // 顯示錯誤提示
         Toast.fire({

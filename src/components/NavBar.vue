@@ -1,10 +1,5 @@
 <template>
   <div id="navbar-container">
-    <PopoutWritingTweet
-      v-if="isModalShown"
-      :show-modal="showModal"
-      :close-modal="closeModal"
-    />
     <img
       class="logo-img"
       src="../assets/logo@2.png"
@@ -139,9 +134,10 @@
       </ul>
     </template>
 
+
     <button
       class="tweet-btn main-btn-style"
-      @click="showModal"
+      @click.stop.prevent="showWritinTweetModal()"
     >
       推文
     </button>
@@ -176,11 +172,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import PopoutWritingTweet from '../components/PopoutWritingTweet.vue';
 
 export default {
   name: 'NavBar',
-  components: { PopoutWritingTweet },
   props: {
     initialMainPage: {
       type: Boolean,
@@ -204,7 +198,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["currentUser", "isAuthenticated"]),
+    ...mapState(["currentUser", "isAuthenticated", "writingTweetModalShow"]),
   },
   watch: {
     initialMainPage (newValue) {
@@ -222,12 +216,9 @@ export default {
         this.$store.commit("revokeAuthentication");
         this.$router.push("/login");
     },
-    showModal() {
-        this.isModalShown = true;
-    },
-    closeModal() {
-        this.isModalShown = false;
-    },
+    showWritinTweetModal() {
+      this.$store.commit('setWritingTweet')
+    }
   },
 };
 </script>

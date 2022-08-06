@@ -3,6 +3,9 @@
     <PopoutReply
       v-if="replyModalShow"
     />
+    <PopoutWritingTweet
+      v-if="writingTweetModalShow"
+    />
     <div id="navpillHeader-container">
       <div class="navpill-info-container flex-column">
         <p class="navpillHeader-title">
@@ -17,11 +20,12 @@
 
 <script>
 import PopoutReply from '../components/PopoutReply.vue';
+import PopoutWritingTweet from '../components/PopoutWritingTweet.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'NavpillHeaderMain',
-  components: { PopoutReply },
+  components: { PopoutReply, PopoutWritingTweet },
   props: {
     initialMainPage: {
       type: Boolean,
@@ -44,7 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['replyModalShow'])
+    ...mapState(['replyModalShow', 'writingTweetModalShow'])
   },
   watch: {
     initialMainPage (newValue) {

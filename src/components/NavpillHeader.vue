@@ -3,6 +3,9 @@
     <PopoutReply
       v-if="replyModalShow"
     />
+    <PopoutWritingTweet
+      v-if="writingTweetModalShow"
+    />
     <div id="navpillHeader-container">
       <a href="javascript:history.back()">
         <img
@@ -33,20 +36,18 @@
 <script>
 import { mapState } from 'vuex'
 import PopoutReply from '../components/PopoutReply.vue';
+import PopoutWritingTweet from '../components/PopoutWritingTweet.vue';
 
 export default {
   name: "NavpillHeader",
-  components: { PopoutReply },
+  components: { PopoutReply, PopoutWritingTweet },
   data () {
     return {
       isLoading: true,
     }
   },
   computed: {
-    ...mapState(['currentUser','replyModalShow'])
-  },
-  created () {
-    console.log('replyModalShow=', this.replyModalShow)
+    ...mapState(['currentUser','replyModalShow', 'writingTweetModalShow'])
   },
 };
 </script>

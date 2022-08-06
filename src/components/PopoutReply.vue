@@ -110,14 +110,6 @@ export default {
       type: Object,
       required: true,
     },
-    fetchTweet: {
-      type: Function,
-      require: true,
-    },
-    fetchReplies: {
-      type: Function,
-      require: true,
-    }
   },
   data () {
     return {
@@ -158,9 +150,6 @@ export default {
         })
         this.closeModal()
         this.$router.go()
-        // this.$router.go(-1)
-        // this.fetchTweet(this.tweet.id)
-        // this.fetchReplies(this.tweet.id)
       } catch (err) {
         // 顯示錯誤提示
         Toast.fire({

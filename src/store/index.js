@@ -27,6 +27,7 @@ export default new Vuex.Store({
       myAvatar: ''
     },
     replyModalShow: false,
+    writingTweetModalShow: false,
     isAuthenticated: false,
     token: ''
   },
@@ -51,6 +52,12 @@ export default new Vuex.Store({
     },
     closeReplyModal(state) {
       state.replyModalShow = false
+    },
+    setWritingTweet(state) {
+      state.writingTweetModalShow = true
+    },
+    closeWritingTweetModal(state) {
+      state.writingTweetModalShow = false
     },
     revokeAuthentication(state) {
       state.currentUser = {}
