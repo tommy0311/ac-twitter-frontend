@@ -100,7 +100,7 @@
 
 .scrollbar::-webkit-scrollbar {
   position: absolute;
-  width: 15px;
+  width: 8px;
   height: 1193px;
   left: 913px;
   top: 1px;
@@ -1007,9 +1007,20 @@
   z-index: 1000;
 }
 #popup-writtingTweet-container .want-reply-post-container {
+  position: relative;
   width: 100%;
   padding: 16px 24px 24px 24px;
   display: flex;
+}
+#popup-writtingTweet-container .want-reply-post-container:after {
+  content: "";
+  position: absolute;
+  top: 66px;
+  left: 49px;
+  width: 3px;
+  height: calc((100% - 50px) * 0.7);
+  transform: translate(-50%, 20%);
+  background-color: #D5D5DC;
 }
 #popup-writtingTweet-container .want-reply-post-container .user-headshot {
   width: 50px;

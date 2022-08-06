@@ -17,7 +17,7 @@
 .scrollbar {    
   &::-webkit-scrollbar {
     position: absolute;
-    width: 15px;
+    width: 8px;
     height: 1193px;
     left: 913px;
     top: 1px;
@@ -742,9 +742,22 @@
   z-index: 1000;
   // visibility: hidden;
   .want-reply-post-container {
+    position: relative;
     width: 100%;
     padding: 16px 24px 24px 24px;
     display: flex;
+    &:after {
+      $block-height: calc(100% - 50px);
+      $connect-line-height: calc($block-height * 0.7);
+      content: '';
+      position: absolute;
+      top: 66px;
+      left: 49px;
+      width: 3px;
+      height: $connect-line-height;
+      transform: translate(-50%, 20%);
+      background-color: #D5D5DC;
+    }
     .user-headshot {
       @include userHeadshotSetting;
     }
