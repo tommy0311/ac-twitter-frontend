@@ -1,6 +1,13 @@
 <template>
   <div class="wrapper">
     <div
+      v-if="isUploading" 
+      class="popup-background"
+      style="z-index: 10000;"
+    >
+      <LoadingSpinner />
+    </div>
+    <div
       class="popup-background"
       @click="closeModal"
     />
@@ -167,133 +174,139 @@ import userAPI from '../apis/users'
 import { emptyImageFilter } from './../utils/mixins'
 import { Toast } from './../utils/helpers'
 import store from './../store'
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 export default {
-  mixins: [emptyImageFilter],
-  props: {
-    user: {
-      type: Object,
+    components: { LoadingSpinner },
+    mixins: [emptyImageFilter],
+    props: {
+        user: {
+            type: Object,
+        },
+        closeModal: {
+            type: Function,
+        },
     },
-    closeModal: {
-      type: Function,
+    data() {
+        return {
+            name: store.state.currentUser.name,
+            introduction: store.state.currentUser.introduction,
+            nameLength: 0,
+            introLength: 0,
+            isAvatarProcessing: false,
+            isCoverProcessing: false,
+            isUploading: false,
+            cover: store.state.currentUser.cover,
+            avatar: store.state.currentUser.avatar,
+        };
     },
-  },
-  data() {
-    return {
-      name: store.state.currentUser.name,
-      introduction: store.state.currentUser.introduction,
-      nameLength: 0,
-      introLength: 0,
-      isAvatarProcessing: false,
-      isCoverProcessing: false,
-      cover: store.state.currentUser.cover,
-      avatar: store.state.currentUser.avatar,
+    watch: {
+        name: "showNameLength",
+        introduction: "showIntroLength",
+    },
+    created() {
+        this.showNameLength();
+        this.showIntroLength();
+    },
+    methods: {
+        deleteTempCover() {
+            this.cover = store.state.currentUser.cover;
+        },
+        showNameLength() {
+            this.nameLength = this.name.length;
+        },
+        showIntroLength() {
+            this.introLength = this.introduction.length;
+        },
+        handleFileChange(e) {
+            if (e.target.name === "cover") {
+                this.isCoverProcessing = true;
+                Toast.fire({
+                    icon: "info",
+                    title: "Cover 上傳中，上傳按鈕 disabled",
+                });
+            }
+            else if (e.target.name === "avatar") {
+                this.isAvatarProcessing = true;
+                Toast.fire({
+                    icon: "info",
+                    title: "Avatar 上傳中，上傳按鈕 disabled",
+                });
+            }
+            const { files } = e.target;
+            if (files.length === 0) {
+                // 使用者沒有選擇上傳的檔案
+                e.target.name === "cover" ? (this.cover = "") : (this.avatar = "");
+            }
+            else {
+                // 否則產生預覽圖
+                // const imageURL = window.URL.createObjectURL(files[0])
+                if (e.target.name === "cover") {
+                    this.cover = window.URL.createObjectURL(files[0]);
+                    this.isCoverProcessing = false;
+                }
+                else {
+                    this.avatar = window.URL.createObjectURL(files[0]);
+                    this.isAvatarProcessing = false;
+                }
+            }
+        },
+        async handleSubmit(e) {
+            try {
+                const form = e.target;
+                if (!this.name.trim().length || !this.introduction.trim().length) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "不可留空",
+                    });
+                    return;
+                }
+                if (this.name.length > 50) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "使用者名稱不可超過50字",
+                    });
+                    return;
+                }
+                if (this.introduction.length > 160) {
+                    Toast.fire({
+                        icon: "error",
+                        title: "使用者簡介不可超過160字",
+                    });
+                    return;
+                }
+                const user = {
+                    id: this.user.id,
+                    account: this.user.account,
+                    email: this.user.email,
+                };
+                const formData = new FormData(form);
+                for (const [name, value] of formData.entries()) {
+                    console.log(name + ": " + value);
+                }
+                formData.append("account", user.account);
+                formData.append("email", user.email);
+                this.isUploading = true;
+                const { data } = await userAPI.putUser(formData, user);
+                this.isUploading = false;
+                if (data.status === "error") {
+                    throw new Error(data.message);
+                }
+                this.$store.commit("setCurrentUser", data);
+                Toast.fire({
+                    icon: "success",
+                    title: "成功更新！",
+                });
+                this.closeModal();
+            }
+            catch (err) {
+                Toast.fire({
+                    icon: "error",
+                    title: "發生錯誤，請重試。",
+                });
+                console.error(err.message);
+            }
+        },
     }
-  },
-  watch: {
-    name: 'showNameLength',
-    introduction: 'showIntroLength',
-  },
-  created() {
-    this.showNameLength()
-    this.showIntroLength()
-  },
-  methods: {
-    deleteTempCover() {
-      this.cover = store.state.currentUser.cover
-    },
-    showNameLength() {
-      this.nameLength = this.name.length
-    },
-    showIntroLength() {
-      this.introLength = this.introduction.length
-    },
-    handleFileChange(e) {
-      if (e.target.name === 'cover') {
-        this.isCoverProcessing = true
-        Toast.fire({
-          icon: 'info',
-          title: 'Cover 上傳中，上傳按鈕 disabled',
-        })
-      } else if (e.target.name === 'avatar') {
-        this.isAvatarProcessing = true
-        Toast.fire({
-          icon: 'info',
-          title: 'Avatar 上傳中，上傳按鈕 disabled',
-        })
-      }
-      const { files } = e.target
-      if (files.length === 0) {
-        // 使用者沒有選擇上傳的檔案
-        e.target.name === 'cover' ? (this.cover = '') : (this.avatar = '')
-      } else {
-        // 否則產生預覽圖
-        // const imageURL = window.URL.createObjectURL(files[0])
-        if (e.target.name === 'cover') {
-          this.cover = window.URL.createObjectURL(files[0])
-          this.isCoverProcessing = false
-        } else {
-          this.avatar = window.URL.createObjectURL(files[0])
-          this.isAvatarProcessing = false
-        }
-      }
-    },
-    async handleSubmit(e) {
-      try {
-        const form = e.target
-        if (!this.name.trim().length || !this.introduction.trim().length) {
-          Toast.fire({
-            icon: 'error',
-            title: '不可留空',
-          })
-          return
-        }
-        if (this.name.length > 50) {
-          Toast.fire({
-            icon: 'error',
-            title: '使用者名稱不可超過50字',
-          })
-          return
-        }
-        if (this.introduction.length > 160) {
-          Toast.fire({
-            icon: 'error',
-            title: '使用者簡介不可超過160字',
-          })
-          return
-        }
-        const user = {
-          id: this.user.id,
-          account: this.user.account,
-          email: this.user.email,
-        }
-        const formData = new FormData(form)
-        for (const [name, value] of formData.entries()) {
-          console.log(name + ': ' + value)
-        }
-        formData.append('account', user.account)
-        formData.append('email', user.email)
-
-        const { data } = await userAPI.putUser(formData, user)
-        if ( data.status === 'error' ) {
-          throw new Error(data.message)
-        }
-
-        this.$store.commit('setCurrentUser', data)
-
-        Toast.fire({
-          icon: 'success',
-          title: '成功更新！',
-        })
-        this.closeModal()
-      } catch (err) {
-        Toast.fire({
-          icon: 'error',
-          title: '發生錯誤，請重試。',
-        })
-        console.error(err.message)
-      }
-    },
-  },
 }
 </script>
