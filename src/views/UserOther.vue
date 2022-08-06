@@ -66,6 +66,7 @@ export default {
     this.userId = Number(userId)
     this.fetchUser(this.userId)
     this.updateRouteName(to.name)
+    this.updatePage()
     next()
   },
   data () {
