@@ -68,7 +68,7 @@ export default {
     NavpillHeader,
     UserProfile,
     NavpillUser,
-    PopoutEditProfile
+    PopoutEditProfile,
     LoadingSpinner
   },
   beforeRouteUpdate(to, from, next) {
