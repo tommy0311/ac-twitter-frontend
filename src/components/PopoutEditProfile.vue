@@ -32,7 +32,7 @@
             <img
               v-else
               class="profile-background-img"
-              :src="user.cover | emptyImage"
+              :src="user.cover | emptyCover"
               alt="user cover"
             >
             <div class="icon-editing-background-img-pannel">
@@ -230,15 +230,9 @@ export default {
         formData.append('account', user.account)
         formData.append('email', user.email)
         console.log(formData)
-        const res = await userAPI.putUser(formData, user)
+        await userAPI.putUser(formData, user)
         this.isCoverProcessing = false
         this.isAvatarProcessing = false
-        if (res.status) {
-          Toast.fire({
-            icon: 'error',
-            title: '發生錯誤，請重試。',
-          })
-        }
         Toast.fire({
           icon: 'success',
           title: '成功更新！',
