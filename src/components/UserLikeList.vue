@@ -84,16 +84,19 @@
 
         <div class="tweet-icon-show-pannel d-flex mt-1">
           <div class="d-flex align-items-center">
-            <button>
+            <button
+              class="d-flex"
+              @click.stop.prevent="showModal(like.Tweet.id, like.Tweet.User.avatar, like.Tweet.User.name, like.Tweet.User.account, like.Tweet.createdAt, like.Tweet.description)"
+            >
               <img
                 src="../assets/reply.png"
                 alt=""
                 class="tweet-icon-show"
               >
+              <span class="reply-number ml-1">
+                {{ like.Tweet.replyCount }}
+              </span>
             </button>
-            <span class="reply-number ml-1">
-              {{ like.Tweet.replyCount }}
-            </span>
           </div>
           <div class="d-flex align-items-center ml-8">
             <button
@@ -131,6 +134,7 @@
 import { fromNowFilter, emptyImageFilter } from './../utils/mixins'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: "UserLikeList",
@@ -146,6 +150,9 @@ export default {
       likes: this.initialLikes
     }
   },
+  computed: {
+    ...mapState(['currentUser'])
+  },
   watch: {
     initialLikes (newValue) {
       this.likes = {
@@ -156,6 +163,18 @@ export default {
     }
   },
   methods: {
+    showModal (tweetId, toAvatar, toName, toAccount, toCreatedAt, toDescription) {
+      console.log('showModal')
+      this.$store.commit('setReply', {
+        tweetId,
+        toAvatar,
+        toName,
+        toAccount,
+        toCreatedAt,
+        toDescription,
+        myAvatar: this.currentUser.avatar
+      })
+    },
     async addLike (tweetId) {
       try {
         this.isProcessing = true

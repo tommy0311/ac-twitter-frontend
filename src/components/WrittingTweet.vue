@@ -1,11 +1,17 @@
 <template>
   <div id="writtingTweet-container">
     <div class="writtingTweet-pannel d-flex">
-      <img
-        class="user-headshot"
-        src="../assets/Photo2.png"
-        alt="個人頭像"
+      <router-link
+        :to="{
+          name: 'user-tweets' // 導引至 個人全部推文頁
+        }"
       >
+        <img
+          class="user-headshot"
+          :src=" currentUser.avatar | emptyImage "
+          alt="個人頭像"
+        >
+      </router-link>
       <form
         class="user-writing-post-form"
         @submit.prevent.stop="handleSubmit"
@@ -39,14 +45,20 @@
 <script>
 import tweetAPI from '../apis/tweets'
 import { Toast } from './../utils/helpers'
+import { mapState } from 'vuex';
+import { emptyImageFilter } from "./../utils/mixins"
 
 export default {
   name: 'WrittingTweet',
+  mixins: [emptyImageFilter],
   data() {
     return {
       tweet: '',
       tweetLength: 0
     }
+  },
+  computed: {
+    ...mapState(["currentUser","reply"]),
   },
   watch: {
     tweet: "showTweetLength"

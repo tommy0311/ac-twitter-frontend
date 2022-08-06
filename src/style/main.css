@@ -226,7 +226,7 @@
   width: 639px;
   height: 100vh;
   overflow: hidden;
-  margin-right: 21px;
+  margin-right: 24px;
   margin-left: 24px;
   display: flex;
   flex-direction: column;
@@ -901,8 +901,6 @@
   border-radius: 14px;
   margin: 56px auto 0 auto;
   background-color: var(--white);
-  position: absolute;
-  left: 50%;
   transform: translate(-50%);
   z-index: 1000;
 }

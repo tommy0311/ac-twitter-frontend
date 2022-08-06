@@ -160,13 +160,6 @@ export default {
   },
   methods: {
     showModal (tweetId, toAvatar, toName, toAccount, toCreatedAt, toDescription) {
-      // console.log('tweetId=',tweetId)
-      // console.log('toAvatar=',toAvatar)
-      // console.log('toName=',toName)
-      // console.log('toAccount=',toAccount)
-      // console.log('toCreatedAt=',toCreatedAt)
-      // console.log('toDescription=',toDescription)
-
       this.$store.commit('setReply', {
         tweetId,
         toAvatar,

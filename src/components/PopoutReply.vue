@@ -128,9 +128,6 @@ export default {
       isErrorEmpty: false,
     }
   },
-  created() {
-    console.log('created to=',this.$route.to)
-  },
   computed: {
     ...mapState(["currentUser","reply"]),
   },
