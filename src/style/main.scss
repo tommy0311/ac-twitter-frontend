@@ -723,6 +723,8 @@
   border-radius: 14px;
   margin: 56px auto 0 auto;
   background-color: var(--white);
+  position: absolute;
+  left: 50%;
   transform: translate(-50%);
   z-index: 1000;
   // visibility: hidden;
@@ -733,6 +735,9 @@
     .user-headshot {
       @include userHeadshotSetting;
     }
+    .tweet-wrapper{
+      width: calc(100% - 58px );      
+    }
     .reply-to-who-container {
       font-weight: 400;
       font-size: 16px;
@@ -741,6 +746,7 @@
     }
     .tweet-content {
       @include contentTextStyle;
+      @include content-word-wrap;
     }
     .reply-to-who-acount {
       color: var(--orange);

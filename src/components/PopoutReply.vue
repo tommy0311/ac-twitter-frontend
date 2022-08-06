@@ -21,7 +21,7 @@
           :src=" reply.toAvatar | emptyImage "
           alt="個人頭像"
         >
-        <div class="ml-2">
+        <div class="tweet-wrapper ml-2">
           <div class="d-flex align-items-center">
             <a 
               href="#"

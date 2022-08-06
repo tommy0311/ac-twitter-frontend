@@ -313,7 +313,7 @@
   width: 639px;
   height: 100vh;
   overflow: hidden;
-  margin-right: 21px;
+  margin-right: 24px;
   margin-left: 24px;
   display: flex;
   flex-direction: column;
@@ -1003,6 +1003,9 @@
   height: 50px;
   border-radius: 50%;
 }
+#popup-writtingTweet-container .want-reply-post-container .tweet-wrapper {
+  width: calc(100% - 58px);
+}
 #popup-writtingTweet-container .want-reply-post-container .reply-to-who-container {
   font-weight: 400;
   font-size: 16px;
@@ -1014,6 +1017,8 @@
   font-size: 16px;
   line-height: 26px;
   color: var(--contentTextColor);
+  word-wrap: break-word;
+  overflow: hidden;
 }
 #popup-writtingTweet-container .want-reply-post-container .reply-to-who-acount {
   color: var(--orange);
