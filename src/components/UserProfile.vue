@@ -5,12 +5,12 @@
   >
     <img
       class="profile-background-img"
-      :src="user.cover | emptyCover"
+      :src="currentUser.cover | emptyCover"
       alt=""
     >
     <img
       class="profile-headshot"
-      :src="user.avatar | emptyImage"
+      :src="currentUser.avatar | emptyImage"
       alt="個人頭像"
     >
     <div class="profile-info-container">
@@ -31,14 +31,14 @@
         </button>
       </div>
       <h4 class="user-name mt-4">
-        {{ user.name }}
+        {{ currentUser.name }}
       </h4>
       <p class="user-acount">
         <span>@</span>
-        {{ user.account }}
+        {{ currentUser.account }}
       </p>
       <p class="user-describe mt-2">
-        {{ user.introduction }}
+        {{ currentUser.introduction }}
       </p>
       <div class="user-follow-info d-flex mt-2">
         <router-link
@@ -69,6 +69,9 @@
 
 <script>
 import { emptyImageFilter } from './../utils/mixins'
+import { mapState } from 'vuex'
+import store from './../store'
+
 export default {
   name: "UserProfile",
   mixins: [emptyImageFilter],
@@ -77,14 +80,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          id: -1,
-          account: '',
-          email: '',
-          name: '',
-          avatar: '',
-          cover: '',
-          introduction: '',
-          role: 'user',
+          ...store.state.currentUser,
           followingCount: -1,
           followerCount: -1
         }
@@ -101,6 +97,9 @@ export default {
       },
       isLoading: true
     }
+  },
+  computed: {
+    ...mapState(["currentUser"]),
   },
   watch: {
     initialUser (newValue) {

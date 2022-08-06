@@ -140,6 +140,8 @@
 import userAPI from '../apis/users'
 import { emptyImageFilter } from './../utils/mixins'
 import { Toast } from './../utils/helpers'
+import store from './../store'
+
 export default {
   mixins: [emptyImageFilter],
   props: {
@@ -152,14 +154,14 @@ export default {
   },
   data() {
     return {
-      name: this.user.name,
-      introduction: this.user.introduction,
+      name: store.state.currentUser.name,
+      introduction: store.state.currentUser.introduction,
       nameLength: 0,
       introLength: 0,
       isAvatarProcessing: false,
       isCoverProcessing: false,
-      cover: '',
-      avatar: '',
+      cover: store.state.currentUser.cover,
+      avatar: store.state.currentUser.avatar,
     }
   },
   watch: {
@@ -229,8 +231,14 @@ export default {
         }
         formData.append('account', user.account)
         formData.append('email', user.email)
-        console.log(formData)
-        await userAPI.putUser(formData, user)
+
+        const { data } = await userAPI.putUser(formData, user)
+        if ( data.status === 'error' ) {
+          throw new Error(data.message)
+        }
+
+        this.$store.commit('setCurrentUser', data)
+        
         this.isCoverProcessing = false
         this.isAvatarProcessing = false
         Toast.fire({
