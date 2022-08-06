@@ -15,14 +15,20 @@
     >
     <div class="profile-info-container">
       <div class="d-flex justify-content-end">
-        <router-link
+        <!-- <router-link
           class="edit-profile-btn empty-btn-style ml-4"
           :to="{
             name: 'user-self-edit' // 導引至 編輯個人資料頁
           }"
         >
           編輯個人資料
-        </router-link>
+        </router-link> -->
+        <button
+          class="edit-profile-btn empty-btn-style ml-4"
+          @click="showModal"
+        >
+          編輯個人資料
+        </button>
       </div>
       <h4 class="user-name mt-4">
         {{ user.name }}
@@ -83,6 +89,9 @@ export default {
           followerCount: -1
         }
       }
+    },
+    showModal: {
+      type: Function,
     }
   },
   data () {

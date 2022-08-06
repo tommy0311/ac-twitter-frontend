@@ -998,10 +998,10 @@
   margin: 56px auto 0 auto;
   background-color: var(--white);
   position: absolute;
+  top: 10%;
   left: 50%;
   transform: translate(-50%);
-  z-index: 2;
-  position: fixed;
+  z-index: 1000;
 }
 #popup-profile-editing-container .headerbox {
   width: 100%;
@@ -1024,7 +1024,7 @@
 }
 #popup-profile-editing-container .headerbox .second-btn-style {
   margin-left: 375px;
-  width: 64px;
+  width: 68px;
   padding: 8px 16px;
   display: flex;
   align-items: center;
@@ -1121,6 +1121,7 @@
   border-radius: 2px;
   border-bottom: 2px solid var(--secondaryTextColor);
   padding: 5px 10.55px;
+  padding-top: 25px;
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:hover, #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container input:active {
   border-bottom: 2px solid var(--blue);
@@ -1132,11 +1133,38 @@
   border-bottom: 2px solid var(--gray-disabledSign);
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .user-introduction {
+  width: 100%;
   height: 147px;
+  padding: 2rem 10.55px;
+  background-color: var(--formBgColor);
+  border: none;
 }
 #popup-profile-editing-container .userProfile-editing-container .editing-form-pannel .form-container .editing-world-limit {
   font-weight: 500;
   font-size: 12px;
   line-height: 20px;
   color: var(--messageTextColor);
+}
+#popup-profile-editing-container .userProfile-editing-container .second-btn-style {
+  position: absolute;
+  top: 7px;
+  right: 2%;
+  margin-left: 375px;
+  width: 68px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--orange);
+  height: 40px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+#popup-profile-editing-container .userProfile-editing-container .second-btn-style:hover, #popup-profile-editing-container .userProfile-editing-container .second-btn-style:active {
+  color: var(--orange);
+  background-color: var(--white);
+  border: 1px solid var(--orange);
 }/*# sourceMappingURL=main.css.map */

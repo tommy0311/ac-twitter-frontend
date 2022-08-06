@@ -31,8 +31,8 @@ export default {
   getUserLikes({ userId }) {
     return apiHelper.get(`/users/${userId}/likes`)
   },
-  putUser(user) {
-    return apiHelper.put(`/users/${user.id}`, { ...user })
+  putUser(formData, user) {
+    return apiHelper.put(`/users/${user.id}`, formData)
   },
   addLike({ tweetId }) {
     return apiHelper.post(`/tweets/${tweetId}/like`)

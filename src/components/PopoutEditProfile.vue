@@ -1,26 +1,129 @@
 <template>
   <div class="wrapper">
     <div
-      class="popup-background"      
+      class="popup-background"
+      @click="closeModal"
     />
     <div id="popup-profile-editing-container">
       <div class="headerbox d-flex">
-        <router-link 
-          :to="{
-            name: 'user-tweets' // 導引至 個人推文頁
-          }"
-        >
-          <button>
-            <img
-              class="popup-cancel-icon"
-              src="../assets/X.png"
-              alt="取消推文視窗按鈕"
-            >
-          </button>
-        </router-link>               
-          
+        <button>
+          <img
+            class="popup-cancel-icon"
+            src="../assets/X.png"
+            alt="取消推文視窗按鈕"
+            @click="closeModal"
+          >
+        </button>
+
         <p>編輯個人資料</p>
-        <div class="justify-content-end">
+      </div>
+      <form
+        enctype="multipart/form-data"
+        @submit.stop.prevent="handleSubmit"
+      >
+        <div class="userProfile-editing-container flex-column">
+          <div class="img-cover-for-profile-background-img">
+            <img
+              v-if="cover"
+              class="profile-background-img"
+              :src="cover | emptyImage"
+              alt="user cover"
+            >
+            <img
+              v-else
+              class="profile-background-img"
+              :src="user.cover | emptyImage"
+              alt="user cover"
+            >
+            <div class="icon-editing-background-img-pannel">
+              <span>
+                <input
+                  id="cover"
+                  type="file"
+                  name="cover"
+                  accept="image/*"
+                  hidden
+                  @change="handleFileChange"
+                >
+                <label for="cover">
+                  <img
+                    src="../assets/icon_uploadPhoto.png"
+                    alt="上傳照片按鈕"
+                    class="icon-for-background-add"
+                  >
+                </label>
+              </span>
+              <span>
+                <img
+                  src="../assets/icon_delete.png"
+                  alt="刪除上傳照片按鈕"
+                  class="icon-for-background-delete"
+                >
+              </span>
+            </div>
+          </div>
+          <div class="img-cover-for-profile-headshot-img" />
+          <img
+            v-if="avatar"
+            class="profile-headshot"
+            :src="avatar | emptyImage"
+            alt="個人頭像"
+          >
+          <img
+            v-else
+            class="profile-headshot"
+            :src="user.avatar | emptyImage"
+            alt="個人頭像"
+          >
+          <span>
+            <input
+              id="avatar"
+              type="file"
+              name="avatar"
+              accept="image/*"
+              hidden
+              @change="handleFileChange"
+            >
+            <label for="avatar">
+              <img
+                src="../assets/icon_uploadPhoto.png"
+                alt="上傳照片按鈕"
+                class="icon-for-headshot-add"
+              >
+            </label>
+          </span>
+          <div class="editing-form-pannel">
+            <div class="form-container">
+              <div class="form-element-group">
+                <label for="user-account">名稱</label>
+                <input
+                  id="user-account"
+                  v-model="name"
+                  type="text"
+                  name="name"
+                  class="user-account"
+                  required
+                >
+                <div class="d-flex justify-content-end">
+                  <span class="editing-world-limit mt-1">{{ nameLength }}/50</span>
+                </div>
+              </div>
+              <div class="form-element-group">
+                <label for="user-introduction">自我介紹</label>
+                <textarea
+                  id="user-introduction"
+                  v-model="introduction"
+                  name="introduction"
+                  type="text"
+                  class="user-introduction"
+                  required
+                />
+                <div class="d-flex justify-content-end">
+                  <span class="editing-world-limit mt-1"> {{ introLength }}/160</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <button
             class="save-btn second-btn-style"
             type="submit"
@@ -28,98 +131,126 @@
             儲存
           </button>
         </div>
-      </div>
-      <div class="userProfile-editing-container flex-column">
-        <div class="img-cover-for-profile-background-img">
-          <img
-            class="profile-background-img"
-            src="../assets/IMG_20190730_054530.jpg"
-            alt=""
-          >
-          <div class="icon-editing-background-img-pannel">
-            <button>
-              <img
-                src="../assets/icon_uploadPhoto.png"
-                alt="上傳照片按鈕"
-                class="icon-for-background-add"
-              >
-            </button>
-            <button>
-              <img
-                src="../assets/icon_delete.png"
-                alt="刪除上傳照片按鈕"
-                class="icon-for-background-delete"
-              >
-            </button>
-          </div>
-        </div>
-        <div class="img-cover-for-profile-headshot-img" />
-        <img
-          class="profile-headshot"
-          src="../assets/Photo2.png"
-          alt="個人頭像"
-        >
-        <button>
-          <img
-            src="../assets/icon_uploadPhoto.png"
-            alt="上傳照片按鈕"
-            class="icon-for-headshot-add"
-          >
-        </button>
-        <div class="editing-form-pannel">
-          <form
-            class="form-container"
-            action=""
-          >
-            <div class="form-element-group">
-              <label for="user-account">名稱</label>
-              <input
-                id="user-account"
-                v-model="account"
-                type="text"
-                class="user-account"
-                placeholder="his name"
-                required
-              >
-              <div class="d-flex justify-content-end">
-                <span class="editing-world-limit mt-1">8/50</span>
-              </div>
-            </div>
-            <div class="form-element-group">
-              <label for="user-introduction">自我介紹</label>
-              <input
-                id="user-introduction"
-                v-model="introduction"
-                type="text"
-                class="user-introduction"
-                placeholder="his name"
-                required
-              >
-              <div class="d-flex justify-content-end">
-                <span class="editing-world-limit mt-1">0/160</span>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-
+import userAPI from '../apis/users'
+import { emptyImageFilter } from './../utils/mixins'
+import { Toast } from './../utils/helpers'
 export default {
- 
+  mixins: [emptyImageFilter],
+  props: {
+    user: {
+      type: Object,
+    },
+    closeModal: {
+      type: Function,
+    },
+  },
   data() {
     return {
-            
+      name: this.user.name,
+      introduction: this.user.introduction,
+      nameLength: 0,
+      introLength: 0,
+      isAvatarProcessing: false,
+      isCoverProcessing: false,
+      cover: '',
+      avatar: '',
     }
   },
+  watch: {
+    name: 'showNameLength',
+    introduction: 'showIntroLength',
+  },
   created() {
-    
+    this.showNameLength()
+    this.showIntroLength()
   },
   methods: {
-    async handleSubmit() {     
+    showNameLength() {
+      this.nameLength = this.name.length
+    },
+    showIntroLength() {
+      this.introLength = this.introduction.length
+    },
+    handleFileChange(e) {
+      const { files } = e.target
+      if (files.length === 0) {
+        // 使用者沒有選擇上傳的檔案
+        e.target.name === 'cover' ? (this.cover = '') : (this.avatar = '')
+      } else {
+        // 否則產生預覽圖
+        // const imageURL = window.URL.createObjectURL(files[0])
+        if (e.target.name === 'cover') {
+          this.cover = window.URL.createObjectURL(files[0])
+          this.isCoverProcessing = true
+        } else {
+          this.avatar = window.URL.createObjectURL(files[0])
+          this.isAvatarProcessing = true
+        }
+      }
+    },
+    async handleSubmit(e) {
+      try {
+        const form = e.target
+        if (!this.name.trim().length || !this.introduction.trim().length) {
+          Toast.fire({
+            icon: 'error',
+            title: '不可留空',
+          })
+          return
+        }
+        if (this.name.length > 50) {
+          Toast.fire({
+            icon: 'error',
+            title: '使用者名稱不可超過50字',
+          })
+          return
+        }
+        if (this.introduction.length > 160) {
+          Toast.fire({
+            icon: 'error',
+            title: '使用者簡介不可超過160字',
+          })
+          return
+        }
+        const user = {
+          id: this.user.id,
+          account: this.user.account,
+          email: this.user.email,
+        }
+        const formData = new FormData(form)
+        for (const [name, value] of formData.entries()) {
+          console.log(name + ': ' + value)
+        }
+        formData.append('account', user.account)
+        formData.append('email', user.email)
+        console.log(formData)
+        const res = await userAPI.putUser(formData, user)
+        this.isCoverProcessing = false
+        this.isAvatarProcessing = false
+        if (res.status) {
+          Toast.fire({
+            icon: 'error',
+            title: '發生錯誤，請重試。',
+          })
+        }
+        Toast.fire({
+          icon: 'success',
+          title: '成功更新！',
+        })
+        this.closeModal()
+      } catch (err) {
+        Toast.fire({
+          icon: 'error',
+          title: '發生錯誤，請重試。',
+        })
+        console.error(err.message)
+      }
     },
   },
 }

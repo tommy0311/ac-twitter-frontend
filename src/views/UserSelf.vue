@@ -4,12 +4,14 @@
       :initial-profile="isProfile"
     />
     <div class="main-wrapper">
-      <NavpillHeader />           
-
+      <NavpillHeader />
       <div class="container-for-scroll scrollbar">
         <UserProfile
           :initial-user="user"
-        /> 
+          :is-modal-shown="isModalShown"
+          :show-modal="showModal"
+          :close-modal="closeModal"
+        />
         <!-- 包含 推文、回覆、喜歡的內容 三個分頁 -->
         <NavpillUser
           :initial-user="user"
@@ -38,6 +40,11 @@
         @updateRecommendColumn="updatePage"
       />
     </div>
+    <PopoutEditProfile
+      v-if="isModalShown"
+      :close-modal="closeModal"
+      :user="user"
+    />
   </div>
 </template>
 
@@ -47,6 +54,7 @@ import RecommendColumn from "../components/RecommendColumn.vue"
 import NavpillHeader from "../components/NavpillHeader.vue"
 import UserProfile from "../components/UserProfile.vue"
 import NavpillUser from "../components/NavpillUser.vue"
+import PopoutEditProfile from '../components/PopoutEditProfile.vue'
 import { mapState } from "vuex"
 import { Toast } from './../utils/helpers'
 import usersAPI from "./../apis/users"
@@ -60,6 +68,7 @@ export default {
     NavpillHeader,
     UserProfile,
     NavpillUser,
+    PopoutEditProfile
     LoadingSpinner
   },
   beforeRouteUpdate(to, from, next) {
@@ -91,6 +100,7 @@ export default {
       isLikesActive: '',
       isProfile: true,
       isProcessing: false,
+      isModalShown: false,
       isRecommendUsersLoading: true,
     }
   },
@@ -107,6 +117,12 @@ export default {
     this.updateRouteName( this.$route.name )
   },
   methods: {
+    closeModal() {   
+      this.isModalShown = false  
+    },
+    showModal() {   
+      this.isModalShown = true  
+    },
     updateRouteName(name) {      
       this.isTweetsActive = name === 'user-tweets' ? 'navpill-title-active' : ''
       this.isRepliesActive = name === 'user-replied_tweets' ? 'navpill-title-active' : ''
