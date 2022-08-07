@@ -19,6 +19,11 @@
   color: var(--messageTextColor);
 }
 
+//swal
+.swal2-image {
+  border-radius: 50%;
+}
+
 //scrollbar 
 .scrollbar {    
   &::-webkit-scrollbar {
@@ -188,14 +193,14 @@
   }
   .nav-list-bottom {    
     position: absolute;
-    bottom: 0;
-    // margin-bottom: 13px;
-    // margin-top: 350px;    
+    bottom: 0;       
   }
 }
 
 //main area
-.main-wrapper {
+.main-wrapper,
+.admin-main-wrapper,
+.admin-users-wrapper {
   width: 639px;
   height: 100vh;
   overflow: hidden;
@@ -644,7 +649,11 @@
 //admin區
 .admin-main-wrapper {
   width: 937px;
-  height: 100%;
+  margin-right: 0;  
+}
+.admin-users-wrapper {
+  flex:1;  
+  margin-right: 0;  
 }
 
 #admin-tweet-element-container {
@@ -699,6 +708,15 @@
       color: var(--black);
     }
   }
+}
+
+.admin-card-wrapper{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:space-between;
 }
 
 //彈跳視窗類

@@ -105,6 +105,10 @@
   color: var(--messageTextColor);
 }
 
+.swal2-image {
+  border-radius: 50%;
+}
+
 .scrollbar::-webkit-scrollbar {
   position: absolute;
   width: 8px;
@@ -316,7 +320,9 @@
   bottom: 0;
 }
 
-.main-wrapper {
+.main-wrapper,
+.admin-main-wrapper,
+.admin-users-wrapper {
   width: 639px;
   height: 100vh;
   overflow: hidden;
@@ -325,7 +331,9 @@
   flex-direction: column;
   border: 1px solid var(--borderColor);
 }
-.main-wrapper .container-for-scroll {
+.main-wrapper .container-for-scroll,
+.admin-main-wrapper .container-for-scroll,
+.admin-users-wrapper .container-for-scroll {
   flex: 1;
   height: 100%;
   overflow-y: scroll;
@@ -908,7 +916,12 @@
 
 .admin-main-wrapper {
   width: 937px;
-  height: 100%;
+  margin-right: 0;
+}
+
+.admin-users-wrapper {
+  flex: 1;
+  margin-right: 0;
 }
 
 #admin-tweet-element-container {
@@ -965,6 +978,15 @@
 #admin-user-Profile-card .user-follow-info .following-number,
 #admin-user-Profile-card .user-follow-info .follower-number {
   color: var(--black);
+}
+
+.admin-card-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .popup-wrapper {
@@ -1961,8 +1983,4 @@ input:invalid {
   --messageTextColor: #6c757d;
   --borderColor: #e6ecf0;
   --recommendBgColor: #fafafb;
-}
-
-.swal2-image {
-  border-radius: 50%;
 }/*# sourceMappingURL=style.css.map */

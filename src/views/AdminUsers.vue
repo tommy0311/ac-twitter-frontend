@@ -3,11 +3,14 @@
     <AdminNav
       :initial-users-list="isUsersList"
     />
-    <div class="admin-main-wrapper ml-6">
+    <div class="admin-users-wrapper">
       <NavpillHeaderMain
         :initial-admin-users="isAdminUsers"
       />
-      <AdminUserCard />
+      
+      <div class="admin-card-wrapper container-for-scroll scrollbar">
+        <AdminUserCard />
+      </div>
     </div>
   </div>
 </template>

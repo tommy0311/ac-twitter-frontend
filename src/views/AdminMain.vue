@@ -3,11 +3,13 @@
     <AdminNav
       :initial-tweets-list="isTweetsList"
     />
-    <div class="admin-main-wrapper ml-6">
+    <div class="admin-main-wrapper">
       <NavpillHeaderMain
         :initial-admin-main="isAdminMain"
       />
-      <AdminTweetElement />
+      <div class="container-for-scroll scrollbar">
+        <AdminTweetElement />
+      </div>
     </div>
   </div>
 </template>
