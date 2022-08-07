@@ -3,13 +3,13 @@
     <NavBar />
     <div class="main-wrapper">
       <NavpillHeader />
+      <!-- 包含 追隨者、正在追隨 兩個分頁 -->
+      <NavpillUserFollow
+        :initial-user="user"
+        :initial-follower-active="isFollowerActive"
+        :initial-following-active="isFollowingActive"
+      />
       <div class="container-for-scroll scrollbar">
-        <!-- 包含 追隨者、正在追隨 兩個分頁 -->
-        <NavpillUserFollow
-          :initial-user="user"
-          :initial-follower-active="isFollowerActive"
-          :initial-following-active="isFollowingActive"
-        />
         <router-view
           :initial-followers="followers"
           :initial-followings="followings"
