@@ -439,11 +439,11 @@
   border-radius: 50%;
   margin-right: 8px;
 }
-#recommendColumn-container .recommendAccount-panel .recommendAccount-element .length-ellipsis-70 {
+#recommendColumn-container .recommendAccount-panel .recommendAccount-element .length-ellipsis-82 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 70px;
+  width: 82px;
 }
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element .empty-btn-style,
 #recommendColumn-container .recommendAccount-panel .recommendAccount-element .second-btn-style,
@@ -1002,8 +1002,6 @@
   margin: 56px auto 0 auto;
   background-color: var(--white);
   position: absolute;
-  left: 50%;
-  transform: translate(-50%);
   z-index: 1000;
 }
 #popup-writtingTweet-container .want-reply-post-container {
@@ -1069,9 +1067,7 @@
   border-radius: 50%;
 }
 #popup-writtingTweet-container .writtingTweet-pannel .user-writing-post-form {
-  position: relative;
-  display: flex;
-  flex-grow: 1;
+  width: calc(100% - 58px);
 }
 #popup-writtingTweet-container .writtingTweet-pannel .user-writting-post {
   border: none;

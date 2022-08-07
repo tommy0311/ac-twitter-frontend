@@ -252,8 +252,7 @@
       border: none;
       width: 100%; 
       height: 90px;
-      overflow: hidden; 
-      // overflow hidden;   
+      overflow: hidden;         
       font-weight: 700;
       font-size: 18px;
       line-height: 26px;
@@ -294,9 +293,7 @@
   }
   .recommendAccount-panel {
     width: 100%;    
-    background-color: var(--recommendBgColor);
-    // border-bottom-left-radius: 16px;
-    // border-bottom-right-radius: 16px;
+    background-color: var(--recommendBgColor);    
     .recommendAccount-element {
       padding: 16px;      
       position: relative;
@@ -304,11 +301,11 @@
         @include userHeadshotSetting;
         margin-right: 8px;
       }      
-      .length-ellipsis-70 {
+      .length-ellipsis-82 {
         white-space: nowrap;
         overflow:hidden;        
         text-overflow: ellipsis;
-        width: 70px;
+        width: 82px;
       }
       .empty-btn-style,
       .second-btn-style,
@@ -736,10 +733,9 @@
   margin: 56px auto 0 auto;
   background-color: var(--white);
   position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  z-index: 1000;
-  // visibility: hidden;
+  // left: 50%;
+  // transform: translate(-50%);
+  z-index: 1000;  
   .want-reply-post-container {
     position: relative;
     width: 100%;
@@ -796,9 +792,10 @@
       @include userHeadshotSetting;
     }
     .user-writing-post-form {
-      position: relative;
-      display: flex;
-      flex-grow: 1;
+      width: calc(100% - 58px);
+    //   position: relative;
+    //   display: flex;
+    //   flex-grow: 1;
     }
     .user-writting-post {
       border: none;

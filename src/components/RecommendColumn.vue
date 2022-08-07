@@ -18,7 +18,7 @@
             :src="recommendUser.avatar | emptyImage"
             alt="個人頭像"
           >
-          <div class="length-ellipsis-70">
+          <div class="length-ellipsis-701">
             <span class="user-name">
               {{ recommendUser.name }}
             </span>
@@ -40,7 +40,7 @@
             :src="recommendUser.avatar | emptyImage"
             alt="個人頭像"
           >
-          <div class="length-ellipsis-70">
+          <div class="length-ellipsis-82">
             <span class="user-name">
               {{ recommendUser.name }}
             </span>

@@ -66,26 +66,30 @@
             placeholder="推你的回覆"
             required
           />
-          <span
-            v-show="commentLength"
-          >
-            {{ commentLength }}/140
-          </span>
-          <span
-            class="popup-error-text"
-            :class="{ show: isErrorExceed }"
-          >字數不可超過140字</span>
-          <span
-            class="popup-error-text"
-            :class="{ show: isErrorEmpty }"
-          >內容不可空白</span>
+      
           <div class="d-flex justify-content-end align-items-end">
-            <button
-              class="post-btn second-btn-style"
-              type="submit"
-            >
-              推文
-            </button>
+            <div class="d-flex align-items-center">
+              <span
+                v-show="commentLength"
+                class="tweet-length-sign"
+              >
+                {{ commentLength }}/140
+              </span>
+              <span
+                class="popup-error-text"
+                :class="{ show: isErrorExceed }"
+              >字數不可超過140字</span>
+              <span
+                class="popup-error-text"
+                :class="{ show: isErrorEmpty }"
+              >內容不可空白</span>
+              <button
+                class="post-btn second-btn-style ml-5"
+                type="submit"
+              >
+                推文
+              </button>
+            </div>
           </div>
         </form>
       </div>
