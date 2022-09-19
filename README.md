@@ -28,12 +28,12 @@
 
 
 ## 測試帳號
-前台帳號：
+- 前台帳號：
 account: user1
 email: user1@example.com
 password: 12345678
 
-後台帳號：
+- 後台帳號：
 account: root
 email: root@example.com
 password: 12345678
@@ -41,7 +41,7 @@ password: 12345678
 
 
 ## 開發工具
-● vue2 + vuex + vue-router + axios + scss + sweetalert2
+- vue2 + vuex + vue-router + axios + scss + sweetalert2
 
 
 
