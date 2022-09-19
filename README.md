@@ -46,13 +46,14 @@ password: 12345678
 
 
 ## Getting Started
-- 複製本專案
+複製本專案
+```bash
 git clone https://github.com/eddie8119/ac-twitter-frontend.git
 
-- 進到專案資料夾
+進到專案資料夾
 ```bash
 cd ac-twitter-frontend
-```
+
 - 安裝所需要的套件
 npm install
 
