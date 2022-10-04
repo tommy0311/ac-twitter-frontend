@@ -66,6 +66,7 @@
           class="user-password"
           placeholder="請輸入密碼"
         >
+        <p>(user1/12345678)</p>
       </div>
       <button 
         class="login-btn main-btn-style" 
